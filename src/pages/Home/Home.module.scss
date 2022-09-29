@@ -1,0 +1,21 @@
+.wrapper {
+   --menu-width: 200px;
+   --swiper-width: calc(var(--default-layout-width) - 500px);
+   --banner-width: 300px;
+   --block-top-height: 375px;
+   margin-top: 10px;
+}
+.block-top-home {
+   display: flex;
+   height: var(--block-top-height);
+   width: 100%;
+   .menu-tree {
+      width: var(--menu-width);
+   }
+   .swiper {
+      width: var(--swiper-width);
+   }
+   .banner {
+      width: var(--banner-width);
+   }
+}

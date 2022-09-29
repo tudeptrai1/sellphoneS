@@ -1,0 +1,122 @@
+.wrapper {
+   --search-border-radius: 15px;
+   --search-height: 44px;
+   --search-top-spacer: 10px;
+   --search-button-width: 52px;
+   --search-width: 350px;
+
+   position: sticky;
+   top: 0;
+   width: 100%;
+   height: var(--default-layout-header-height);
+   box-shadow: 0px 1px 1px rgb(0 0 0/12%);
+   display: flex;
+   justify-content: center;
+   background-color: var(--primary);
+}
+.inner {
+   height: 100%;
+   width: var(--default-layout-width);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.logo {
+   height: 55%;
+   img {
+      height: 100%;
+   }
+}
+.search,
+.search-result {
+   width: var(--search-width);
+}
+.search {
+   position: relative;
+   height: var(--search-height);
+   display: flex;
+   background-color: rgb(255, 255, 255, 0.9);
+   border-radius: var(--search-border-radius);
+   padding-left: 16px;
+   input {
+      flex: 2;
+      color: var(--black);
+      height: 100%;
+      font-size: 1.6rem;
+      caret-color: var(--primary);
+   }
+
+   input:not(:placeholder-shown) ~ .search-btn {
+      color: rgba(22, 24, 35, 0.8);
+   }
+
+   &::after {
+      content: '';
+      position: absolute;
+      height: calc(var(--search-height) - var(--search-top-spacer) * 2);
+      width: 1px;
+      background-color: rgba(22, 24, 35, 0.12);
+      top: var(--search-top-spacer);
+      right: var(--search-button-width);
+   }
+   &:focus-within {
+   }
+}
+.clear,
+.loading {
+   position: absolute;
+   top: 50%;
+   right: calc(var(--search-button-width) + 16px);
+   transform: translateY(-50%);
+   color: rgba(22, 24, 35, 0.5);
+   cursor: pointer;
+}
+.search-btn {
+   padding-right: 5px;
+   width: var(--search-button-width);
+   height: 100%;
+   border-top-right-radius: var(--search-border-radius);
+   border-bottom-right-radius: var(--search-border-radius);
+   color: rgba(22, 24, 35, 0.6);
+   &:hover {
+      background-color: rgba(22, 24, 35, 0.03);
+      cursor: pointer;
+   }
+   font-size: 2rem;
+   &:active {
+      background-color: rgba(22, 24, 35, 0.06);
+   }
+}
+.action {
+   color: var(--white);
+   width: 450px;
+   display: flex;
+   div {
+      display: flex;
+      align-items: center;
+      padding: 2px 5px;
+      cursor: pointer;
+      border-radius: 10px;
+      button {
+         font-size: 1.8rem;
+         color: var(--white);
+         padding: 0px 5px;
+      }
+      p {
+         font-size: 1.2rem;
+      }
+      &:hover {
+         background-color: rgba(167, 67, 0, 0.3);
+      }
+   }
+   .login {
+      width: 100px;
+      display: block;
+      background-color: rgba(167, 67, 0, 0.3);
+      text-align: center;
+      margin-left: 2px;
+      button {
+         font-size: 1.6rem;
+      }
+   }
+}
