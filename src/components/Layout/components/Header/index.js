@@ -48,7 +48,7 @@ function Header() {
                <div className={cx('search')}>
                   <input type="text" placeholder="Bạn muốn tìm gì..." spellCheck={false} />
                   <button className={cx('clear')}>
-                     <FontAwesomeIcon icon={faCircleXmark} />
+                     <FontAwesomeIcon icon={faCircleXmark} />a
                   </button>
                   <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
 
