@@ -1,9 +1,7 @@
-import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-
+import { useState } from 'react';
 import ListItem from './ListItem';
+import MenuTreeItem from './MenuTreeItem';
+import classNames from 'classnames/bind';
 import styles from './MenuTree.module.scss';
 const cx = classNames.bind(styles);
 const itemPhones = [
@@ -25,20 +23,23 @@ const itemPhones = [
    },
 ];
 function MenuTree() {
+   const [listID, setListID] = useState('');
+
+   const callbackFunction = (childData) => {
+      setListID(childData);
+   };
+
    return (
       <div className={cx('wrapper')}>
          <div className={cx('inner')}>
             {itemPhones.map((item) => (
-               <div className={cx('item-phone')} key={item.id}>
-                  <p className={cx('name')}>{item.name}</p>
-                  <button>
-                     <FontAwesomeIcon icon={faAngleRight} />
-                  </button>
+               <div className={cx('menu-tree-item')} key={item.id}>
+                  <MenuTreeItem item={item} key={item.id} parentCallback={callbackFunction} />
                </div>
             ))}
          </div>
          <div className={cx('list')}>
-            <ListItem />
+            <ListItem id={listID} />
          </div>
       </div>
    );

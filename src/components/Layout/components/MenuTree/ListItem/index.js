@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './ListItem.module.scss';
 const cx = classNames.bind(styles);
-function ListItem() {
+function ListItem(props) {
    return (
       <div className={cx('list-content')}>
          <div className={cx('type')}>

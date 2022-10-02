@@ -8,7 +8,6 @@ import {
    faPhone,
    faSpinner,
    faTruckFast,
-   faUser,
    faUserLarge,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';

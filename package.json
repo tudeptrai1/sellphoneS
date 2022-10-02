@@ -16,11 +16,13 @@
       "clsx": "^1.2.1",
       "normalize.css": "^8.0.1",
       "react": "^18.2.0",
+      "react-addons-css-transition-group": "^15.6.2",
       "react-dom": "^18.2.0",
       "react-router-dom": "6",
       "react-scripts": "5.0.1",
       "sass": "^1.55.0",
       "styled": "^1.0.0",
+      "swiper": "^8.4.2",
       "web-vitals": "^2.1.0"
    },
    "devDependencies": {
