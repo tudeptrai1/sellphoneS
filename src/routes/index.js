@@ -1,3 +1,5 @@
+import config from '~/config';
+
 import Home from '~/pages/Home';
 import Searching from '~/pages/Searching';
 import Admin from '~/pages/Admin';
@@ -7,12 +9,13 @@ import Catalog from '~/pages/Catalog';
 
 //publicRoutes
 const publicRoutes = [
-   { path: '/', component: Home },
-   { path: '/search', component: Searching },
-   { path: '/cart', component: Cart },
-   { path: '/catalog', component: Catalog },
-   { path: '/product', component: Product },
-   { path: '/admin', component: Admin, layout: null },
+   { path: config.routes.home, component: Home },
+   { path: config.routes.search, component: Searching },
+   { path: config.routes.cart, component: Cart },
+   { path: config.routes.catalog, component: Catalog },
+   // { path: '/:id_product', component: Product },
+   { path: config.routes.product, component: Product },
+   { path: config.routes.admin, component: Admin, layout: null },
 ];
 //privateRoutes
 const privateRoutes = [];
