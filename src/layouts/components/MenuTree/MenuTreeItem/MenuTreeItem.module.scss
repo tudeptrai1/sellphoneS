@@ -1,0 +1,20 @@
+.item-phone {
+   font-family: var(--font-family);
+
+   padding: 5px 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   .name {
+      flex: 1;
+      font-size: 1.4rem;
+      font-weight: 500;
+   }
+   button {
+      color: rgba(22, 24, 35, 0.8);
+   }
+   &:hover {
+      background-color: rgba(22, 24, 35, 0.03);
+   }
+}

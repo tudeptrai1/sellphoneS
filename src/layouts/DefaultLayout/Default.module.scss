@@ -1,0 +1,11 @@
+.wrapper {
+   font-family: var(--font-family);
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+.container {
+   width: var(--default-layout-width);
+   min-height: 1000px;
+   // background-color: #333;
+}
