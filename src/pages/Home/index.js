@@ -3,10 +3,10 @@ import classNames from 'classnames/bind';
 import MenuTree from '~/layouts/components/MenuTree';
 import Swiper from '~/layouts/components/Swiper/Swiper';
 import SearchTag from '~/layouts/components/SearchTag';
-import banner from '~/assets/banner-homepage';
+import images from '~/assets/images';
 import styles from './Home.module.scss';
 import Banner from '~/layouts/components/Banner';
-import FeaturedProduct from '~/layouts/components/FeaturedProduct';
+import FeaturedProduct from '~/layouts/components/FeaturedProduct/FeaturedProduct';
 const cx = classNames.bind(styles);
 
 // const bannerImgList = [
@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 //    { imgSource: banner.banner2, alt: '' },
 //    { imgSource: banner.banner3, alt: '' },
 // ];
-const bannerCenter = { imgSource: banner.bannerCenter, alt: '' };
+const bannerCenter = { imgSource: images.bannerCenter, alt: '' };
 
 function Home() {
    return (
