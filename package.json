@@ -19,6 +19,7 @@
       "react": "^18.2.0",
       "react-addons-css-transition-group": "^15.6.2",
       "react-dom": "^18.2.0",
+      "react-number-format": "^5.0.1",
       "react-router-dom": "6",
       "react-scripts": "5.0.1",
       "sass": "^1.55.0",

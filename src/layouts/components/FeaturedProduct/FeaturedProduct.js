@@ -10,16 +10,91 @@ import { Pagination } from 'swiper';
 
 import classNames from 'classnames/bind';
 import styles from './FeaturedProduct.module.scss';
+import FeaturedProductItem from './FeaturedProduct/FeaturedProductItem';
 const cx = classNames.bind(styles);
 
 function FeaturedProduct({ title }) {
+   const [productList, setProductList] = useState([
+      {
+         id: 1,
+         name: 'iPhone 10',
+         image: '/assets/images/products/1/1.jpg',
+         price: 21000000,
+         brand: 'Apple',
+         discount: 0,
+      },
+      {
+         id: 2,
+         name: 'iPhone 11',
+         image: '/assets/images/products/2/2.jpg',
+         price: 22000000,
+         brand: 'Apple',
+         discount: 100000,
+      },
+      {
+         id: 3,
+         name: 'iPhone 12',
+         image: '/assets/images/products/3/3.jpg',
+         price: 23000000,
+         brand: 'Apple',
+         discount: 200000,
+      },
+      {
+         id: 4,
+         name: 'iPhone 13',
+         image: '/assets/images/products/4/4.jpg',
+         price: 24000000,
+         brand: 'Apple',
+         discount: 300000,
+      },
+      {
+         id: 5,
+         name: 'iPhone 14',
+         image: '/assets/images/products/5/5.jpg',
+         price: 25000000,
+         brand: 'Apple',
+         discount: 400000,
+      },
+      {
+         id: 6,
+         name: 'iPhone 15',
+         image: '/assets/images/products/6/6.jpg',
+         price: 26000000,
+         brand: 'Apple',
+         discount: 500000,
+      },
+      {
+         id: 7,
+         name: 'iPhone 16',
+         image: '/assets/images/products/7/7.jpg',
+         price: 27000000,
+         brand: 'Apple',
+         discount: 600000,
+      },
+      {
+         id: 8,
+         name: 'iPhone 17',
+         image: '/assets/images/products/8/8.jpg',
+         price: 28000000,
+         brand: 'Apple',
+         discount: 700000,
+      },
+      {
+         id: 9,
+         name: 'iPhone 18',
+         image: '/assets/images/products/9/9.jpg',
+         price: 29000000,
+         brand: 'Apple',
+         discount: 900000,
+      },
+   ]);
    return (
       <div className={cx('wrapper')}>
          <p className={cx('title')}>{title}</p>
          <Swiper
             className={cx('swiper')}
             slidesPerView={1}
-            spaceBetween={10}
+            spaceBetween={20}
             pagination={{
                clickable: true,
             }}
@@ -43,15 +118,19 @@ function FeaturedProduct({ title }) {
             }}
             modules={[Pagination]}
          >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
-            <SwiperSlide>Slide 5</SwiperSlide>
-            <SwiperSlide>Slide 6</SwiperSlide>
-            <SwiperSlide>Slide 7</SwiperSlide>
-            <SwiperSlide>Slide 8</SwiperSlide>
-            <SwiperSlide>Slide 9</SwiperSlide>
+            {productList.map((product) => (
+               <SwiperSlide key={product.id}>
+                  <FeaturedProductItem
+                     key={product.id}
+                     id={product.id}
+                     name={product.name}
+                     image={product.image}
+                     price={product.price}
+                     brand={product.brand}
+                     discount={product.discount}
+                  />
+               </SwiperSlide>
+            ))}
          </Swiper>
       </div>
    );
