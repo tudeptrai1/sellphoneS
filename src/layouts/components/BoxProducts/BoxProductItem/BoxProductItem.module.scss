@@ -1,0 +1,109 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   font: var(--font-family);
+
+   // height: calc((var(--box-products-height) - var(--title-height)) / 2);
+   height: 100%;
+   width: 100%;
+   padding: 10px 10px;
+   border-radius: 10px;
+   font-size: 1.4rem;
+   font-weight: 500;
+   cursor: pointer;
+   box-shadow: 1px 1px 2px 1px rgb(60 64 67 / 10%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+   .discountPercent {
+      // background: #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 25%;
+      transform: translateX(-5%);
+
+      .detail {
+         display: flex;
+         position: absolute;
+         top: 0;
+         left: 0;
+         margin-top: 3px;
+         margin-left: 6px;
+      }
+      .detail,
+      .percent {
+         color: var(--white);
+         font-family: var(--font-family);
+         font-size: 1.2rem;
+      }
+   }
+   .img {
+      margin-top: 5px;
+   }
+   .name {
+      margin-top: 5px;
+      font-size: 1.6rem;
+      font-weight: 600;
+   }
+   .price {
+      // margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      // height: 100%;
+      .originalPrice {
+         font: var(--font-family);
+         width: 100%;
+         font-size: 1.3rem;
+         text-align-last: right;
+         text-decoration-line: line-through;
+      }
+      .discountPrice {
+         font: var(--font-family);
+         width: 100%;
+         font-weight: 600;
+         text-align-last: left;
+         color: var(--primary);
+      }
+   }
+   .info {
+      margin-top: 5px;
+
+      font-size: 1.3rem;
+      border-radius: 5px;
+      background: var(--light-gray);
+      p {
+         padding: 5px 0px;
+         margin-left: 5px;
+      }
+   }
+   .function {
+      display: flex;
+      align-items: center;
+      height: 15%;
+      width: 100%;
+      margin-top: 10px;
+      .wishlist {
+         width: 100%;
+         .icon {
+            color: var(--primary);
+            margin-left: 3px;
+         }
+      }
+      .cart {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 100%;
+         width: 100%;
+         float: right;
+         font-size: 1.2rem;
+         border-radius: 5px;
+         color: var(--white);
+         background-color: var(--primary);
+         cursor: pointer;
+         &:hover {
+            background-color: var(--primary-hover);
+         }
+      }
+   }
+}

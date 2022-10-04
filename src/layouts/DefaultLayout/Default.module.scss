@@ -3,9 +3,29 @@
    display: flex;
    align-items: center;
    flex-direction: column;
-}
-.container {
-   width: var(--default-layout-width);
-   min-height: 1000px;
-   // background-color: #333;
+   .container {
+      width: var(--default-layout-width);
+   }
+   .btnGoToTop {
+      position: fixed;
+      right: 30px;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 20px;
+      width: 20px;
+      padding: 20px;
+      border-radius: 45px;
+      background: var(--primary);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      .icon {
+         color: var(--white);
+      }
+      &:hover {
+         background: var(--primary-hover);
+      }
+   }
 }
