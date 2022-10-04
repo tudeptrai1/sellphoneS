@@ -5,7 +5,8 @@
    --block-top-height: 375px;
    --banner-center-height: 75px;
    --margin-top: 10px;
-   --product-list-title-height: 40px;
+   --search-tag: 40px;
+   --featured-products-height: 350px;
    height: 100%;
    width: 100%;
 }
@@ -39,10 +40,18 @@
    height: var(--banner-center-height);
    width: 100%;
 }
-.product-list-title {
+.search-tag {
+   margin-top: var(--margin-top);
    width: 100%;
-   height: var(--product-list-title-height);
+   height: var(--search-tag);
    display: flex;
    justify-content: center;
    align-items: center;
+}
+.featured-products {
+   margin-top: var(--margin-top);
+   // display: flex;
+   width: 100%;
+   height: var(--featured-products-height);
+   justify-content: center;
 }

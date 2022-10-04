@@ -1,0 +1,15 @@
+.wrapper {
+   width: 100%;
+   height: 100%;
+   --title-height: 50px;
+   .title {
+      height: var(--title-height);
+      width: 100%;
+      font-weight: 700;
+      font-size: 2rem;
+   }
+   .swiper {
+      height: calc(var(--featured-products-height) - var(--title-height));
+      width: 100%;
+   }
+}
