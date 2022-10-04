@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 import classNames from 'classnames/bind';
-import Slide from './Slide/Slide';
+import Image from '~/components/Image';
 import styles from './Swiper.module.scss';
 import 'swiper/css';
 import images from '~/assets/images';
@@ -19,27 +19,27 @@ const imgList = [
 
 export default function Component() {
    return (
-      <div className={cx('swiper')}>
-         <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
-            autoplay={{
-               delay: 2500,
-               disableOnInteraction: false,
-            }}
-            pagination={{
-               clickable: true,
-            }}
-            navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper"
-         >
-            {imgList.map((img, index) => (
-               <SwiperSlide key={index}>
-                  <Slide key={index} item={img} />
-               </SwiperSlide>
-            ))}
-         </Swiper>
-      </div>
+      <Swiper
+         className={cx('wrapper')}
+         spaceBetween={10}
+         centeredSlides={true}
+         autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+         }}
+         pagination={{
+            clickable: true,
+            bulletClass: `swiper-pagination-bullet`,
+         }}
+         navigation={true}
+         modules={[Autoplay, Pagination, Navigation]}
+      >
+         {imgList.map((img, index) => (
+            <SwiperSlide key={index} className={cx('slide')}>
+               {/* <Slide key={index} item={img} /> */}
+               <Image key={index} src={img.imgSource} className={cx('image')} />
+            </SwiperSlide>
+         ))}
+      </Swiper>
    );
 }

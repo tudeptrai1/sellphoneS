@@ -17,7 +17,7 @@
    position: absolute;
    margin-left: calc(var(--menu-width));
    height: var(--block-top-height);
-   min-width: calc(var(--swiper-width));
+   min-width: calc(var(--swiper-width) + 5px);
    z-index: 900;
 }
 .wrapper:hover .list {

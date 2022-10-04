@@ -10,6 +10,7 @@ const images = {
    banner2: require('~/assets/images/banner-homepage/banner2.png'),
    banner3: require('~/assets/images/banner-homepage/banner3.png'),
    bannerCenter: require('~/assets/images/banner-homepage/center-banner.png'),
+
    //no image
    noImage: require('~/assets/images/default_avatar.png'),
 };

@@ -1,57 +1,70 @@
 .wrapper {
    --menu-width: 200px;
-   --swiper-width: calc(var(--default-layout-width) - var(--menu-width));
+   --swiper-width: calc(var(--default-layout-width) - var(--menu-width) - 5px);
    // --banner-width: 300px;
    --block-top-height: 375px;
    --banner-center-height: 75px;
+   --banner-small-height: 170px;
    --margin-top: 10px;
    --search-tag: 40px;
-   --featured-products-height: 375px;
+   --featured-products-height: 400px;
+   --box-products-height: 800px;
+
    height: 100%;
    width: 100%;
-}
-.block-top-home {
-   margin-top: var(--margin-top);
-   display: flex;
-   height: var(--block-top-height);
-   width: 100%;
-   .menu-tree {
-      width: var(--menu-width);
-      height: 100%;
+   .block-top-home {
+      margin-top: var(--margin-top);
+      display: flex;
+      height: var(--block-top-height);
+      width: 100%;
+      .menu-tree {
+         width: var(--menu-width);
+         height: 100%;
+      }
+      .swiper {
+         width: var(--swiper-width);
+         height: 100%;
+         margin-left: 5px;
+      }
    }
-   .swiper {
-      width: var(--swiper-width);
-      height: 100%;
+   .center-banner {
+      margin-top: var(--margin-top);
+      display: flex;
+      height: var(--banner-center-height);
+      width: 100%;
    }
-   // .banner {
-   //    width: var(--banner-width);
-   //    height: 100%;
-   //    display: grid;
-   //    grid-template-columns: auto;
-   //    gap: 5px;
-   //    .image {
-   //       grid-column: 1 / span 1;
-   //    }
-   // }
-}
-.center-banner {
-   margin-top: var(--margin-top);
-   display: flex;
-   height: var(--banner-center-height);
-   width: 100%;
-}
-.search-tag {
-   margin-top: var(--margin-top);
-   width: 100%;
-   height: var(--search-tag);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.featured-products {
-   margin-top: var(--margin-top);
-   // display: flex;
-   width: 100%;
-   height: var(--featured-products-height);
-   justify-content: center;
+   .search-tag {
+      margin-top: var(--margin-top);
+      width: 100%;
+      height: var(--search-tag);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   .featured-products {
+      margin-top: var(--margin-top);
+      width: 100%;
+      height: var(--featured-products-height);
+      justify-content: center;
+   }
+   .box-products {
+      margin-top: var(--margin-top);
+      width: 100%;
+      height: var(--box-products-height);
+      justify-content: center;
+   }
+   .small-banner {
+      display: flex;
+      height: var(--banner-small-height);
+      width: 100%;
+      .box {
+         height: 100%;
+         width: 100%;
+         padding: 5px;
+
+         .image {
+            object-fit: fill;
+         }
+      }
+   }
 }
