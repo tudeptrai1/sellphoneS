@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 
 import MenuTree from '~/layouts/components/MenuTree';
-import Swiper from '~/layouts/components/Swiper';
+import Swiper from '~/layouts/components/Swiper/Swiper';
+import SearchTag from '~/layouts/components/SearchTag';
 import banner from '~/assets/banner-homepage';
-
 import styles from './Home.module.scss';
 import Banner from '~/layouts/components/Banner';
+import FeaturedProduct from '~/layouts/components/FeaturedProduct';
 const cx = classNames.bind(styles);
 
 // const bannerImgList = [
@@ -34,11 +35,13 @@ function Home() {
             </div> */}
          </div>
          <div className={cx('center-banner')}>
-            <Banner item={bannerCenter} />
+            <Banner url={bannerCenter.imgSource} />
          </div>
-         <div className={cx('search-tag')}></div>
-         <div className={cx('product-list-title')}>
-            <div className={cx('title')}>ĐIỆN THOẠI NỔI BẬT</div>
+         <div className={cx('search-tag')}>
+            <SearchTag />
+         </div>
+         <div className={cx('featured-products')}>
+            <FeaturedProduct title={'ĐIỆN THOẠI NỔI BẬT NHẤT'} />
          </div>
       </div>
    );

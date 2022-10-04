@@ -1,0 +1,12 @@
+.wrapper {
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0px 5px;
+   p {
+      padding: 5px 10px;
+      background: var(--light-gray);
+      border-radius: 5px;
+   }
+}
