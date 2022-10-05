@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -40,5 +41,7 @@ function MenuTreeItem(prop) {
       </div>
    );
 }
-
+MenuTreeItem.propTypes = {
+   prop: PropTypes.object,
+};
 export default MenuTreeItem;

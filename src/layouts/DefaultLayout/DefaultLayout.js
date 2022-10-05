@@ -11,10 +11,10 @@ const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
    const [showGoToTop, setShowGoToTop] = useState(false);
+   const handleScroll = () => {
+      setShowGoToTop(window.scrollY >= 200);
+   };
    useEffect(() => {
-      const handleScroll = () => {
-         setShowGoToTop(window.scrollY >= 200);
-      };
       window.addEventListener('scroll', handleScroll);
       return () => {
          window.removeEventListener('scroll', handleScroll);

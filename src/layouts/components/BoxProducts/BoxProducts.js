@@ -197,4 +197,9 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       </div>
    );
 }
+BoxProductItem.propTypes = {
+   title: PropTypes.string.isRequired,
+   orderBy: PropTypes.string,
+   typeOrder: PropTypes.string,
+};
 export default BoxProducts;

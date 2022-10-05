@@ -2,13 +2,13 @@ import classNames from 'classnames/bind';
 
 import MenuTree from '~/layouts/components/MenuTree';
 import Swiper from '~/layouts/components/Swiper/Swiper';
-import SearchTag from '~/layouts/components/SearchTag';
+import SearchTag from '~/layouts/components/TagList';
 import images from '~/assets/images';
-import styles from './Home.module.scss';
 import Image from '~/components/Image';
 
 import FeaturedProduct from '~/layouts/components/FeaturedProduct';
 import BoxProducts from '~/layouts/components/BoxProducts';
+import styles from './Home.module.scss';
 const cx = classNames.bind(styles);
 
 const bannerCenter = { src: images.bannerCenter, alt: '' };
@@ -21,6 +21,21 @@ const bannerSmalls = [
 const listFirmShow = [
    { name: 'APPLE', orderBy: 'price', typeOrder: 'desc' },
    { name: 'SAMSUNG', orderBy: 'price', typeOrder: 'desc' },
+];
+const typeList = [
+   { name: 'iPhone', code: '1' },
+   { name: 'Samsung', code: '2' },
+   { name: 'Oppo', code: '3' },
+   { name: 'Vivo', code: '4' },
+   { name: 'Xiaomi', code: '5' },
+   { name: 'Nokia', code: '6' },
+   { name: 'OnePlus', code: '7' },
+   { name: 'Realme', code: '8' },
+];
+const phoneList = [
+   { name: 'iPhone 14', code: '1' },
+   { name: 'iPhone 14 Pro Max', code: '2' },
+   { name: 'Samsung Z Flip 4', code: '3' },
 ];
 function Home() {
    return (
@@ -37,7 +52,7 @@ function Home() {
             <Image src={bannerCenter.src} />
          </div>
          <div className={cx('search-tag')}>
-            <SearchTag />
+            <SearchTag productShow={true} brandShow={true} productList={phoneList} brandList={typeList} />
          </div>
          <div className={cx('featured-products')}>
             <FeaturedProduct title={'ĐIỆN THOẠI NỔI BẬT NHẤT'} />
