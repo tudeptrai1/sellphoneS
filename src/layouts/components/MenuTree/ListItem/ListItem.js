@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './ListItem.module.scss';
 const cx = classNames.bind(styles);
@@ -19,5 +20,7 @@ function ListItem(props) {
       </div>
    );
 }
-
+ListItem.propTypes = {
+   props: PropTypes.object,
+};
 export default ListItem;

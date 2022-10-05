@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { NumericFormat } from 'react-number-format';
 import Image from '~/components/Image';
 import classNames from 'classnames/bind';
@@ -61,5 +62,11 @@ function BoxProductItem({ id, name, price, image, discount }) {
       </div>
    );
 }
-
+BoxProductItem.propTypes = {
+   id: PropTypes.string,
+   image: PropTypes.string,
+   name: PropTypes.string,
+   price: PropTypes.number,
+   discount: PropTypes.number,
+};
 export default BoxProductItem;
