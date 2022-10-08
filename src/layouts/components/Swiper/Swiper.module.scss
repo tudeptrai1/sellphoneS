@@ -4,7 +4,8 @@
    height: 100%;
    // padding-left: 10px;
    z-index: 0;
-
+   box-shadow: var(--box-shadow-thick);
+   border-radius: 10px;
    //custom dot pagination
    --pagination-bullet-thick: 0.4rem;
    :global(.swiper-pagination-bullet) {

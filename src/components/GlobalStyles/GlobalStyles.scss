@@ -16,6 +16,9 @@
    --default-layout-width: 1200px;
    --search-box-width: 350px;
    --font-family: 'Montserrat', sans-serif;
+
+   --box-shadow-light: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+   --box-shadow-thick: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 * {
    box-sizing: border-box;

@@ -63,7 +63,7 @@ function FeaturedProductItem({ id, name, price, image, discount }) {
    );
 }
 FeaturedProductItem.propTypes = {
-   id: PropTypes.string,
+   id: PropTypes.number,
    image: PropTypes.string,
    name: PropTypes.string,
    price: PropTypes.number,

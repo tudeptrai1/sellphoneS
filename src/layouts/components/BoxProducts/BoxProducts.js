@@ -198,7 +198,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
    );
 }
 BoxProductItem.propTypes = {
-   title: PropTypes.string.isRequired,
+   title: PropTypes.string,
    orderBy: PropTypes.string,
    typeOrder: PropTypes.string,
 };
