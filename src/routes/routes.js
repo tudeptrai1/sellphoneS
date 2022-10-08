@@ -1,7 +1,7 @@
 import config from '~/config';
 
 import Home from '~/pages/Home';
-import Searching from '~/pages/Searching';
+import Searching from '~/pages/Catalog';
 import Admin from '~/pages/Admin';
 import Cart from '~/pages/Cart';
 import Product from '~/pages/Product';

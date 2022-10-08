@@ -1,0 +1,45 @@
+.wrapper {
+   .title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 5px;
+   }
+   .list-filter {
+      display: flex;
+      height: 40px;
+      .ready,
+      .price,
+      .discount,
+      .ram,
+      .memory {
+         height: 100%;
+         padding: 0 5px;
+      }
+      .ready {
+         width: 15%;
+      }
+      .price {
+         width: 30%;
+      }
+      .discount {
+         width: 15%;
+      }
+      .ram {
+         width: 20%;
+      }
+      .memory {
+         width: 20%;
+      }
+   }
+   .list-sort {
+      display: flex;
+      height: 40px;
+      .sort-name,
+      .sort-price {
+         padding: 0 5px;
+         height: 100%;
+         width: 20%;
+      }
+   }
+}
