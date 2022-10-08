@@ -39,7 +39,7 @@ function RangeSlider(props) {
       }
    };
    sendData = () => {
-      props.parentCallback(value);
+      props.callbackRangeSlider(value);
    };
 
    useEffect(() => {

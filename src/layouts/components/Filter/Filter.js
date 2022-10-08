@@ -16,9 +16,9 @@ const optionsRam = [
       type: 'group',
       name: 'Dung lượng RAM',
       items: [
-         { value: '1', label: '4GB - 6GB', className: 'ram' },
-         { value: '2', label: '8GB - 12GB', className: 'ram' },
-         { value: '3', label: 'Dưới 4GB', className: 'ram' },
+         { value: '1', label: '4GB - 6GB', className: 'ramOption' },
+         { value: '2', label: '8GB - 12GB', className: 'ramOption' },
+         { value: '3', label: 'Dưới 4GB', className: 'ramOption' },
       ],
    },
 ];
@@ -27,9 +27,9 @@ const optionsMemory = [
       type: 'group',
       name: 'Bộ nhớ trong',
       items: [
-         { value: '1', label: '32GB - 64GB', className: 'memory' },
-         { value: '2', label: '128GB - 256GB', className: 'memory' },
-         { value: '3', label: 'Trên 512GB', className: 'memory' },
+         { value: '1', label: '32GB - 64GB', className: 'memoryOption' },
+         { value: '2', label: '128GB - 256GB', className: 'memoryOption' },
+         { value: '3', label: 'Trên 512GB', className: 'memoryOption' },
       ],
    },
 ];
@@ -51,6 +51,7 @@ function Filter() {
    const [discount, setDiscount] = useState();
    const [valueRangeSlider, setValueRangeSlider] = useState([]);
    const [ram, setRam] = useState();
+   const [memory, setMemory] = useState();
 
    const handlePriceSort = useCallback(() => {
       setPriceSort(priceSort === '' ? 'desc' : priceSort === 'asc' ? 'desc' : 'asc');
@@ -76,6 +77,9 @@ function Filter() {
    const callbackDropdownRam = (childData) => {
       setRam(childData);
    };
+   const callbackDropdownMemory = (childData) => {
+      setMemory(childData);
+   };
 
    const setStyleChosen = (id) => {
       var a = ReactDOM.findDOMNode(document.getElementById(id));
@@ -90,10 +94,11 @@ function Filter() {
       a.style.boxShadow = nonStyleButton.boxShadow;
    };
 
-   // console.warn('value range: ' + valueRangeSlider);
+   console.warn('value range: ' + valueRangeSlider);
    // console.warn('discount: ' + discount);
    // console.warn('ready:  ' + ready);
    console.warn('ram:  ' + ram);
+   console.warn('memory:  ' + memory);
 
    // console.log('render - filter');
 
@@ -114,7 +119,7 @@ function Filter() {
                </Button>
             </div>
             <div className={cx('price')}>
-               <RangeSlider parentCallback={callbackValueRangeSlider} />
+               <RangeSlider callbackRangeSlider={callbackValueRangeSlider} />
             </div>
             <div className={cx('discount')}>
                <Button
@@ -130,10 +135,18 @@ function Filter() {
 
             <div className={cx('ram')}>
                {/* <BasicSelect /> */}
-               <DropdownCustom parentCallback={callbackDropdownRam} options={optionsRam} placeholder="Dung lượng RAM" />
+               <DropdownCustom
+                  options={optionsRam}
+                  placeholder="Dung lượng RAM"
+                  callbackDropDown={callbackDropdownRam}
+               />
             </div>
             <div className={cx('memory')}>
-               <DropdownCustom options={optionsMemory} placeholder="Bộ nhớ trong" />
+               <DropdownCustom
+                  options={optionsMemory}
+                  placeholder="Bộ nhớ trong"
+                  callbackDropDown={callbackDropdownMemory}
+               />
             </div>
          </div>
          {/* CÁC MỤC SẮP XẾP */}
