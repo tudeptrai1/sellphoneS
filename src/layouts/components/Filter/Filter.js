@@ -9,6 +9,7 @@ import RangeSlider from '~/components/RangeSlider';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { findDOMNode } from 'react-dom';
 import BasicSelect from '~/components/BasicSelect';
+import SearchResult from '../SearchResult';
 const cx = classNames.bind(styles);
 
 const optionsRam = [
@@ -176,7 +177,10 @@ function Filter() {
             </div>
          </div>
          {/* CÁC MỤC ĐANG CHỌN */}
-         <div className={cx('title')}>Đang lọc theo</div>
+         <div className={cx('title')}>Kết quả</div>
+         <div className={cx('result')}>
+            <SearchResult />
+         </div>
       </div>
    );
 }
