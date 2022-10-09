@@ -46,8 +46,8 @@ const nonStyleButton = {
 };
 
 function Filter() {
-   const [priceSort, setPriceSort] = useState();
-   const [nameSort, setNameSort] = useState();
+   const [priceSort, setPriceSort] = useState('');
+   const [nameSort, setNameSort] = useState('');
    const [ready, setReady] = useState();
    const [discount, setDiscount] = useState();
    const [valueRangeSlider, setValueRangeSlider] = useState([]);

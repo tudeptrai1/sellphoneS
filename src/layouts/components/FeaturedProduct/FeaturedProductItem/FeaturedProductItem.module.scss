@@ -3,7 +3,7 @@
    flex-direction: column;
    height: 90%;
    // width: 100%;
-   padding: 10px 10px;
+   padding: 5px 10px 10px 10px;
    border-radius: 10px;
    font-size: 1.4rem;
    font-weight: 500;
@@ -14,11 +14,13 @@
    }
    .discountPercent {
       // background: #000;
-      // position: absolute;
+      // position: fi;
       top: 0;
       left: 0;
       width: 25%;
-      transform: translate(-20%, -45%);
+      // height: 50%
+      height: auto;
+      transform: translate(-22%, -32%);
 
       .detail {
          display: flex;
@@ -36,7 +38,7 @@
       }
    }
    .img {
-      margin-top: 5px;
+      // margin-top: 5px;
    }
    .name {
       margin-top: 5px;
