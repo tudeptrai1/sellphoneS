@@ -2,7 +2,6 @@
    display: flex;
    flex-direction: column;
    height: 90%;
-   // width: 100%;
    padding: 5px 10px 10px 10px;
    border-radius: 10px;
    font-size: 1.4rem;
@@ -13,15 +12,10 @@
       box-shadow: var(--box-shadow-thick);
    }
    .discountPercent {
-      // background: #000;
-      // position: fi;
       top: 0;
       left: 0;
       width: 25%;
-      // height: 50%
-      height: auto;
       transform: translate(-22%, -32%);
-
       .detail {
          display: flex;
          position: absolute;
@@ -37,21 +31,16 @@
          font-size: 1.2rem;
       }
    }
-   .img {
-      // margin-top: 5px;
-   }
    .name {
       margin-top: 5px;
       font-size: 1.6rem;
       font-weight: 600;
    }
    .price {
-      // margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      // height: 100%;
       .originalPrice {
          font: var(--font-family);
          width: 100%;
@@ -69,7 +58,6 @@
    }
    .info {
       margin-top: 5px;
-
       font-size: 1.3rem;
       border-radius: 5px;
       background: var(--light-gray);
