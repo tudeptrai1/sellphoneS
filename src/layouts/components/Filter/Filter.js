@@ -6,9 +6,7 @@ import Button from '~/components/Button';
 import { faPercent, faSortAlphaDesc, faSortNumericDownAlt, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import styles from './Filter.module.scss';
 import RangeSlider from '~/components/RangeSlider';
-import { useState, useCallback, useRef, useEffect } from 'react';
-import { findDOMNode } from 'react-dom';
-import BasicSelect from '~/components/BasicSelect';
+import { useState, useCallback } from 'react';
 import SearchResult from '../SearchResult';
 const cx = classNames.bind(styles);
 
@@ -46,8 +44,8 @@ const nonStyleButton = {
 };
 
 function Filter() {
-   const [priceSort, setPriceSort] = useState();
-   const [nameSort, setNameSort] = useState();
+   const [priceSort, setPriceSort] = useState('');
+   const [nameSort, setNameSort] = useState('');
    const [ready, setReady] = useState();
    const [discount, setDiscount] = useState();
    const [valueRangeSlider, setValueRangeSlider] = useState([]);
@@ -72,15 +70,15 @@ function Filter() {
       !discount ? setStyleChosen('btn-discount') : unSetStyleChosen('btn-discount');
    }, [discount]);
 
-   const callbackValueRangeSlider = (childData) => {
+   const callbackValueRangeSlider = useCallback((childData) => {
       setValueRangeSlider(childData);
-   };
-   const callbackDropdownRam = (childData) => {
+   }, []);
+   const callbackDropdownRam = useCallback((childData) => {
       setRam(childData);
-   };
-   const callbackDropdownMemory = (childData) => {
+   }, []);
+   const callbackDropdownMemory = useCallback((childData) => {
       setMemory(childData);
-   };
+   }, []);
 
    const setStyleChosen = (id) => {
       var a = ReactDOM.findDOMNode(document.getElementById(id));
@@ -96,12 +94,11 @@ function Filter() {
    };
 
    console.warn('value range: ' + valueRangeSlider);
-   // console.warn('discount: ' + discount);
-   // console.warn('ready:  ' + ready);
+   console.warn('discount: ' + discount);
+   console.warn('ready:  ' + ready);
    console.warn('ram:  ' + ram);
    console.warn('memory:  ' + memory);
-
-   // console.log('render - filter');
+   console.log('render - filter');
 
    return (
       <div className={cx('wrapper')}>
@@ -135,7 +132,6 @@ function Filter() {
             </div>
 
             <div className={cx('ram')}>
-               {/* <BasicSelect /> */}
                <DropdownCustom
                   options={optionsRam}
                   placeholder="Dung lượng RAM"
@@ -161,7 +157,6 @@ function Filter() {
                   onChange={handlePriceSort}
                >
                   {priceSort === '' ? 'Sắp xếp theo giá' : priceSort === 'desc' ? 'Giá giảm dần' : 'Giá tăng dần'}
-                  {/* {priceSort} */}
                </Button>
             </div>
             <div className={cx('sort-name')}>
@@ -172,7 +167,6 @@ function Filter() {
                   onChange={handleNameSort}
                >
                   {nameSort === '' ? 'Sắp xếp theo tên' : nameSort === 'desc' ? 'Tên giảm dần' : 'Tên tăng dần'}
-                  {/* {priceSort} */}
                </Button>
             </div>
          </div>

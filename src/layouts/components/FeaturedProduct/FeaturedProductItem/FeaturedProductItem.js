@@ -63,10 +63,10 @@ function FeaturedProductItem({ id, name, price, image, discount }) {
    );
 }
 FeaturedProductItem.propTypes = {
-   id: PropTypes.number,
+   id: PropTypes.string,
    image: PropTypes.string,
    name: PropTypes.string,
    price: PropTypes.number,
-   discount: PropTypes.number,
+   discount: PropTypes.string,
 };
 export default FeaturedProductItem;
