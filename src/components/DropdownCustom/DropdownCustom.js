@@ -22,6 +22,7 @@ function DropdownCustom({ callbackDropDown, options, placeholder }) {
    useEffect(() => {
       valueDropdown !== undefined && callbackDropDown(valueDropdown);
    }, [valueDropdown]);
+
    console.log('render - dropdown - ' + placeholder);
    return (
       <Dropdown
