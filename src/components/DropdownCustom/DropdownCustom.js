@@ -1,9 +1,8 @@
 import Dropdown from 'react-dropdown';
-import { useState, memo, useEffect, sendData, useRef } from 'react';
+import { useState, memo, useEffect, useRef } from 'react';
 
 import classNames from 'classnames/bind';
 import 'react-dropdown/style.css';
-import * as ReactDOM from 'react-dom';
 
 import styles from './DropdownCustom.module.scss';
 const cx = classNames.bind(styles);
@@ -21,6 +20,7 @@ function DropdownCustom({ callbackDropDown, options, placeholder }) {
 
    useEffect(() => {
       valueDropdown !== undefined && callbackDropDown(valueDropdown);
+      // eslint-disable-next-line
    }, [valueDropdown]);
 
    console.log('render - dropdown - ' + placeholder);

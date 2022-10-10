@@ -6,9 +6,7 @@ import Button from '~/components/Button';
 import { faPercent, faSortAlphaDesc, faSortNumericDownAlt, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import styles from './Filter.module.scss';
 import RangeSlider from '~/components/RangeSlider';
-import { useState, useCallback, useRef, useEffect } from 'react';
-import { findDOMNode } from 'react-dom';
-import BasicSelect from '~/components/BasicSelect';
+import { useState, useCallback } from 'react';
 import SearchResult from '../SearchResult';
 const cx = classNames.bind(styles);
 
