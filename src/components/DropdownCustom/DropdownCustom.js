@@ -20,7 +20,6 @@ function DropdownCustom({ callbackDropDown, options, placeholder }) {
 
    useEffect(() => {
       valueDropdown !== undefined && callbackDropDown(valueDropdown);
-      // eslint-disable-next-line
    }, [valueDropdown]);
 
    console.log('render - dropdown - ' + placeholder);
