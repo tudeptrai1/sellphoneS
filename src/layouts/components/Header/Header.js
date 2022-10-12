@@ -19,31 +19,33 @@ function Header() {
             <Search />
 
             <div className={cx('action')}>
-               <div className={cx('call')}>
+               <div className={cx('item')}>
                   <button>
                      <FontAwesomeIcon icon={faPhone} />
                   </button>
                   <p>Gọi mua hàng 1900 1900</p>
                </div>
-               <div className={cx('store-nearby')}>
+               <div className={cx('item')}>
                   <button>
                      <FontAwesomeIcon icon={faLocationDot} />
                   </button>
                   <p>Cửa hàng gần đây</p>
                </div>
-               <div className={cx('order-lookup')}>
-                  <button>
-                     <FontAwesomeIcon icon={faTruckFast} />
-                  </button>
-                  <p>Tra cứu đơn hàng</p>
-               </div>
-               <div className={cx('cart')}>
+               <Link to={config.routes.lookup}>
+                  <div className={cx('item')}>
+                     <button>
+                        <FontAwesomeIcon icon={faTruckFast} />
+                     </button>
+                     <p>Tra cứu đơn hàng</p>
+                  </div>
+               </Link>
+               <div className={cx('item')}>
                   <button>
                      <FontAwesomeIcon icon={faBagShopping} />
                   </button>
                   <p>Giỏ hàng</p>
                </div>
-               <div className={cx('login')}>
+               <div className={cx('item')}>
                   <button>
                      <FontAwesomeIcon icon={faUserLarge} />
                   </button>

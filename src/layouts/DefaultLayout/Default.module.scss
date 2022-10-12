@@ -3,8 +3,10 @@
    display: flex;
    align-items: center;
    flex-direction: column;
+   min-height: 1080px;
    .container {
       width: var(--default-layout-width);
+      flex: 1;
    }
    .btnGoToTop {
       position: fixed;

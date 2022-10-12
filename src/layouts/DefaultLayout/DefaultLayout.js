@@ -22,11 +22,11 @@ function DefaultLayout({ children }) {
    }, []);
    return (
       <div className={cx('wrapper')}>
-         <Header />
+         <Header className={cx('header')} />
          <div className={cx('container')}>
             <div className={cx('content')}>{children}</div>
          </div>
-         <Footer />
+         <Footer className={cx('footer')} />
          {showGoToTop && (
             <button
                className={cx('btnGoToTop')}

@@ -19,8 +19,7 @@ function Catalog() {
    console.log('render catalog');
    return (
       <div className={cx('wrapper')}>
-         <div className={cx('top-banner')}>Banner</div>
-
+         <div className={cx('top-banner')}></div>
          <div className={cx('brand')}>
             <TagList productShow={true} brandShow={true} productList={phoneList} brandList={typeList} />
          </div>
