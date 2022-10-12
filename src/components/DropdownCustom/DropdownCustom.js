@@ -16,7 +16,7 @@ function DropdownCustom({ callbackDropDown, options, placeholder }) {
    };
 
    useEffect(() => {
-      callbackDropDown(valueDropdown);
+      valueDropdown !== undefined && callbackDropDown(valueDropdown);
       // eslint-disable-next-line
    }, [valueDropdown]);
 
