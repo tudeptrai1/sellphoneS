@@ -16,7 +16,7 @@ const publicRoutes = [
    { path: config.routes.catalog, component: Catalog },
    // { path: '/:id_product', component: Product },
    { path: config.routes.product, component: Product },
-   { path: config.routes.orderLookup, component: OrderLookup },
+   { path: config.routes.lookup, component: OrderLookup },
    { path: config.routes.admin, component: Admin, layout: null },
 ];
 //privateRoutes

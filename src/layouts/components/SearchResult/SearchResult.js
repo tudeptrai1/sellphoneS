@@ -1,4 +1,4 @@
-import { useState, memo, useEffect, sendData, useRef, lazy } from 'react';
+import { useState, useEffect, lazy } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SearchResult.module.scss';
 // import FeaturedProductItem from '~/layouts/components/FeaturedProduct/FeaturedProductItem';
@@ -10,16 +10,6 @@ function SearchResult() {
    const [items, setItems] = useState([]);
 
    useEffect(() => {
-      //         const request_headers = new Headers();
-      //         const api_key = null;
-      //         request_headers.append("Authorization", `Bearer ${api_key}`);
-      //         request_headers.append("Content-Type", "application/json");
-
-      //         const request_options = {
-      //             method: "GET",
-      //             headers: request_headers
-      //         };
-
       fetch('https://raw.githubusercontent.com/iamspruce/search-filter-painate-reactjs/main/data/countries.json')
          .then((res) => res.json())
          .then(
@@ -40,13 +30,26 @@ function SearchResult() {
    if (error) {
       return <>{error.message}</>;
    } else if (!loaded) {
-      return <>loading...</>;
+      return (
+         <div className={cx('loading')}>
+            <div className={cx('lds-roller')}>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+            </div>
+         </div>
+      );
    } else {
       return (
          <div className={cx('wrapper')}>
             <div className={cx('card-grid')}>
                {data.map((item) => (
-                  <div className={cx('box')}>
+                  <div className={cx('box')} key={item.alpha3Code}>
                      <FeaturedProductItem
                         className={cx('item')}
                         id={item.alpha3Code}
@@ -56,27 +59,6 @@ function SearchResult() {
                         discount="1000000"
                      />
                   </div>
-                  //   <li key={item.alpha3Code}>
-                  //      <article className="card">
-                  //         <div className="card-image">
-                  //            <img src={item.flag.large} alt={item.name} />
-                  //         </div>
-                  //         <div className="card-content">
-                  //            <h2 className="card-name">{item.name}</h2>
-                  //            <ol className="card-list">
-                  //               <li>
-                  //                  population: <span>{item.population}</span>
-                  //               </li>
-                  //               <li>
-                  //                  Region: <span>{item.region}</span>
-                  //               </li>
-                  //               <li>
-                  //                  Capital: <span>{item.capital}</span>
-                  //               </li>
-                  //            </ol>
-                  //         </div>
-                  //      </article>
-                  //   </li>
                ))}
             </div>
          </div>

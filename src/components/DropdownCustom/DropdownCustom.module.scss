@@ -36,6 +36,8 @@
       border-radius: 10px;
       box-shadow: var(--box-shadow-light);
       border: none;
+      cursor: pointer;
+
       &:hover {
          background-color: var(--white);
       }
@@ -46,12 +48,8 @@
       margin-top: 5px;
       font-weight: 500;
       border: none;
-
       .group {
          width: 100%;
       }
-   }
-   ::-webkit-scrollbar {
-      display: none;
    }
 }

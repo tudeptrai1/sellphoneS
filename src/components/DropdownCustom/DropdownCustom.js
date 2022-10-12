@@ -14,12 +14,10 @@ function DropdownCustom({ callbackDropDown, options, placeholder }) {
    const handleChange = (e) => {
       setValueDropdown(e.value);
    };
-   useState(() => {
-      valueDropdown !== undefined && handleChange();
-   }, [valueDropdown]);
 
    useEffect(() => {
       valueDropdown !== undefined && callbackDropDown(valueDropdown);
+      // eslint-disable-next-line
    }, [valueDropdown]);
 
    console.log('render - dropdown - ' + placeholder);
