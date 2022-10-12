@@ -1,7 +1,6 @@
-import { useState, useEffect, lazy } from 'react';
+import { useState, memo, useEffect, lazy } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SearchResult.module.scss';
-// import FeaturedProductItem from '~/layouts/components/FeaturedProduct/FeaturedProductItem';
 const cx = classNames.bind(styles);
 const FeaturedProductItem = lazy(() => import('~/layouts/components/FeaturedProduct/FeaturedProductItem'));
 function SearchResult() {
@@ -26,30 +25,17 @@ function SearchResult() {
    }, []);
 
    const data = Object.values(items);
-
+   console.log('render - list-result');
    if (error) {
       return <>{error.message}</>;
    } else if (!loaded) {
-      return (
-         <div className={cx('loading')}>
-            <div className={cx('lds-roller')}>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-            </div>
-         </div>
-      );
+      return <>loading...</>;
    } else {
       return (
          <div className={cx('wrapper')}>
             <div className={cx('card-grid')}>
-               {data.map((item) => (
-                  <div className={cx('box')} key={item.alpha3Code}>
+               {data.map((item, index) => (
+                  <div className={cx('box')} key={index}>
                      <FeaturedProductItem
                         className={cx('item')}
                         id={item.alpha3Code}
@@ -66,4 +52,4 @@ function SearchResult() {
    }
 }
 
-export default SearchResult;
+export default memo(SearchResult);
