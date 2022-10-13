@@ -7,6 +7,7 @@ import Cart from '~/pages/Cart';
 import Product from '~/pages/Product';
 import Catalog from '~/pages/Catalog';
 import OrderLookup from '~/pages/OrderLookup';
+import Sign from '~/pages/Sign';
 
 //publicRoutes
 const publicRoutes = [
@@ -17,6 +18,8 @@ const publicRoutes = [
    // { path: '/:id_product', component: Product },
    { path: config.routes.product, component: Product },
    { path: config.routes.lookup, component: OrderLookup },
+   { path: config.routes.sign, component: Sign },
+
    { path: config.routes.admin, component: Admin, layout: null },
 ];
 //privateRoutes

@@ -45,12 +45,14 @@ function Header() {
                   </button>
                   <p>Giỏ hàng</p>
                </div>
-               <div className={cx('item')}>
-                  <button>
-                     <FontAwesomeIcon icon={faUserLarge} />
-                  </button>
-                  <p>Đăng nhập</p>
-               </div>
+               <Link to={config.routes.sign}>
+                  <div className={cx('item')}>
+                     <button>
+                        <FontAwesomeIcon icon={faUserLarge} />
+                     </button>
+                     <p>Đăng nhập</p>
+                  </div>
+               </Link>
             </div>
          </div>
       </header>
