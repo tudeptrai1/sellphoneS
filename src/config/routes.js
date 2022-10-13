@@ -1,11 +1,14 @@
 const routes = {
    home: '/',
-   product: '/:nickname',
+   product: '/:id',
    catalog: '/catalog',
-   search: '/search',
    cart: '/cart',
-   admin: '/admin',
+   // admin: '/admin',
    lookup: '/lookup',
    checkout: '/checkout',
+   sign: '/sign',
+   account: '/account',
+   orderdetail: '/orderdetail',
+   wishlist: '/wishlist',
 };
 export default routes;
