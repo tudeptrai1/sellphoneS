@@ -1,5 +1,5 @@
 function Sign() {
-    return ( <>a</> );
+    return ( <>Sign</> );
 }
 
 export default Sign;
