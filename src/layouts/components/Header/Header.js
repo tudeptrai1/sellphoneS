@@ -39,12 +39,14 @@ function Header() {
                      <p>Tra cứu đơn hàng</p>
                   </div>
                </Link>
-               <div className={cx('item')}>
-                  <button>
-                     <FontAwesomeIcon icon={faBagShopping} />
-                  </button>
-                  <p>Giỏ hàng</p>
-               </div>
+               <Link to={config.routes.cart}>
+                  <div className={cx('item')}>
+                     <button>
+                        <FontAwesomeIcon icon={faBagShopping} />
+                     </button>
+                     <p>Giỏ hàng</p>
+                  </div>
+               </Link>
                <Link to={config.routes.sign}>
                   <div className={cx('item')}>
                      <button>
