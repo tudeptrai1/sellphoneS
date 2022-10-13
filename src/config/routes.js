@@ -6,6 +6,5 @@ const routes = {
    cart: '/cart',
    admin: '/admin',
    lookup: '/lookup',
-   sign: '/sign',
 };
 export default routes;
