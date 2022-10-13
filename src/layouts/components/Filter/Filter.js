@@ -7,7 +7,7 @@ import { faPercent, faSortAlphaDesc, faSortNumericDownAlt, faTruckFast } from '@
 import styles from './Filter.module.scss';
 import RangeSlider from '~/components/RangeSlider';
 import { useState, useCallback } from 'react';
-import SearchResult from '../SearchResult';
+import SearchResult from '~/layouts/components/SearchResult';
 const cx = classNames.bind(styles);
 
 const optionsRam = [
