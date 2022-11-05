@@ -4,18 +4,24 @@
    //color
    // --primary: #d70018;
    // --primary: #db4906;
-   --primary: #8151b8;
-   --primary-hover: rgb(126, 44, 173);
-   --primary-light: rgba(129, 81, 184, 0.5);
+   // --primary: #8152b8;
+   --primary: rgb(14, 12, 56);
+   --primary-hover: #7e2cad;
+   --primary-light: #8151b880;
    --white: #f8f8f8;
    --black: #000;
    --text-color: #333;
-   --light-gray: rgb(243, 243, 243);
+   --light-gray: rgb(235, 235, 235);
+   --background-color: #dcdbe8;
 
    --default-layout-header-height: 60px;
    --default-layout-width: 1200px;
    --search-box-width: 350px;
    --font-family: 'Montserrat', sans-serif;
+
+   --default-layout-header-height-mobile: 60px;
+   --default-layout-width-mobile: 420px;
+   --search-box-width-mobile: 350px;
 
    --box-shadow-light: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
    --box-shadow-thick: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
@@ -24,6 +30,10 @@
    box-sizing: border-box;
    margin: 0;
    padding: 0;
+   -webkit-user-select: none; /* Chrome all / Safari all */
+   -moz-user-select: none; /* Firefox all */
+   -ms-user-select: none; /* IE 10+ */
+   user-select: none;
 }
 html {
    font-size: 62.5%;

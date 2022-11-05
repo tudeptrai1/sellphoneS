@@ -1,9 +1,9 @@
 .wrapper {
-   --search-border-radius: 15px;
+   --search-border-radius: 12px;
    --search-height: 44px;
    --search-top-spacer: 10px;
    --search-button-width: 52px;
-   --search-width: 350px;
+   --search-width: 1050px;
 
    font-family: var(--font-family);
    position: sticky;
@@ -15,55 +15,110 @@
    justify-content: center;
    background-color: var(--primary);
    z-index: 1000;
-}
-.inner {
-   height: 100%;
-   width: var(--default-layout-width);
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-}
-.logo {
-   height: 55%;
-   img {
-      height: 100%;
-   }
-}
 
-.action {
-   color: var(--white);
-   width: 450px;
-   display: flex;
-   .item {
+   .inner {
+      height: 100%;
+      width: var(--default-layout-width);
       display: flex;
       align-items: center;
-      border-radius: 10px;
-      color: var(--white);
+      width: 100%;
 
-      cursor: pointer;
-      button {
-         padding: 0px 5px;
+      justify-content: space-between;
+      .logo {
+         height: 55%;
+         width: 25%;
+         img {
+            height: 100%;
+         }
+      }
+      .searchBox {
+         width: 50%;
+      }
+      div[id^='tippy-'] {
+         width: 50%;
+      }
+      .action {
          color: var(--white);
-         font-size: 1.8rem;
-         cursor: pointer;
-      }
-      p {
-         font-size: 1.2rem;
-      }
-      &:hover {
-         background-color: var(--primary-hover);
+         width: 25%;
+         display: flex;
+         justify-content: end;
+         .item {
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            color: var(--white);
+
+            cursor: pointer;
+            button {
+               padding: 0px 5px;
+               color: var(--white);
+               font-size: 1.8rem;
+               cursor: pointer;
+            }
+            p {
+               font-size: 1.2rem;
+            }
+            &:hover {
+               background-color: var(--primary-hover);
+            }
+         }
       }
    }
-   .login {
-      width: 100px;
-      display: block;
-      background-color: rgba(115, 57, 148, 0.5);
-      text-align: center;
-      margin-left: 10px;
-      cursor: pointer;
+}
 
-      button {
-         font-size: 1.6rem;
+@media only screen and (max-width: 420px) {
+   .wrapper {
+      position: fixed;
+      top: 0;
+      .inner {
+         width: 100%;
+         display: flex;
+         .logo {
+            width: 50%;
+            img {
+               width: 100%;
+               object-fit: contain;
+            }
+         }
+         .searchBox {
+            width: 0%;
+            transition: visibility 0s;
+            opacity: 0;
+         }
+         div[id^='tippy-'] {
+            width: 90%;
+            margin: 0 auto;
+         }
+         .action {
+            width: 50%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            .item {
+               display: none;
+            }
+            .login {
+               .item {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  padding-left: 10px;
+                  &:hover {
+                     background-color: transparent;
+                  }
+               }
+            }
+            .cart {
+               .item {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  &:hover {
+                     background-color: transparent;
+                  }
+               }
+            }
+         }
       }
    }
 }

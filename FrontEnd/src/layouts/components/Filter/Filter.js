@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
 import * as ReactDOM from 'react-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 import DropdownCustom from '~/components/DropdownCustom';
 import Button from '~/components/Button';
@@ -32,16 +34,6 @@ const optionsMemory = [
       ],
    },
 ];
-const styleButton = {
-   backgroundColor: 'var(--primary)',
-   color: 'var(--white)',
-   boxShadow: 'var(--box-shadow-thick)',
-};
-const nonStyleButton = {
-   backgroundColor: 'white',
-   color: 'var(--black)',
-   boxShadow: 'var(--box-shadow-light)',
-};
 
 function Filter() {
    const [priceSort, setPriceSort] = useState('');
@@ -51,6 +43,7 @@ function Filter() {
    const [valueRangeSlider, setValueRangeSlider] = useState([]);
    const [ram, setRam] = useState();
    const [memory, setMemory] = useState();
+   const [brand, setBrand] = useState();
 
    const handlePriceSort = useCallback(() => {
       setPriceSort(priceSort === '' ? 'desc' : priceSort === 'asc' ? 'desc' : 'asc');
@@ -63,11 +56,13 @@ function Filter() {
    const handleReady = useCallback(() => {
       setReady(ready === '' ? true : ready === true ? false : true);
       !ready ? setStyleChosen('btn-ready') : unSetStyleChosen('btn-ready');
+      // eslint-disable-next-line
    }, [ready]);
 
    const handleDiscount = useCallback(() => {
       setDiscount(discount === '' ? true : discount === true ? false : true);
       !discount ? setStyleChosen('btn-discount') : unSetStyleChosen('btn-discount');
+      // eslint-disable-next-line
    }, [discount]);
 
    const callbackValueRangeSlider = useCallback((childData) => {
@@ -80,6 +75,18 @@ function Filter() {
       setMemory(childData);
    }, []);
 
+   const styleButton = {
+      backgroundColor: 'var(--primary)',
+      color: 'var(--white)',
+      boxShadow: 'var(--box-shadow-thick)',
+      outline: 'solid 1px var(--primary)',
+   };
+   const nonStyleButton = {
+      backgroundColor: 'white',
+      color: 'var(--black)',
+      boxShadow: 'var(--box-shadow-light)',
+      outline: 'none',
+   };
    const setStyleChosen = (id) => {
       var a = ReactDOM.findDOMNode(document.getElementById(id));
       a.style.backgroundColor = styleButton.backgroundColor;
@@ -93,11 +100,11 @@ function Filter() {
       a.style.boxShadow = nonStyleButton.boxShadow;
    };
 
-   console.warn('value range: ' + valueRangeSlider);
-   console.warn('discount: ' + discount);
-   console.warn('ready:  ' + ready);
-   console.warn('ram:  ' + ram);
-   console.warn('memory:  ' + memory);
+   // console.warn('value range: ' + valueRangeSlider);
+   // console.warn('discount: ' + discount);
+   // console.warn('ready:  ' + ready);
+   // console.warn('ram:  ' + ram);
+   // console.warn('memory:  ' + memory);
    console.log('render - filter');
 
    return (
@@ -170,6 +177,9 @@ function Filter() {
                </Button>
             </div>
          </div>
+         {/*Đang lọc theo */}
+         <div className={cx('title')}>Đang lọc theo</div>
+
          {/* CÁC MỤC ĐANG CHỌN */}
          <div className={cx('title')}>Kết quả</div>
          <div className={cx('result')}>

@@ -1,6 +1,7 @@
 .item-phone {
    font-family: var(--font-family);
-
+   height: 100%;
+   width: 100%;
    padding: 5px 10px;
    display: flex;
    justify-content: center;
@@ -10,9 +11,7 @@
       flex: 1;
       font-size: 1.4rem;
       font-weight: 500;
-   }
-   button {
-      color: rgba(22, 24, 35, 0.8);
+      height: 100%;
    }
    &:hover {
       background-color: rgba(22, 24, 35, 0.03);

@@ -1,0 +1,14 @@
+.wrapper {
+   // display: flex;
+   // flex-direction: column;
+   // justify-content: center;
+   width: 100%;
+   height: 100%;
+   padding: 14px 16px;
+   box-shadow: var(--box-shadow-thick);
+   .icon {
+      height: 32px;
+      // width: 30px;
+      color: var(--primary);
+   }
+}

@@ -7,7 +7,9 @@ const cx = classNames.bind(styles);
 function TagList({ productShow, brandShow, productList, brandList }) {
    return (
       <div className={cx('wrapper')}>
-         {productShow && productList.map((phone) => <Tag name={phone.name} code={phone.code} key={phone.code} />)}
+         {window.innerWidth > 420 &&
+            productShow &&
+            productList.map((phone) => <Tag name={phone.name} code={phone.id} key={phone.id} />)}
          {brandShow && brandList.map((type) => <Tag name={type.name} code={type.code} key={type.code} />)}
       </div>
    );

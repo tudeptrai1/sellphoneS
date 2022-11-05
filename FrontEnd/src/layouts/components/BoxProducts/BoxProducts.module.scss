@@ -1,8 +1,8 @@
 .wrapper {
+   --title-height: 40px;
    width: 100%;
    height: 100%;
-   display: block;
-   --title-height: 40px;
+   border-radius: 10px;
 
    .title {
       height: var(--title-height);
@@ -14,7 +14,7 @@
    .swiper-wrapper {
       height: calc(var(--box-products-height) - var(--title-height));
       width: 100%;
-      //   height: 100%;
+
       padding: 5px 20px;
       --pagination-bullet-thick: 0.5rem;
       :global(.swiper-pagination-bullet) {
@@ -34,6 +34,7 @@
       .swiper-slide {
          //  height: calc(var(--box-products-height) / 2 - var(--title-height));
          height: 45%;
+         border-radius: 10px;
          text-align: center;
          font-size: 18px;
          background: #fff;

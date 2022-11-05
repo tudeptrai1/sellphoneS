@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import styles from './MenuTreeItem.module.scss';
 const cx = classNames.bind(styles);
 function MenuTreeItem(prop) {
@@ -32,16 +32,17 @@ function MenuTreeItem(prop) {
    const sendData = () => {
       prop.parentCallback(ref.current.getAttribute('id'));
    };
+   console.log('render - ' + prop.item.name);
    return (
       <div className={cx('item-phone')} key={prop.item.id} ref={ref} id={prop.item.id}>
-         <p className={cx('name')}>{prop.item.name}</p>
-         <button>
-            <FontAwesomeIcon icon={faAngleRight} />
-         </button>
+         <p className={cx('name')}>
+            {prop.item.name}
+            {/* <FontAwesomeIcon icon={faAngleRight} /> */}
+         </p>
       </div>
    );
 }
 MenuTreeItem.propTypes = {
    prop: PropTypes.object,
 };
-export default MenuTreeItem;
+export default memo(MenuTreeItem);

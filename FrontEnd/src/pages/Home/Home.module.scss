@@ -68,3 +68,83 @@
       }
    }
 }
+@media only screen and (max-width: 420px) {
+   .wrapper {
+      --width-div: 95%;
+      height: 100%;
+      // width: 100%;
+      max-width: 420px;
+      .block-top-home {
+         margin-top: var(--margin-top);
+         display: flex;
+         justify-content: center;
+         height: calc(var(--block-top-height) / 2);
+         // height: var(--block-top-height);
+         width: 100%;
+         .menu-tree {
+            display: none;
+         }
+         .swiper {
+            width: var(--width-div);
+            height: calc(var(--block-top-height) / 2);
+            height: 100%;
+            margin-left: 0px;
+         }
+      }
+      .center-banner {
+         display: none;
+      }
+      .search-tag {
+         // padding-bottom: 20px;
+         width: var(--width-div);
+         margin: 0 auto;
+         margin-bottom: 10px;
+         // border: 1px solid #000;
+         overflow: hidden;
+         overflow-x: scroll;
+         -ms-overflow-style: none; /* IE and Edge */
+         scrollbar-width: none; /* Firefox */
+         &::-webkit-scrollbar {
+            display: none;
+         }
+      }
+      .featured-products {
+         margin: 0 auto;
+         width: var(--width-div);
+         height: var(--featured-products-height);
+         justify-content: center;
+         border-radius: 10px;
+         background: rgb(129, 82, 184);
+         background: linear-gradient(
+            180deg,
+            rgba(129, 82, 184, 0.9) 0%,
+            rgba(129, 82, 184, 0.7) 35%,
+            rgba(129, 82, 184, 0.2) 100%
+         );
+      }
+      .box-products {
+         margin-top: var(--margin-top);
+         margin: 0 auto;
+         width: var(--width-div);
+         height: var(--box-products-height);
+         justify-content: center;
+      }
+      .small-banner {
+         // display: none;
+         margin: 0 auto;
+         margin-top: 10px;
+         width: var(--width-div);
+         overflow: hidden;
+         flex-direction: column;
+         overflow-y: scroll;
+         -ms-overflow-style: none; /* IE and Edge */
+         scrollbar-width: none; /* Firefox */
+         &::-webkit-scrollbar {
+            display: none;
+         }
+         .box {
+            padding: 0;
+         }
+      }
+   }
+}
