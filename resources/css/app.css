@@ -1,4 +1,22 @@
-
+/*
+ |--------------------------------------------------------------------------
+ | TailwindCSS Directives
+ |--------------------------------------------------------------------------
+ |
+ | Import TailwindCSS directives and swipe out at build-time with all of
+ | the styles it generates based on your configured design system.
+ |
+ | Please check this link for more details:
+ | https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
+ |
+ */
+/*
+ ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
+ */
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
 *,
 ::before,
 ::after {
@@ -11,7 +29,12 @@
 ::after {
   --tw-content: '';
 }
-
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+*/
 html {
   line-height: 1.5; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -642,12 +665,10 @@ select{
     position: relative;
     border-radius: 0.375rem;
     border-width: 1px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    margin-top : 10px;
-    margin-bottom: 10px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 .alert.alert-dismissible{
     padding-left: 1.25rem;

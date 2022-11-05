@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+Route::get('/brand',[BrandController::class,'all']);
+Route::get('/brand/{name}',[BrandController::class,'show']);
+Route::post('/brand/store',[BrandController::class,'store'])->name('api.brand.store');
