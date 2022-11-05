@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import * as ReactDOM from 'react-dom';
 import { useEffect, useState, useRef } from 'react';
 import Tippy from '@tippyjs/react/headless';
 
@@ -16,6 +17,7 @@ function Search() {
    const [searchResult, setSearchResult] = useState([]);
    const [showResults, setShowResults] = useState(true);
    const [loading, setLoading] = useState(false);
+   // const [showSearch, setShowSearch] = useState(false);
 
    const debounced = useDebounce(searchValue, 500);
 
@@ -55,12 +57,12 @@ function Search() {
          setSearchValue(keyword);
       }
    };
-
+   console.log('render -search box');
    return (
-      <div>
+      <div id="searchBoxResult">
          <Tippy
             interactive
-            appendTo={() => document.body}
+            // appendTo={() => document.body}
             visible={showResults && searchResult.length > 0}
             render={(attrs) => (
                <div className={cx('search-result')} tabIndex="-1" {...attrs}>

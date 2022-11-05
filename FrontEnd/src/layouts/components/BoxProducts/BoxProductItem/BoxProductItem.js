@@ -5,13 +5,14 @@ import classNames from 'classnames/bind';
 import styles from './BoxProductItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import icons from '~/assets/icons';
+import { Link } from 'react-router-dom';
 
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 function BoxProductItem({ id, name, price, image, discount }) {
    return (
-      <div className={cx('wrapper')}>
+      <Link to={`/product/${id}`} className={cx('wrapper')}>
          {discount > 0 && (
             <div className={cx('discountPercent')}>
                <Image src={icons.tagDiscount} className={cx('icon')} />
@@ -26,7 +27,6 @@ function BoxProductItem({ id, name, price, image, discount }) {
                </div>
             </div>
          )}
-
          <Image src={process.env.PUBLIC_URL + image} alt={name} className={cx('img')} />
          <p className={cx('name')}>{name}</p>
          <div className={cx('price')}>
@@ -59,7 +59,7 @@ function BoxProductItem({ id, name, price, image, discount }) {
                <p>ADD TO CART</p>
             </div>
          </div>
-      </div>
+      </Link>
    );
 }
 BoxProductItem.propTypes = {

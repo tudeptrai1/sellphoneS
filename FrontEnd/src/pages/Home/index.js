@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import axios from 'axios';
 
 import MenuTree from '~/layouts/components/MenuTree';
 import Swiper from '~/layouts/components/Swiper/Swiper';
@@ -9,6 +10,7 @@ import FeaturedProduct from '~/layouts/components/FeaturedProduct';
 import BoxProducts from '~/layouts/components/BoxProducts';
 import styles from './Home.module.scss';
 import TagList from '~/layouts/components/TagList';
+import { useState, useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 const bannerCenter = { src: images.bannerCenter, alt: '' };
@@ -33,17 +35,37 @@ const typeList = [
    { name: 'Realme', code: '8' },
 ];
 const phoneList = [
-   { name: 'iPhone 14', code: '1' },
-   { name: 'iPhone 14 Pro Max', code: '2' },
-   { name: 'Samsung Z Flip 4', code: '3' },
+   { name: 'iPhone 14', id: '1' },
+   { name: 'iPhone 14 Pro Max', id: '2' },
+   { name: 'Samsung Z Flip 4', id: '3' },
 ];
 function Home() {
+   const [featuredList, setFeaturedList] = useState([]);
+   const fetchDataPhoneList = () => {
+      axios({
+         method: 'get',
+         url: 'https://dummyjson.com/products',
+         // headers: {
+         //    token: 'd232b571-551c-11ed-8a70-52fa25d1292f',
+         // },
+      })
+         .then((res) => {
+            console.log(res.data);
+            setFeaturedList(res.data.products);
+         })
+         .catch((err) => console.log(err));
+   };
+   useEffect(() => {
+      fetchDataPhoneList();
+   }, []);
    return (
       <div className={cx('wrapper')}>
          <div className={cx('block-top-home')}>
-            <div className={cx('menu-tree')}>
-               <MenuTree />
-            </div>
+            {window.innerWidth > 420 && (
+               <div className={cx('menu-tree')}>
+                  <MenuTree />
+               </div>
+            )}
             <div className={cx('swiper')}>
                <Swiper />
             </div>
@@ -55,7 +77,7 @@ function Home() {
             <TagList productShow={true} brandShow={true} productList={phoneList} brandList={typeList} />
          </div>
          <div className={cx('featured-products')}>
-            <FeaturedProduct title={'ĐIỆN THOẠI NỔI BẬT NHẤT'} />
+            <FeaturedProduct productList={featuredList} title={'ĐIỆN THOẠI NỔI BẬT NHẤT'} />
          </div>
          <div className={cx('small-banner')}>
             {bannerSmalls.map((banner, index) => (

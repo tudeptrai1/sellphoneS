@@ -13,11 +13,17 @@
    &:hover {
       box-shadow: var(--box-shadow-thick);
    }
+   .img {
+      height: 60%;
+      object-fit: contain;
+   }
    .discountPercent {
+      position: absolute;
       top: 0;
       left: 0;
       width: 25%;
-      transform: translate(-20%, -45%);
+      transform: translate(-6%, -10%);
+
       .detail {
          display: flex;
          position: absolute;
@@ -31,14 +37,17 @@
          color: var(--white);
          font-family: var(--font-family);
          font-size: 1.2rem;
+         font-weight: 500;
       }
    }
    .name {
-      margin-top: 5px;
+      height: 10%;
       font-size: 1.6rem;
       font-weight: 600;
    }
    .price {
+      height: 10%;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -51,7 +60,7 @@
          text-decoration-line: line-through;
       }
       .discountPrice {
-         font: var(--font-family);
+         font-family: var(--font-family);
          width: 100%;
          font-weight: 600;
          text-align-last: left;
@@ -59,10 +68,13 @@
       }
    }
    .info {
-      margin-top: 5px;
+      height: 10%;
       font-size: 1.3rem;
       border-radius: 5px;
       background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       p {
          padding: 5px 0px;
          margin-left: 5px;
@@ -71,9 +83,8 @@
    .function {
       display: flex;
       align-items: center;
-      height: 15%;
+      height: 10%;
       width: 100%;
-      margin-top: 10px;
       .wishlist {
          width: 100%;
          .icon {

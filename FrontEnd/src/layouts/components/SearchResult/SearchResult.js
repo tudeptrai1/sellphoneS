@@ -29,7 +29,20 @@ function SearchResult() {
    if (error) {
       return <>{error.message}</>;
    } else if (!loaded) {
-      return <>loading...</>;
+      return (
+         <div className={cx('loading')}>
+            <div className={cx('lds-roller')}>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+            </div>
+         </div>
+      );
    } else {
       return (
          <div className={cx('wrapper')}>
@@ -38,11 +51,11 @@ function SearchResult() {
                   <div className={cx('box')} key={index}>
                      <FeaturedProductItem
                         className={cx('item')}
-                        id={item.alpha3Code}
+                        id={Number(item.alpha3Code)}
                         name={item.name}
                         price={item.population}
                         image={item.flag.large}
-                        discount="1000000"
+                        discount={Number('1000000')}
                      />
                   </div>
                ))}

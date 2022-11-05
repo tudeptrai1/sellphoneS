@@ -4,10 +4,12 @@
    align-items: center;
    flex-direction: column;
    min-height: 1080px;
+   background: var(--background-color);
    .container {
       width: var(--default-layout-width);
       flex: 1;
    }
+
    .btnGoToTop {
       position: fixed;
       right: 30px;
@@ -23,11 +25,24 @@
       border: none;
       outline: none;
       cursor: pointer;
+      z-index: 1000;
       .icon {
          color: var(--white);
       }
       &:hover {
          background: var(--primary-hover);
+      }
+   }
+}
+@media only screen and (max-width: 420px) {
+   .wrapper {
+      max-width: 100%;
+      min-height: 900px;
+      overflow-x: hidden;
+      .container {
+         width: 100%;
+         flex: 1;
+         padding-top: var(--default-layout-header-height);
       }
    }
 }

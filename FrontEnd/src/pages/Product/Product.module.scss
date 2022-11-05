@@ -1,0 +1,98 @@
+.wrapper {
+   display: flex;
+   height: 100%;
+   width: 100%;
+   font-size: 1.8rem;
+   color: var(--primary);
+
+   .title,
+   .price {
+      font-weight: 700;
+   }
+   .box-left {
+      min-height: 700px;
+      width: 40%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .box-detail {
+         flex: 2;
+         width: 100%;
+         height: 40%;
+         display: flex;
+         justify-content: flex-end;
+         flex-direction: column;
+         align-items: left;
+         h1 {
+            font-size: 4.2rem;
+         }
+      }
+      .box-function {
+         flex: 3;
+
+         width: 100%;
+         height: 60%;
+         display: flex;
+         flex-direction: column;
+
+         .color {
+            span {
+               margin-right: 10px;
+               padding: 17px;
+               background-color: #bbb;
+               border-radius: 50%;
+               display: inline-block;
+               cursor: pointer;
+            }
+         }
+         .memory {
+            span {
+               margin-right: 10px;
+               margin-bottom: 10px;
+               padding: 10px 15px;
+               background-color: #fff;
+               border-radius: 0% 40%;
+               display: inline-block;
+               cursor: pointer;
+            }
+         }
+      }
+   }
+   .box-right {
+      min-height: 700px;
+      width: 60%;
+      .box-gallery {
+         display: flex;
+         flex-direction: column;
+         width: 100%;
+         height: 100%;
+         cursor: pointer;
+         .swiperShow {
+            height: 75%;
+            display: flex;
+            .swiperSlide {
+               display: flex;
+               flex-direction: column;
+               justify-content: flex-end;
+               height: 100%;
+               .img {
+                  max-height: 400px;
+                  height: 100%;
+                  width: 100%;
+                  object-fit: contain;
+               }
+            }
+         }
+         .swiperThumbnail {
+            height: 15%;
+
+            .img {
+               // border: 1px solid #000;
+               height: 100%;
+               width: 100%;
+               object-fit: contain;
+            }
+         }
+      }
+   }
+}

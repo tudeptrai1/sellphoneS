@@ -1,34 +1,43 @@
 import { useState, memo, useEffect } from 'react';
+import * as ReactDOM from 'react-dom';
+
 import classNames from 'classnames/bind';
 import styles from './DropdownCus.module.scss';
 const cx = classNames.bind(styles);
 
 function DropdownCus({ callbackDropDown, options, placeholder }) {
-   const [valueDropdown, setValueDropdown] = useState({ code: '', name: '' });
+   const [code, setCode] = useState();
+   const [name, setName] = useState('');
    const [searchValue, setSearchValue] = useState('');
-
+   const [isChoice, setIsChoice] = useState(false);
    const handleChange = (e) => {
       const keyword = e.target.value;
       const KEY_SPACE = /\s/g;
-      if (!KEY_SPACE.test(keyword[0])) {
+      if (options.length > 0 && !KEY_SPACE.test(keyword[0])) {
          setSearchValue(keyword);
       }
    };
    const handleClick = (e) => {
-      // setValueDropdown({ code: e.target.id, name: e.target.innerHTML });
-      e !== undefined && setValueDropdown({ code: e.target.id, name: e.target.innerHTML });
-      // e !== undefined && setValue(e.target.innerHTML);
+      if (e !== undefined) {
+         setName(e.target.innerHTML);
+         setCode(e.target.id);
+         setIsChoice(true);
+      }
    };
    useEffect(() => {
-      // setValueDropdown({ code: '', name: '' });
-      valueDropdown !== undefined && callbackDropDown(valueDropdown);
+      if (name !== '') {
+         callbackDropDown({ code: code, name: name });
+      }
       // eslint-disable-next-line
-   }, [valueDropdown]);
+   }, [name]);
+   useEffect(() => {
+      setIsChoice(false);
+   }, [options]);
    console.log('render - dropdown - ' + placeholder);
    return (
       <div className={cx('wrapper')}>
          <button className={cx('btn')}>
-            <p>{valueDropdown.code !== '' ? valueDropdown.name : placeholder}</p>
+            <p>{isChoice ? name : placeholder}</p>
          </button>
          <div className={cx('content')} id="content">
             <input

@@ -8,6 +8,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/grid';
 import { Grid, Pagination } from 'swiper';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 
 import classNames from 'classnames/bind';
 import styles from './BoxProducts.module.scss';
@@ -82,7 +84,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 11,
-         name: 'iPhone 10',
+         name: 'iPhone 18',
          image: '/assets/images/products/1/1.jpg',
          price: 21000000,
          brand: 'Apple',
@@ -90,7 +92,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 12,
-         name: 'iPhone 11',
+         name: 'iPhone 19',
          image: '/assets/images/products/2/2.jpg',
          price: 22000000,
          brand: 'Apple',
@@ -98,7 +100,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 13,
-         name: 'iPhone 12',
+         name: 'iPhone 20',
          image: '/assets/images/products/3/3.jpg',
          price: 23000000,
          brand: 'Apple',
@@ -106,7 +108,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 14,
-         name: 'iPhone 13',
+         name: 'iPhone 21',
          image: '/assets/images/products/4/4.jpg',
          price: 24000000,
          brand: 'Apple',
@@ -114,7 +116,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 15,
-         name: 'iPhone 14',
+         name: 'iPhone 22',
          image: '/assets/images/products/5/5.jpg',
          price: 25000000,
          brand: 'Apple',
@@ -122,7 +124,7 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 16,
-         name: 'iPhone 15',
+         name: 'iPhone 23',
          image: '/assets/images/products/6/6.jpg',
          price: 26000000,
          brand: 'Apple',
@@ -130,29 +132,41 @@ function BoxProducts({ title, orderBy, typeOrder }) {
       },
       {
          id: 17,
-         name: 'iPhone 16',
+         name: 'iPhone 24',
          image: '/assets/images/products/7/7.jpg',
          price: 27000000,
          brand: 'Apple',
          discount: 1600000,
       },
-      {
-         id: 18,
-         name: 'iPhone 17',
-         image: '/assets/images/products/8/8.jpg',
-         price: 28000000,
-         brand: 'Apple',
-         discount: 1700000,
-      },
+      // {
+      //    id: 18,
+      //    name: 'iPhone 25',
+      //    image: '/assets/images/products/8/8.jpg',
+      //    price: 28000000,
+      //    brand: 'Apple',
+      //    discount: 1700000,
+      // },
    ]);
+   const handleSetSliderPerView = () => {
+      if (window.innerWidth <= 420) return '3';
+      if (window.innerWidth > 420) return '4';
+   };
+   const handleSetSliderPerGroup = () => {
+      if (window.innerWidth <= 420) return '2';
+      if (window.innerWidth > 420) return '4';
+   };
+   const handleSetRow = () => {
+      if (window.innerWidth <= 420) return '1';
+      if (window.innerWidth > 420) return '2';
+   };
    return (
       <div className={cx('wrapper')}>
          <p className={cx('title')}>{title}</p>
          <Swiper
-            slidesPerGroup={3}
-            slidesPerView={4}
+            slidesPerGroup={handleSetSliderPerGroup()}
+            slidesPerView={handleSetSliderPerView()}
             grid={{
-               rows: 2,
+               rows: handleSetRow(),
             }}
             className={cx('swiper-wrapper')}
             spaceBetween={30}

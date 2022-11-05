@@ -47,7 +47,7 @@ function Footer() {
                      </ul>
                   </div>
                </div>
-               <div className={cx('map-container')}>
+               {/* <div className={cx('map-container')}>
                   <Map
                      className={cx('map')}
                      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap`}
@@ -63,7 +63,7 @@ function Footer() {
                      }
                      mapElement={<div style={{ height: `100%` }} />}
                   />
-               </div>
+               </div> */}
                <div className={cx('social-menu')}>
                   <a href={'https://www.instagram.com/jjjsss_3'}>
                      <FontAwesomeIcon icon={faYoutube} className={cx('icon')} />
