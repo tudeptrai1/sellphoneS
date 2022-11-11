@@ -15,9 +15,11 @@
 @include('layouts.inc.mobile-menu')
 @include('layouts.inc.top-bar')
 <div class="flex overflow-hidden">
+
 @include('layouts.inc.sidemenu')
     <div class="content">
-{{--        <div class="grid grid-cols-12 gap-6">--}}
+
+        {{--        <div class="grid grid-cols-12 gap-6">--}}
 {{--            <div class="col-span-12 2xl:col-span-9">--}}
 {{--                <div class="grid grid-cols-12 gap-6">--}}
                     @yield('content')
@@ -26,13 +28,16 @@
 {{--        </div>--}}
     </div>
 </div>
+
+
+ <!-- END: Basic Select -->
 @include('layouts.inc.dark-mode-switcher')
-
-
 
 <!-- BEGIN: JS Assets-->
 @vite('resources/js/app.js')
 @vite('resources/js/ckeditor-classic.js')
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <!-- END: JS Assets-->
 </body>
 </html>
@@ -41,4 +46,10 @@
         const element = document.querySelector("#theme11");
         element.classList.toggle("dark");
     }
+    document.addEventListener("DOMContentLoaded", function() {
+        const myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#basic-modal"));
+        myModal.show();
+    });
+
+
 </script>

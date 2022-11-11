@@ -2,40 +2,48 @@
 <nav class="side-nav">
     <ul>
         <li>
-            <a href="javascript:;.html" class="side-menu side-menu--active">
+            <a href="javascript:;.html" class="side-menu ">
                 <div class="side-menu__icon"> <i data-lucide="home"></i> </div>
                 <div class="side-menu__title">
                     Dashboard
-                    <div class="side-menu__sub-icon transform rotate-180"> <i data-lucide="chevron-down"></i> </div>
                 </div>
             </a>
-            <ul class="side-menu__sub-open">
-                <li>
-                    <a href="side-menu-dark-dashboard-overview-1.html" class="side-menu side-menu--active">
-                        <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
-                        <div class="side-menu__title"> Overview 1 </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="side-menu-dark-dashboard-overview-2.html" class="side-menu">
-                        <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
-                        <div class="side-menu__title"> Overview 2 </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="side-menu-dark-dashboard-overview-3.html" class="side-menu">
-                        <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
-                        <div class="side-menu__title"> Overview 3 </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="side-menu-dark-dashboard-overview-4.html" class="side-menu">
-                        <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
-                        <div class="side-menu__title"> Overview 4 </div>
-                    </a>
-                </li>
-            </ul>
+
         </li>
+        <li>
+        <a href="javascript:;" class="side-menu">
+            <div class="side-menu__icon"> <i data-lucide="shopping-bag"></i> </div>
+            <div class="side-menu__title">
+                Product
+                <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+            </div>
+        </a>
+        <ul class="">
+            <li>
+                <a href="{{route('product')}}" class="side-menu">
+                    <div class="side-menu__icon"> <i data-lucide="shopping-bag"></i> </div>
+                    <div class="side-menu__title"> Product  </div>
+                </a>
+            </li><li>
+                <a href="{{route('pg')}}" class="side-menu">
+                    <div class="side-menu__icon"> <i data-lucide="copy"></i> </div>
+                    <div class="side-menu__title"> Product Group </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('color')}}" class="side-menu">
+                    <div class="side-menu__icon"> <i data-lucide="edit-2"></i> </div>
+                    <div class="side-menu__title"> Color </div>
+                </a>
+            </li><li>
+                <a href="{{route('memory')}}" class="side-menu">
+                    <div class="side-menu__icon"> <i data-lucide="cpu"></i> </div>
+                    <div class="side-menu__title"> Memory </div>
+                </a>
+            </li>
+        </ul>
+        </li>
+
 
         <li>
             <a href="javascript:;" class="side-menu">

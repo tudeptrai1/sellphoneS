@@ -16,9 +16,7 @@ class Brand extends Model
         'status',
     ];
 
-    public static function find(Brand $brand)
-    {
-    }
+
 
     public function status(){
      return ($this->attributes['status'] === 1)? 'Active' : 'Inactive';

@@ -5,35 +5,55 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BrandFormRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BrandController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Paginate a laravel colletion or array of items.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param  array|Illuminate\Support\Collection $items   array to paginate
+     * @param  int $perPage number of pages
+     * @return \Illuminate\Http\JsonResponse    new LengthAwarePaginator instance
      */
+
+
 
     public function all()
     {
        $brands = Brand::all();
         $arr = [
             'status' => true,
-            'message' => "Danh sách sản phẩm",
+            'message' => "Danh sách nhãn hiệu",
             'data'=>$brands,
 
         ];
         return response()->json($arr, 200);
     }
-    public function index(){$https = new \GuzzleHttp\Client;
-        $response = $https->get('http://final3.test/api/brand');
-        $result = json_decode($response->getBody(), true);
+    public function index(Request $request){
+        $https = new \GuzzleHttp\Client;
+        $q = $request->get('search');
+
+        if($q ==null){
+            $response = $https->get('http://final3.test/api/brand');
+
+        }
+        else{
+            $response = $https->get('http://final3.test/api/brand/'.$q);
+
+        }
+        $a = json_decode($response->getBody(),true);
+        $result =$this->paginate($a['data'],10);
+        $result->appends(['search' => $q]);
 
         return view('admin.brand.index',[
-            'data'=>$result['data'],
+            'data'=>$result,
         ]);
+
 
     }
 
@@ -44,7 +64,9 @@ class BrandController extends Controller
      */
     public function create()
     {
+
         return view('admin.brand.create');
+
     }
 
 
@@ -74,29 +96,24 @@ class BrandController extends Controller
 
         }
 
-        $brand = Brand::create($input);
+         Brand::create($input);
+        return redirect()->route('brand')->with('message','Successfully created');
 
-        return $this->index()->with('message','Successfully created');
 
     }
-
-
-
-    public function show($name) {
-        $brands = Brand::where('name', $name)
-            ->orWhere('name', 'like', '%' . $name . '%')->get();;
-        if (is_null($brands)) {
+    public function search($name) {
+        $brands = Brand::where('name', 'like', '%' . $name . '%')->get();
+        if (count($brands)==0) {
             $arr = [
-                'success' => false,
-                'message' => 'Không có nhãn hiệu này',
-                'data' => []
+                'status' => false,
+                'data' => [],
             ];
             return response()->json($arr, 200);
         }
         $arr = [
             'status' => true,
-            'message' => "Chi tiết nhãn hiệu ",
-            'data'=> $brands
+            'data'=> $brands,
+
         ];
         return response()->json($arr, 201);
     }
@@ -122,23 +139,49 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $id)
     {
+        $input = $request->all();
 
-         Brand::where('id',$id['id'])->update($request->except(
-             ['_method',
-                 '_token'
-             ]));
+        $validator = Validator::make($input, [
+            'name' =>[
+                'required',
+                'string',
+            ],
+            'slug' =>[
+                'required',
+                'string'
+            ],
+            'description'=> [
+                'required',
+            ],
+        ]);
 
-        return redirect()->route('brand');
+        if($validator->fails()){
+
+            return view('admin.brand.update',[
+                'brand' => $id,
+            ])->withErrors($validator);
+
+        }
+
+        Brand::where('id',$id['id'])->update($request->except(
+        ['_method',
+            '_token'
+        ]));
+
+        return redirect()->route('brand')->with('message','Successfully updated');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Brand $brand)
+    public function destroy(Brand $id)
     {
-        //
+        $deleted = Brand::where('id', $id->id)->delete();
+        return back()->with('message','Delete Successfully');
     }
+
 }

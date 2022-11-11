@@ -1,9 +1,9 @@
 @extends('layouts.admin')
+
 @section('content')
 
-
-
     <div class="intro-y flex items-center mt-8">
+
         <h2 class="text-lg font-medium mr-auto">
             Add New Brand
         </h2>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="text-right mt-5">
-                    <button type="button" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                    <a href="{{route('brand')}}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
                     <button type="submit" class="btn btn-primary w-24">Save</button>
                 </div>
             </div>
