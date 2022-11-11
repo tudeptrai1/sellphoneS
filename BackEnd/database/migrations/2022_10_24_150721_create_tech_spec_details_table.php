@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('tech_spec_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tech_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('pg_id');
             $table->string('value');
             $table->foreign('tech_id')->references('id')->on('tech_specs')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('pg_id')->references('id')->on('product_groups')->onDelete('cascade');
             $table->timestamps();
         });
     }

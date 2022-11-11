@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TechSpecDetail extends Model
 {
     use HasFactory;
+    protected $table = 'tech_spec_details';
+    protected $fillable = [
+        'tech_id',
+        'pg_id',
+        'value',
+
+    ];
 }

@@ -8,6 +8,7 @@ use App\Models\Memory;
 use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\TechSpec;
+use App\Models\TechSpecDetail;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,9 +24,7 @@ class ProductController extends Controller
         $color = Color::all();
         $pgroup = ProductGroup::all();
         $memory = Memory::all();
-//        foreach ($product as $each){
-//
-//        }
+
         $arr = [
             'status' => true,
             'message' => "Danh sách sản phẩm",
@@ -40,11 +39,11 @@ class ProductController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('http://final3.test/api/product');
+            $response = $https->get('http://127.0.0.1:8000/api/product');
 
         }
         else{
-            $response = $https->get('http://final3.test/api/product/'.$q);
+            $response = $https->get('http://127.0.0.1:8000/api/product/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);
@@ -98,17 +97,39 @@ class ProductController extends Controller
             }
         }
 
+        // Product Group
         $product_group = [
             'name' => $request->name,
             'brand_id' => $request->brand,
             'description' => $request->description,
             'trending'=> $request->trending,
         ];
-        ProductGroup::create($product_group);
+
+       ProductGroup::create($product_group);
         $a= ProductGroup::latest()->get()->first();
         $status= 0;
         if($request->status === 'on')
             $status =1;
+        //End Product Group
+        // Tech Spec
+        foreach($tech_spec as $temp){
+
+            $tech[]=$temp->id;
+
+        }
+        foreach($tech as $i){
+            if($data[$i]!==null){
+            $tech_insert[]=[
+                'tech_id'=>$i,
+                'pg_id'=>$a->id,
+                'value'=>$data[$i],
+            ];
+            }
+        }
+        foreach($tech_insert as $t){
+           TechSpecDetail::create($t);
+        }
+        //End Tech Spec
 
         foreach($name as $i) {
             $temp = null;
@@ -133,22 +154,6 @@ class ProductController extends Controller
         foreach($p_insert as $product){
             Product::create($product);
         }
-
-
-
-
-
-//            $abc = array_filter($a,function ($v) {return strpos($v, $name) === false; });
-
-//       $arr = array_diff($a, $abc);
-//       dd($arr);
-//        foreach($arr as $key){
-//            foreach($data as $val){
-//                $res[$key][]=$val;
-//            }
-//        }
-//        dd($res);
-//        dd($arrr);
 
     }
 

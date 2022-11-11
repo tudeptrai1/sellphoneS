@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->unsignedBigInteger('brand_id');
             $table->longtext('description');
             $table->boolean('trending')->default(0)->comment('1=trending,0=not');

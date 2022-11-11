@@ -193,7 +193,7 @@
                     @foreach($tech_spec as $each)
                         <div class="sm:grid grid-cols-6 gap-2 p-3">
                             <div class="input-group">
-                                <div id="input-group-email" class="input-group-text"> <i data-lucide="phone" class="w-5 h-5"></i> </div> <input type="text" class="form-control" placeholder="{{$each->name}}" name="{{$each->name}}_tech_spec">
+                                <div id="input-group-email" class="input-group-text"> <i data-lucide="phone" class="w-5 h-5"></i> </div> <input type="text" class="form-control" placeholder="{{$each->name}}" name="{{$each->id}}">
                             </div>
                         </div>
                     @endforeach
