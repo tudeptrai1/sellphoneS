@@ -104,18 +104,22 @@ class ProductController extends Controller
             'description' => $request->description,
             'trending'=> $request->trending,
         ];
-//        ProductGroup::create($product_group);
+        ProductGroup::create($product_group);
         $a= ProductGroup::latest()->get()->first();
+        $status= 0;
         if($request->status === 'on')
             $status =1;
+
         foreach($name as $i) {
             $temp = null;
             if (isset($data[$i.'_status'])) {
                 $temp['name'] = explode("_", $i);
                 $temp['price'] = $data[$i.'_price'];
                 $temp['amount'] = $data[$i.'_amount'];
+                $temp['product_name'] = ProductGroup::where('id',$a->id)->value('name').' '.Memory::where('id',$temp['name'][0])->value('value').'GB '.Color::where('id',$temp['name'][1])->value('name');
 
                 $p_insert[]= [
+                    'name' => $temp['product_name'],
                     'pg_id'=>$a->id,
                     'color_id'=>$temp['name'][1],
                     'memory_id'=>$temp['name'][0],
@@ -125,6 +129,7 @@ class ProductController extends Controller
                 ];
             }
         }
+
         foreach($p_insert as $product){
             Product::create($product);
         }

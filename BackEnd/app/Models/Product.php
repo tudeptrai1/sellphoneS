@@ -11,12 +11,12 @@ class Product extends Model
     use HasFactory;
     protected $table= 'products';
     protected $fillable = [
+        'name',
         'pg_id',
         'color_id',
         'memory_id',
         'imp_price',
         'sell_price',
-        'description',
         'amount',
         'status',
         'discount_id',

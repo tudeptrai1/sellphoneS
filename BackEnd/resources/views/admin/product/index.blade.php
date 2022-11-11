@@ -65,7 +65,7 @@
                             </div>
                         </td>
                         <td>
-                            <a href="" class="font-medium whitespace-nowrap">name</a>
+                            <a href="" class="font-medium whitespace-nowrap">{{$each['name']}}</a>
 {{--                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Photography</div>--}}
                         </td>
                         <td class="text-center">{{$each['amount']}}</td>
