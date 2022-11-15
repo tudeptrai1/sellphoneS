@@ -15,4 +15,8 @@ class ProductGroup extends Model
         'description',
         'trending',
     ];
+
+    public function PGImage(){
+        return $this->hasMany(Image::class,'pg_id','color_id','image');
+    }
 }

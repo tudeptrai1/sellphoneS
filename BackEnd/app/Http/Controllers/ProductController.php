@@ -10,6 +10,7 @@ use App\Models\ProductGroup;
 use App\Models\TechSpec;
 use App\Models\TechSpecDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -21,16 +22,11 @@ class ProductController extends Controller
     public function all(): \Illuminate\Http\JsonResponse
     {
         $product = Product::all();
-        $color = Color::all();
-        $pgroup = ProductGroup::all();
-        $memory = Memory::all();
-
         $arr = [
             'status' => true,
             'message' => "Danh sách sản phẩm",
             'data'=>$product,
-
-        ];
+            ];
         return response()->json($arr, 200);
     }
     public function index(Request $request)
@@ -39,11 +35,11 @@ class ProductController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('http://127.0.0.1:8000/api/product');
+            $response = $https->get('final3.test/api/product');
 
         }
         else{
-            $response = $https->get('http://127.0.0.1:8000/api/product/'.$q);
+            $response = $https->get('final3.test/api/product/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);
@@ -73,7 +69,7 @@ class ProductController extends Controller
         'memory' => $memory,
         'brand' => $brand,
         'tech_spec'=>$tech_spec,
-           ]
+       ]
        );
     }
 
@@ -81,7 +77,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function store(Request $request)
     {
@@ -89,8 +85,56 @@ class ProductController extends Controller
         $memory = Memory::all();
         $tech_spec = TechSpec::all();
         $data = $request->all();
+        $brand = Brand::all();
+        $input = Validator::make($data, [
+            'name' =>[
+                'required',
+                'string',
+            ],
+            'brand' =>[
+                'required',
+            ],
+            'trending'=>[
+                'required',
+            ],
+            'description'=> [
+                'required',
+            ],
+        ]);
 
-        foreach($memory as $memo) {
+        if($request->hasFile('image')){
+            dd(1);
+        }
+        dd(0);
+        if($input->fails()){
+
+            return view('admin.product.create',['color' => $color,
+                'memory' => $memory,
+                'brand' => $brand,
+                'tech_spec'=>$tech_spec,
+            ])->withErrors($data);
+
+        }
+
+
+
+//        foreach($color as $each){
+//          }
+//                $uploadPath = 'uploads/products/'.$each->name;
+//                foreach($request->File('image_'.$each->name) as $imagefile){
+//                    $extention = $imagefile->getClientOriginalExtension();
+//                    $filename = time().'.'.$extention;
+//                    $file = move($uploadPath, $filename);
+//                    $finalImagePathName = $uploadPath. '-'.$filename;
+//                    $data->PGImage()->create([
+//                        'pg_id' =>$a->id,
+//                        'color_id'=>$each->id,
+//                        'image'=>$finalImagePathName,
+//                    ]);
+//                }
+//            }
+//        }
+      foreach($memory as $memo) {
             foreach($color as $cl){
                 $name[]=$memo->id.'_'.$cl->id;
 
@@ -154,7 +198,7 @@ class ProductController extends Controller
         foreach($p_insert as $product){
             Product::create($product);
         }
-
+        return redirect()->route('product')->with('message','Successfully created');
     }
 
     /**
@@ -185,10 +229,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Product  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $id)
     {
         //
     }

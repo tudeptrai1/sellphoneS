@@ -29,11 +29,11 @@ class MemoryController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('http://127.0.0.1:8000/api/memory');
+            $response = $https->get('final3.test/api/memory');
 
         }
         else{
-            $response = $https->get('http://127.0.0.1:8000/api/memory/'.$q);
+            $response = $https->get('final3.test/api/memory/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);

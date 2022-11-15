@@ -39,11 +39,11 @@ class BrandController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('http://127.0.0.1:8000/api/brand');
+            $response = $https->get('final3.test/api/brand');
 
         }
         else{
-            $response = $https->get('http://127.0.0.1:8000/api/brand/'.$q);
+            $response = $https->get('final3.test/api/brand/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);

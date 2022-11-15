@@ -6,7 +6,7 @@
         Add Product
     </h2>
 </div>
-<form action="{{route('api.product.store')}} " method="post" >
+<form action="{{route('api.product.store')}} " method="post" enctype="multipart/form-data">
 
 
 <div class="grid grid-cols-11 gap-x-6 mt-5 pb-20">
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="w-full mt-3 xl:mt-0 flex-1">
                                     <div id="multiple-file-upload" class="p-5">
-                                        <input name="file" type="file" multiple/>
+                                        <input name="image" type="file" multiple/>
                                     </div>
                                 </div>
                             </div>
@@ -73,6 +73,9 @@
                         </div>
                         <div class="w-full mt-3 xl:mt-0 flex-1">
                             <input id="product-name" type="text" class="form-control" placeholder="Product name" name="name">
+                            @if($errors->has('name'))
+                                <div class="text-danger ">{{ $errors->first('name') }}</div>
+                            @endif
                         </div>
                     </div>
                     <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
@@ -90,6 +93,9 @@
                                 <option value="{{$each->id}}">{{$each->name}}</option>
                                 @endforeach
                             </select>
+{{--                            @if($errors->has('brand'))--}}
+{{--                                <div class="text-danger ">{{ $errors->first('brand') }}</div>--}}
+{{--                            @endif--}}
                         </div>
                     </div>
 
@@ -141,6 +147,9 @@
                                     <input id="condition-second" class="form-check-input" type="radio" name="trending" value="0">
                                     <label class="form-check-label" for="condition-second">No</label>
                                 </div>
+                                @if($errors->has('trending'))
+                                    <div class="text-danger ">{{ $errors->first('trending') }}</div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -163,6 +172,9 @@
                                 <div class="mt-2 " >
                                     <textarea name="description" class="form-control" cols="64px" rows="6" placeholder="Content of description."></textarea>
                                 </div>
+                                @if($errors->has('description'))
+                                    <div class="text-danger ">{{ $errors->first('description') }}</div>
+                                @endif
                             </div>
                         </div>
                     </div>

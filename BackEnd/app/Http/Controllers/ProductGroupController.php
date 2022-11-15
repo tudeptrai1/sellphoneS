@@ -30,10 +30,10 @@ class ProductGroupController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('http://127.0.0.1:8000/api/pg');
+            $response = $https->get('final3.test/api/pg');
         }
         else{
-            $response = $https->get('http://127.0.0.1:8000/api/pg/'.$q);
+            $response = $https->get('final3.test/api/pg/'.$q);
 
         }
 
