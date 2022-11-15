@@ -35,11 +35,11 @@ class ProductController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('final3.test/api/product');
+            $response = $https->get(env('BASE_URL').'/api/product');
 
         }
         else{
-            $response = $https->get('final3.test/api/product/'.$q);
+            $response = $https->get(env('BASE_URL').'/api/product/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);

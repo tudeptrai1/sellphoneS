@@ -39,11 +39,11 @@ class BrandController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('final3.test/api/brand');
+            $response = $https->get(env('BASE_URL').'/api/brand');
 
         }
         else{
-            $response = $https->get('final3.test/api/brand/'.$q);
+            $response = $https->get(env('BASE_URL').'/api/brand/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);

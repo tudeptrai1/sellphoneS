@@ -30,11 +30,11 @@ class ColorController extends Controller
         $q = $request->get('search');
 
         if($q ==null){
-            $response = $https->get('final3.test/api/color');
+            $response = $https->get(env('BASE_URL').'/api/color');
 
         }
         else{
-            $response = $https->get('final3.test/api/color/'.$q);
+            $response = $https->get(env('BASE_URL').'/api/color/'.$q);
 
         }
         $a = json_decode($response->getBody(),true);
