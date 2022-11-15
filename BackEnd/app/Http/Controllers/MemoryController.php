@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Memory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class MemoryController extends Controller
@@ -62,6 +63,19 @@ class MemoryController extends Controller
 
         ];
         return response()->json($arr, 201);
+    }
+    public function getPg($pg_id){
+        $select=DB::table('products')->distinct()->where('pg_id','=',$pg_id)->select('memory_id');
+        $colors = DB::table($select, 'p')
+            ->join('memories as m', 'p.memory_id', '=', 'm.id')
+            ->select('m.*')
+            ->orderBy('m.id')->get();
+        $arr = [
+            'status' => true,
+            'message' => "Danh sách dung lượng theo group",
+            'data'=>$colors,
+        ];
+        return response()->json($arr, 200);
     }
     /**
      * Show the form for creating a new resource.

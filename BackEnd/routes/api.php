@@ -31,11 +31,13 @@ Route::prefix('pg')->group(function () {
 });
 Route::prefix('color')->group(function () {
     Route::get('/',[ColorController::class,'all']);
+    Route::get('/pg/{pg_id}',[ColorController::class,'getPg']);
     Route::get('/{name}',[ColorController::class,'search']);
     Route::post('/store',[ColorController::class,'store'])->name('api.color.store');
 });
 Route::prefix('memory')->group(function () {
     Route::get('/',[MemoryController::class,'all']);
+    Route::get('/pg/{pg_id}',[MemoryController::class,'getPg']);
     Route::get('/{name}',[MemoryController::class,'search']);
     Route::post('/store',[MemoryController::class,'store'])->name('api.memory.store');
 });

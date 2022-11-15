@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Models\ProductGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ColorController extends Controller
@@ -157,7 +158,19 @@ class ColorController extends Controller
         return redirect()->route('color')->with('message','Successfully updated');
 
     }
-
+    public function getPg($pg_id){
+        $select=DB::table('products')->distinct()->where('pg_id','=',$pg_id)->select('color_id');
+        $colors = DB::table($select, 'p')
+            ->join('colors as c', 'p.color_id', '=', 'c.id')
+            ->select('c.*')
+            ->orderBy('c.id')->get();
+        $arr = [
+            'status' => true,
+            'message' => "Danh sách màu theo group",
+            'data'=>$colors,
+        ];
+        return response()->json($arr, 200);
+    }
     /**
      * Remove the specified resource from storage.
      *
