@@ -17,7 +17,7 @@ class ColorSeeder extends Seeder
     {
         DB::table('colors')->insert([
                 ['id'=>111,'name' => 'Vàng', 'value'=>'f3ca20'],
-                ['id'=>112,'name' => 'Xám', 'value'=>'999999'],
+                ['id'=>112,'name' => 'Xám', 'value'=>'bbbbbb'],
                 ['id'=>113,'name' => 'Đen', 'value'=>'000000'],
                 ['id'=>114,'name' => 'Xanh lá', 'value'=>'3a6b35'],
                 ['id'=>115,'name' => 'Tím', 'value'=>'500472'],
