@@ -16,11 +16,12 @@ class ColorSeeder extends Seeder
     public function run()
     {
         DB::table('colors')->insert([
-                ['id'=>111,'name' => 'Đen', 'value'=>'000000'],
-                ['id'=>112,'name' => 'Vàng', 'value'=>'f3ca20'],
-                ['id'=>113,'name' => 'Xanh lá', 'value'=>'3a6b35'],
-                ['id'=>114,'name' => 'Tím', 'value'=>'500472'],
-                ['id'=>115,'name' => 'Đỏ', 'value'=>'d71b3b'],
+                ['id'=>111,'name' => 'Vàng', 'value'=>'f3ca20'],
+                ['id'=>112,'name' => 'Xám', 'value'=>'cccccc'],
+                ['id'=>113,'name' => 'Đen', 'value'=>'000000'],
+                ['id'=>114,'name' => 'Xanh lá', 'value'=>'3a6b35'],
+                ['id'=>115,'name' => 'Tím', 'value'=>'500472'],
+                ['id'=>116,'name' => 'Đỏ', 'value'=>'d71b3b'],
          ]
         );
     }
