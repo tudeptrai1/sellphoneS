@@ -181,7 +181,7 @@ class ProductController extends Controller
                 $temp['name'] = explode("_", $i);
                 $temp['price'] = $data[$i.'_price'];
                 $temp['amount'] = $data[$i.'_amount'];
-                $temp['product_name'] = ProductGroup::where('id',$a->id)->value('name').' '.Memory::where('id',$temp['name'][0])->value('value').'GB '.Color::where('id',$temp['name'][1])->value('name');
+                $temp['product_name'] = ProductGroup::where('id',$a->id)->value('name').' '.Memory::where('id',$temp['name'][0])->value('value').' '.Color::where('id',$temp['name'][1])->value('name');
 
                 $p_insert[]= [
                     'name' => $temp['product_name'],

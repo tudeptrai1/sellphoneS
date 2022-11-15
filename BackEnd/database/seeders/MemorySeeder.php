@@ -16,13 +16,12 @@ class MemorySeeder extends Seeder
     public function run()
     {
         DB::table('memories')->insert([
-                ['id'=>1111,'value' => 32],
-                ['id'=>1112,'value' => 64],
-                ['id'=>1113,'value' => 128],
-                ['id'=>1114,'value' => 256],
-                ['id'=>1115,'value' => 512],
-
-
+                ['id'=>1111,'value' => "32GB"],
+                ['id'=>1112,'value' => "64GB"],
+                ['id'=>1113,'value' => "128GB"],
+                ['id'=>1114,'value' => "256GB"],
+                ['id'=>1115,'value' => "512GB"],
+                ['id'=>1116,'value' => "1TB"],
             ]
         );
     }
