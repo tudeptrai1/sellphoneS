@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('memories', function (Blueprint $table) {
             $table->id();
             $table->string('value')->unique();
+            $table->boolean('status')->default(1)->comment('1=true,0=false');
             $table->timestamps();
         });
     }

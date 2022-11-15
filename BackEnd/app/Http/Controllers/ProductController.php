@@ -225,6 +225,24 @@ class ProductController extends Controller
     public function search(Product $product){
 
     }
+    public function get($id){
+        $products = Product::where('id','=', $id)->get();
+        $arr = [
+            'status' => true,
+            'message' => "Sản phẩm",
+            'data'=>$products,
+        ];
+        return response()->json($arr, 200);
+    }
+    public function detail($pg_id){
+        $products = Product::where('pg_id','=', $pg_id)->get();
+        $arr = [
+            'status' => true,
+            'message' => "Danh sách sản phẩm theo group",
+            'data'=>$products,
+        ];
+        return response()->json($arr, 200);
+    }
     /**
      * Update the specified resource in storage.
      *
