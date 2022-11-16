@@ -15,4 +15,15 @@ class TechSpecDetail extends Model
         'value',
 
     ];
+    public function tech_spec(){
+        return $this->hasManyThrough(
+            TechSpec::class,
+            ProductGroup::class,
+            'id', // Foreign key on the environments table...
+            'pg_id');// Local key on the environments table...
+    }
+    public function TechSpec()
+    {
+        return $this->belongsTo(TechSpec::class, 'tech_id',);
+    }
 }

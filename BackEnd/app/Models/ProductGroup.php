@@ -16,7 +16,24 @@ class ProductGroup extends Model
         'trending',
     ];
 
-    public function PGImage(){
-        return $this->hasMany(Image::class,'pg_id','color_id','image');
+    public function image1(){
+        return $this->hasManyThrough(
+            Image::class,
+            ProductGroup::class,
+            'id', // Foreign key on the environments table...
+            'pg_id', // Foreign key on the deployments table...
+            'id', // Local key on the projects table...
+            'id',);// Local key on the environments table...
+    }
+    public function product(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+    public function tech_spec(){
+        return $this->hasManyThrough(
+            TechSpecDetail::class,
+            ProductGroup::class,
+            'id', // Foreign key on the environments table...
+            'pg_id');// Local key on the environments table...
     }
 }

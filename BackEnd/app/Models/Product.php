@@ -21,6 +21,10 @@ class Product extends Model
         'status',
         'discount_id',
     ];
+    public function pg(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(ProductGroup::class);
+    }
 
 
 }

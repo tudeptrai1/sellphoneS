@@ -22,6 +22,7 @@ class ColorSeeder extends Seeder
                 ['id'=>114,'name' => 'Xanh lá', 'value'=>'3a6b35'],
                 ['id'=>115,'name' => 'Tím', 'value'=>'500472'],
                 ['id'=>116,'name' => 'Đỏ', 'value'=>'d71b3b'],
+                ['id'=>117,'name' => 'Xanh dương', 'value'=>'3498db']
          ]
         );
     }

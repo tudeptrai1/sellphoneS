@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Image;
 use App\Models\Memory;
 use App\Models\Product;
 use App\Models\ProductGroup;
@@ -21,16 +22,20 @@ class ProductController extends Controller
      */
     public function all(): \Illuminate\Http\JsonResponse
     {
-        $product = Product::all();
+		$products = Product::all();
+
         $arr = [
             'status' => true,
             'message' => "Danh sách sản phẩm",
-            'data'=>$product,
+            'data'=>$products,
             ];
         return response()->json($arr, 200);
     }
     public function index(Request $request)
     {
+
+
+
         $https = new \GuzzleHttp\Client;
         $q = $request->get('search');
 
@@ -43,7 +48,9 @@ class ProductController extends Controller
 
         }
         $a = json_decode($response->getBody(),true);
+
         $result =$this->paginate($a['data'],10);
+
         $result->appends(['search' => $q]);
         return view('admin.product.index',[
             'data'=>$result,
@@ -86,6 +93,8 @@ class ProductController extends Controller
         $tech_spec = TechSpec::all();
         $data = $request->all();
         $brand = Brand::all();
+
+
         $input = Validator::make($data, [
             'name' =>[
                 'required',
@@ -102,38 +111,16 @@ class ProductController extends Controller
             ],
         ]);
 
-        if($request->hasFile('image')){
-            dd(1);
-        }
-        dd(0);
+
         if($input->fails()){
 
             return view('admin.product.create',['color' => $color,
                 'memory' => $memory,
                 'brand' => $brand,
                 'tech_spec'=>$tech_spec,
-            ])->withErrors($data);
-
+            ])->withErrors($input);
         }
 
-
-
-//        foreach($color as $each){
-//          }
-//                $uploadPath = 'uploads/products/'.$each->name;
-//                foreach($request->File('image_'.$each->name) as $imagefile){
-//                    $extention = $imagefile->getClientOriginalExtension();
-//                    $filename = time().'.'.$extention;
-//                    $file = move($uploadPath, $filename);
-//                    $finalImagePathName = $uploadPath. '-'.$filename;
-//                    $data->PGImage()->create([
-//                        'pg_id' =>$a->id,
-//                        'color_id'=>$each->id,
-//                        'image'=>$finalImagePathName,
-//                    ]);
-//                }
-//            }
-//        }
       foreach($memory as $memo) {
             foreach($color as $cl){
                 $name[]=$memo->id.'_'.$cl->id;
@@ -155,11 +142,31 @@ class ProductController extends Controller
         if($request->status === 'on')
             $status =1;
         //End Product Group
+//        Image
+
+        foreach($color as $each){
+            if($request->hasfile($each->id.'_image')){
+            $uploadPath = 'uploads/products/'.$each->name.'_'.$a->name;
+            foreach($request->file($each->id.'_image') as $imagefile){
+                $x=1;
+                $extention = $imagefile->getClientOriginalExtension();
+                $filename = $a->name.'_'.$x.'.'.$extention;
+                $imagefile->move($uploadPath, $filename);
+                $finalImagePathName = $uploadPath. '/'.$filename;
+                Image::create([
+                    'pg_id' =>$a->id,
+                    'color_id'=>$each->id,
+                    'image'=>$finalImagePathName,
+                ]);
+                $x++;
+            }
+            }
+        }
+
+        //End Image
         // Tech Spec
         foreach($tech_spec as $temp){
-
             $tech[]=$temp->id;
-
         }
         foreach($tech as $i){
             if($data[$i]!==null){
@@ -174,7 +181,6 @@ class ProductController extends Controller
            TechSpecDetail::create($t);
         }
         //End Tech Spec
-
         foreach($name as $i) {
             $temp = null;
             if (isset($data[$i.'_status'])) {
@@ -194,7 +200,6 @@ class ProductController extends Controller
                 ];
             }
         }
-
         foreach($p_insert as $product){
             Product::create($product);
         }
@@ -226,19 +231,55 @@ class ProductController extends Controller
 
     }
     public function get($id){
-        $products = Product::where('id','=', $id)->get();
+//        $product = Product::where('id','=', $id)->get();
+        $product =Product::find($id);
+        $pg= ProductGroup::find($product->pg_id);
+        $a=$pg->image1;
+        $techs= $pg->tech_spec;
+        foreach($techs as $tech){
+            $techspec[$tech->TechSpec->name]=$tech->value;
+        }
+
+        $color = $product->color_id;
+        foreach($a as $each){
+            if($each->color_id == $color){
+                $ba[] =$each->image;
+            }
+        }
+        $product['image'] = $ba;
+        $product->description = $product->pg->description;
+        $product['tech_spec']=$techspec;
+        unset($product->image1, $product->pg);
+
         $arr = [
             'status' => true,
-            'message' => "Sản phẩm",
+            'message' => "Chi tiếtSản phẩm",
+            'data'=>$product,
+        ];
+        return response()->json($arr, 200);
+    }
+    public function detail($pg_id): \Illuminate\Http\JsonResponse
+    {
+        $products = Product::wherePgId($pg_id)->get();
+        $arr = [
+            'status' => true,
+            'message' => "Danh sách sản phẩm theo group",
+            'ID Group' => $pg_id,
             'data'=>$products,
         ];
         return response()->json($arr, 200);
     }
-    public function detail($pg_id){
-        $products = Product::where('pg_id','=', $pg_id)->get();
+    public function brand($brand_id): \Illuminate\Http\JsonResponse
+    {
+        $pgs = ProductGroup::whereBrandId($brand_id)->get();
+        foreach($pgs as $pg){
+            $products[$pg->name] = Product::wherePgId($pg->id)->get();
+        }
+
         $arr = [
             'status' => true,
             'message' => "Danh sách sản phẩm theo group",
+            'ID Brand' => $brand_id,
             'data'=>$products,
         ];
         return response()->json($arr, 200);

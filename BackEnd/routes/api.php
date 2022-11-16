@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
@@ -46,10 +47,14 @@ Route::prefix('product')->group(function () {
     //get san pham voi id
     Route::get('/{id}',[ProductController::class,'get']);
     //get san pham voi group
-    Route::get('/detail/{pg_id}',[ProductController::class,'detail']);
+    Route::get('/pg/{pg_id}',[ProductController::class,'detail']);
     //get san pham voi brand
-    Route::get('/brand/{brand_id}',[ProductController::class,'detail']);
+    Route::get('/brand/{brand_id}',[ProductController::class,'brand']);
 
     Route::get('/{name}',[ProductController::class,'search']);
     Route::post('/store',[ProductController::class,'store'])->name('api.product.store');
+});
+
+Route::prefix('image')->group(function(){
+    Route::get('/',[ImageController::class,'all']);
 });

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;

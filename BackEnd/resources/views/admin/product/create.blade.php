@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="w-full mt-3 xl:mt-0 flex-1">
                                     <div id="multiple-file-upload" class="p-5">
-                                        <input name="image" type="file" multiple/>
+                                        <input name="{{$each->id}}_image[]" type="file" multiple accept="image/*"/>
                                     </div>
                                 </div>
                             </div>

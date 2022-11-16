@@ -54,13 +54,13 @@
                         <td class="w-40">
                             <div class="flex">
                                 <div class="w-10 h-10 image-fit zoom-in">
-                                    <img alt="img" class="tooltip rounded-full" src="dist/images/preview-10.jpg" title="img" >
+                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img" >
                                 </div>
                                 <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                                    <img alt="img" class="tooltip rounded-full" src="dist/images/preview-1.jpg" title="img">
+                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">
                                 </div>
                                 <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                                    <img alt="img" class="tooltip rounded-full" src="dist/images/preview-6.jpg" title="img">
+                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">
                                 </div>
                             </div>
                         </td>
@@ -81,7 +81,7 @@
                         @endif
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="{{route('product.edit',$each['id'])}}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit {{$each['id']}} </a>
+                                <a class="flex items-center mr-3" href="{{route('product.edit',$each['id'])}}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
                                 <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal{{$each['id']}}"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                             </div>
                         </td>

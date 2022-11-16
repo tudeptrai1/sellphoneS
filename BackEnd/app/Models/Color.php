@@ -13,4 +13,8 @@ class Color extends Model
         'name',
 
     ];
+    public function Image(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Image::class,'color_id');
+    }
 }
