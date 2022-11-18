@@ -50,10 +50,10 @@ class ProductSeeder extends Seeder
 
 
 
-                ['id'=>21119,'name' => 'iPhone 13 Pro Max 128GB Xanh lá','pg_id'=>5558,'color_id'=>114,'memory_id'=>1113,'imp_price'=>'22000000','sell_price'=>'27990000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
-                ['id'=>21120,'name' => 'iPhone 13 Pro Max 256GB Xanh lá','pg_id'=>5558,'color_id'=>114,'memory_id'=>1114,'imp_price'=>'24000000','sell_price'=>'30290000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
-                ['id'=>21121,'name' => 'iPhone 13 Pro Max 512GB Xanh lá','pg_id'=>5558,'color_id'=>114,'memory_id'=>1115,'imp_price'=>'35000000','sell_price'=>'41490000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
-                ['id'=>21122,'name' => 'iPhone 13 Pro Max 1TB Xanh lá','pg_id'=>5558,'color_id'=>114,'memory_id'=>1116,'imp_price'=>'44000000','sell_price'=>'49990000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
+                ['id'=>21119,'name' => 'iPhone 13 Pro Max 128GB Xanh dương','pg_id'=>5558,'color_id'=>117,'memory_id'=>1113,'imp_price'=>'22000000','sell_price'=>'27990000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
+                ['id'=>21120,'name' => 'iPhone 13 Pro Max 256GB Xanh dương','pg_id'=>5558,'color_id'=>117,'memory_id'=>1114,'imp_price'=>'24000000','sell_price'=>'30290000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
+                ['id'=>21121,'name' => 'iPhone 13 Pro Max 512GB Xanh dương','pg_id'=>5558,'color_id'=>117,'memory_id'=>1115,'imp_price'=>'35000000','sell_price'=>'41490000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
+                ['id'=>21122,'name' => 'iPhone 13 Pro Max 1TB Xanh dương','pg_id'=>5558,'color_id'=>117,'memory_id'=>1116,'imp_price'=>'44000000','sell_price'=>'49990000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
 
                 ['id'=>21123,'name' => 'iPhone 13 Pro Max 128GB Vàng','pg_id'=>5558,'color_id'=>111,'memory_id'=>1113,'imp_price'=>'22000000','sell_price'=>'27990000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
                 ['id'=>21124,'name' => 'iPhone 13 Pro Max 256GB Vàng','pg_id'=>5558,'color_id'=>111,'memory_id'=>1114,'imp_price'=>'24000000','sell_price'=>'30290000','amount'=>40,'status'=>1,'created_at'=>now(),'discount_id'=>null],
