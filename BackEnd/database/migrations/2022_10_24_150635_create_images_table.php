@@ -17,7 +17,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pg_id');
             $table->unsignedBigInteger('color_id');
-            $table->string('image');
+            $table->string('image1')->nullable();
+            $table->string('image2')->nullable();
+            $table->string('image3')->nullable();
+            $table->string('image4')->nullable();
+            $table->string('image5')->nullable();
+
             $table->foreign('pg_id')->references('id')->on('product_groups')->onDelete('cascade');
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
             $table->timestamps();

@@ -45,13 +45,15 @@ Route::prefix('memory')->group(function () {
 Route::prefix('product')->group(function () {
     Route::get('/',[ProductController::class,'all']);
     //get san pham voi id
-    Route::get('/{id}',[ProductController::class,'get']);
+    Route::get('/get/{id}',[ProductController::class,'get']);
     //get san pham voi group
     Route::get('/pg/{pg_id}',[ProductController::class,'detail']);
     //get san pham voi brand
     Route::get('/brand/{brand_id}',[ProductController::class,'brand']);
 
-    Route::get('/{name}',[ProductController::class,'search']);
+    Route::get('/search/name/{name}',[ProductController::class,'searchName']);
+
+    Route::get('/search',[ProductController::class,'search']);
     Route::post('/store',[ProductController::class,'store'])->name('api.product.store');
 });
 
