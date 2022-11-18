@@ -197,12 +197,21 @@ class ProductController extends Controller
      */
     public function all(): \Illuminate\Http\JsonResponse
     {
-        $products = Product::all();
-
+        $result = DB::table('products')
+            ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
+            ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
+            ->join('images', function($join) {
+                $join->on('images.pg_id', '=', 'products.pg_id');
+                $join->on('images.color_id', '=', 'products.color_id');
+            }
+            )
+            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
+                'images.image1','images.image2','images.image3','images.image4','images.image5')
+            ->get();
         $arr = [
             'status'  => true,
             'message' => "Danh sách sản phẩm",
-            'data'    => $products,
+            'data'    => $result,
         ];
         return response()->json($arr, 200);
     }
@@ -260,7 +269,7 @@ class ProductController extends Controller
         if ($request->name === null) $name_qr = "1=1";
         else $name_qr = 'name like \'%' . $request->name . '%\'';
 
-        if ($request->status === null) $amount_qr = "1=1";
+        if ($request->amount === null) $amount_qr = "1=1";
         else $amount_qr = 'amount > 0 and status = 1 ';
 
         if ($request->min === null) $min_qr = "1=1";
@@ -269,11 +278,11 @@ class ProductController extends Controller
         if ($request->max === null) $max_qr = "1=1";
         else $max_qr = 'sell_price <= ' . $request->max . ' ';
 
-        if ($request->get('br') === null) $br_qr = '1=1';
+        if ($request->get('brand') === null) $br_qr = '1=1';
         else {
-            $br = ($request->get('br'));
+            $br = ($request->get('brand'));
             $temp = implode(",", $br);
-            $br_qr = 'pg_id in (' . $temp . ')';
+            $br_qr = 'brand_id in (' . $temp . ')';
         }
 
         if ($request->get('color') === null) $color_qr = '1=1';
@@ -285,7 +294,7 @@ class ProductController extends Controller
 
         if ($request->get('memory') === null) $memory_qr = '1=1';
         else {
-            $memory = ($request->get('color'));
+            $memory = ($request->get('memory'));
             $temp = implode(",", $memory);
             $memory_qr = 'memory_id in (' . $temp . ')';
         }
@@ -345,13 +354,13 @@ class ProductController extends Controller
             ->join('images', function($join) {
                 $join->on('images.pg_id', '=', 'products.pg_id');
                 $join->on('images.color_id', '=', 'products.color_id');
-            }
+                }
             )
             ->where('products.pg_id', '=', $pg_id)
+            ->orderBy('sell_price', 'desc')
             ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
                 'images.image1','images.image2','images.image3','images.image4','images.image5')
             ->get();
-
 
         // tech
         // discount
@@ -366,16 +375,25 @@ class ProductController extends Controller
 
     public function brand($brand_id): \Illuminate\Http\JsonResponse
     {
-        $pgs = ProductGroup::whereBrandId($brand_id)->get();
-        foreach ($pgs as $pg) {
-            $products[$pg->name] = Product::wherePgId($pg->id)->get();
-        }
+        $result = DB::table('products')
+            ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
+            ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
+            ->join('images', function($join) {
+                $join->on('images.pg_id', '=', 'products.pg_id');
+                $join->on('images.color_id', '=', 'products.color_id');
+            }
+            )
+            ->where('product_groups.brand_id', '=', $brand_id)
+            ->orderBy('sell_price', 'desc')
+            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
+                'images.image1','images.image2','images.image3','images.image4','images.image5')
+            ->get();
 
         $arr = [
             'status'   => true,
-            'message'  => "Danh sách sản phẩm theo group",
+            'message'  => "Danh sách sản phẩm theo brand",
             'ID Brand' => $brand_id,
-            'data'     => $products,
+            'data'     => $result,
         ];
         return response()->json($arr, 200);
     }
