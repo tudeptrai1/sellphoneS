@@ -46,10 +46,20 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
-        $product->brand = [$brand];
+        $product->brand = $brand;
 
         $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
         $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+
+        $techSpecs=TechSpec::all();
+        $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
+        $length=count($techSpecDetail);
+        $tech=[];
+        for ($i = 0; $i < $length; $i++) {
+            $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
+            array_push($tech,$temp);
+        }
+        $product->tech_specs = $tech;
 
         $discount = DB::table('discount_details', 'dd')
             ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
@@ -213,6 +223,16 @@ class ProductController extends Controller
                 ->first();
             $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
 
+            $techSpecs=TechSpec::all();
+            $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
+            $length=count($techSpecDetail);
+            $tech=[];
+            for ($i = 0; $i < $length; $i++) {
+                $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
+                array_push($tech,$temp);
+            }
+            $product->tech_specs = $tech;
+
             $discount = DB::table('discount_details', 'dd')
                 ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
                 ->where('dd.product_id', '=', $product->id)
@@ -361,6 +381,16 @@ class ProductController extends Controller
             $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
             $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
 
+            $techSpecs=TechSpec::all();
+            $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
+            $length=count($techSpecDetail);
+            $tech=[];
+            for ($i = 0; $i < $length; $i++) {
+                $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
+                array_push($tech,$temp);
+            }
+            $product->tech_specs = $tech;
+
             $discount = DB::table('discount_details', 'dd')
                 ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
                 ->where('dd.product_id', '=', $product->id)
@@ -393,6 +423,15 @@ class ProductController extends Controller
             $product->brand = $brand;
             $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
             $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+            $techSpecs=TechSpec::all();
+            $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
+            $length=count($techSpecDetail);
+            $tech=[];
+            for ($i = 0; $i < $length; $i++) {
+                $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
+                array_push($tech,$temp);
+            }
+            $product->tech_specs = $tech;
             $discount = DB::table('discount_details', 'dd')
                 ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
                 ->where('dd.product_id', '=', $product->id)
