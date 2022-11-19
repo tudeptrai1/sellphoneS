@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-
             BrandSeeder::class,
             TechSpecSeeder::class,
             DiscountSeeder::class,
@@ -24,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MemorySeeder::class,
             ProductSeeder::class,
             ImageSeeder::class,
+            DiscountDetailSeeder::class,
         ]);
     }
 }
