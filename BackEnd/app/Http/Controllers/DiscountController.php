@@ -82,4 +82,14 @@ class DiscountController extends Controller
     {
         //
     }
+    public function check($code)
+    {
+        $result =Discount::whereDiscountCode($code)->whereType(1)->get()->first();
+        $arr = [
+            'status'  => true,
+            'message' => "Giảm giá",
+            'data'    => $result,
+        ];
+        return response()->json($arr, 200);
+    }
 }

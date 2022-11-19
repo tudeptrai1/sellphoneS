@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
+use App\Http\Controllers\DiscountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,4 +60,7 @@ Route::prefix('product')->group(function () {
 
 Route::prefix('image')->group(function(){
     Route::get('/',[ImageController::class,'all']);
+});
+Route::prefix('discount')->group(function () {
+    Route::get('/check/{code}',[DiscountController::class,'check']);
 });

@@ -51,13 +51,13 @@ class ProductController extends Controller
         $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
         $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
 
-        $techSpecs=TechSpec::all();
-        $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
-        $length=count($techSpecDetail);
-        $tech=[];
+        $techSpecs = TechSpec::all();
+        $techSpecDetail = ProductGroup::find($product->pg_id)->tech_spec;
+        $length = count($techSpecDetail);
+        $tech = [];
         for ($i = 0; $i < $length; $i++) {
-            $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
-            array_push($tech,$temp);
+            $temp = (object)['name' => $techSpecs[$i]->name, 'value' => $techSpecDetail[$i]->value];
+            array_push($tech, $temp);
         }
         $product->tech_specs = $tech;
 
@@ -76,7 +76,56 @@ class ProductController extends Controller
         $arr = [
             'status'  => true,
             'message' => "Chi tiết Sản phẩm",
-            'data'    => $product,
+            'data'    => $result,
+        ];
+        return response()->json($arr, 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function all(): \Illuminate\Http\JsonResponse
+    {
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
+            $product->brand = $brand;
+
+            $image = ProductGroup::find($product->pg_id)->images
+                ->where('color_id', '=', $product->color_id)
+                ->first();
+            $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+
+            $techSpecs = TechSpec::all();
+            $techSpecDetail = ProductGroup::find($product->pg_id)->tech_spec;
+            $length = count($techSpecDetail);
+            $tech = [];
+            for ($i = 0; $i < $length; $i++) {
+                $temp = (object)['name' => $techSpecs[$i]->name, 'value' => $techSpecDetail[$i]->value];
+                array_push($tech, $temp);
+            }
+            $product->tech_specs = $tech;
+
+            $discount = DB::table('discount_details', 'dd')
+                ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
+                ->where('dd.product_id', '=', $product->id)
+                ->where('d.type', '=', 0)
+                ->where('d.valid_until', '>=', now())
+                ->orderBy('d.created_at', 'desc')
+                ->select('d.*', 'dd.product_id')
+                ->limit(1)
+                ->get()
+                ->first();
+            $product->discount = $discount;
+        }
+
+        $arr = [
+            'status'  => true,
+            'message' => "Danh sách sản phẩm",
+            'data'    => $products,
         ];
         return response()->json($arr, 200);
     }
@@ -206,55 +255,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function all(): \Illuminate\Http\JsonResponse
-    {
-        $products = Product::all();
-
-        foreach ($products as $product) {
-            $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
-            $product->brand = $brand;
-
-            $image = ProductGroup::find($product->pg_id)->images
-                ->where('color_id', '=', $product->color_id)
-                ->first();
-            $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
-
-            $techSpecs=TechSpec::all();
-            $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
-            $length=count($techSpecDetail);
-            $tech=[];
-            for ($i = 0; $i < $length; $i++) {
-                $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
-                array_push($tech,$temp);
-            }
-            $product->tech_specs = $tech;
-
-            $discount = DB::table('discount_details', 'dd')
-                ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
-                ->where('dd.product_id', '=', $product->id)
-                ->where('d.type', '=', 0)
-                ->where('d.valid_until', '>=', now())
-                ->orderBy('d.created_at', 'desc')
-                ->select('d.*', 'dd.product_id')
-                ->limit(1)
-                ->get()
-                ->first();
-            $product->discount = $discount;
-        }
-
-        $arr = [
-            'status'  => true,
-            'message' => "Danh sách sản phẩm",
-            'data'    => $products,
-        ];
-        return response()->json($arr, 200);
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -381,13 +381,13 @@ class ProductController extends Controller
             $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
             $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
 
-            $techSpecs=TechSpec::all();
-            $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
-            $length=count($techSpecDetail);
-            $tech=[];
+            $techSpecs = TechSpec::all();
+            $techSpecDetail = ProductGroup::find($product->pg_id)->tech_spec;
+            $length = count($techSpecDetail);
+            $tech = [];
             for ($i = 0; $i < $length; $i++) {
-                $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
-                array_push($tech,$temp);
+                $temp = (object)['name' => $techSpecs[$i]->name, 'value' => $techSpecDetail[$i]->value];
+                array_push($tech, $temp);
             }
             $product->tech_specs = $tech;
 
@@ -415,7 +415,6 @@ class ProductController extends Controller
 
     public function brand($brand_id): \Illuminate\Http\JsonResponse
     {
-
         $brand = Brand::find($brand_id)->select('id', 'name', 'slug', 'description', 'status')->first();
 
         $products = Brand::find($brand_id)->products;
@@ -423,13 +422,13 @@ class ProductController extends Controller
             $product->brand = $brand;
             $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
             $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
-            $techSpecs=TechSpec::all();
-            $techSpecDetail= ProductGroup::find($product->pg_id)->tech_spec;
-            $length=count($techSpecDetail);
-            $tech=[];
+            $techSpecs = TechSpec::all();
+            $techSpecDetail = ProductGroup::find($product->pg_id)->tech_spec;
+            $length = count($techSpecDetail);
+            $tech = [];
             for ($i = 0; $i < $length; $i++) {
-                $temp=(object) ['name'=>$techSpecs[$i]->name, 'value'=>$techSpecDetail[$i]->value];
-                array_push($tech,$temp);
+                $temp = (object)['name' => $techSpecs[$i]->name, 'value' => $techSpecDetail[$i]->value];
+                array_push($tech, $temp);
             }
             $product->tech_specs = $tech;
             $discount = DB::table('discount_details', 'dd')
