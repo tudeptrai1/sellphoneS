@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\TechSpecDetail;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ImageSeeder::class,
             DiscountDetailSeeder::class,
+            TechSpecDetailSeeder::class,
         ]);
     }
 }

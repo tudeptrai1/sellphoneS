@@ -12,9 +12,38 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function all()
     {
-        //
+        $img = Image::all();
+        $arr = [
+            'status' => true,
+            'message' => "Danh sách nhãn hiệu",
+            'data'=>$img,
+
+        ];
+        return response()->json($arr, 200);
+    }
+    public function index(Request $request){
+        $https = new \GuzzleHttp\Client;
+        $q = $request->get('search');
+
+        if($q ==null){
+            $response = $https->get(env('BASE_URL').'/api/image');
+
+        }
+        else{
+            $response = $https->get(env('BASE_URL').'/api/image/'.$q);
+
+        }
+        $a = json_decode($response->getBody(),true);
+        $result =$this->paginate($a['data'],10);
+        $result->appends(['search' => $q]);
+
+        return view('admin.brand.index',[
+            'data'=>$result,
+        ]);
+
+
     }
 
     /**
@@ -24,7 +53,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.image.test');
     }
 
     /**
@@ -35,7 +64,7 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
