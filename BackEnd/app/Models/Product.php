@@ -9,7 +9,8 @@ class Product extends Model
 {
     use HasFactory;
     use HasFactory;
-    protected $table= 'products';
+
+    protected $table = 'products';
     protected $fillable = [
         'name',
         'pg_id',
@@ -21,10 +22,20 @@ class Product extends Model
         'status',
         'discount_id',
     ];
-    public function pg(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function discount()
     {
-        return $this->belongsTo(ProductGroup::class);
+        return $this->hasOneThrough(
+            Discount::class,
+                DiscountDetail::class,
+            'discount_id', // Khóa ngoại của bảng trung gian user
+            'discount_id', // Khóa ngoại của bảng chúng ta muốn truy cập đến
+            'id', // Khóa mà chúng ta muốn liên kết ở bảng supplier
+            'id' // Khóa mà chúng ta muốn liên kết ở bảng user
+        );
     }
-
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 
 }
