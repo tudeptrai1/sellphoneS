@@ -21,4 +21,15 @@ class Brand extends Model
     public function status(){
      return ($this->attributes['status'] === 1)? 'Active' : 'Inactive';
     }
+    public function products()
+    {
+        return $this->hasManyThrough(
+            Product::class,
+            ProductGroup::class,
+            'brand_id',
+            'pg_id',
+            'id',
+            'id'
+        );
+    }
 }

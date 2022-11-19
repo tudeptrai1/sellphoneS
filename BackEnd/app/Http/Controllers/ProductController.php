@@ -43,25 +43,30 @@ class ProductController extends Controller
 
     public function get($id)
     {
-        $result = DB::table('products')
-            ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
-            ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
-            ->join('images', function($join) {
-                $join->on('images.pg_id', '=', 'products.pg_id');
-                $join->on('images.color_id', '=', 'products.color_id');
-            }
-            )
-            ->where('products.id', '=', $id)
-            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
-                'images.image1','images.image2','images.image3','images.image4','images.image5')
-            ->get();
+        $product = Product::find($id);
 
-        // tech
-        // discount
+        $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
+        $product->brand = [$brand];
+
+        $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
+        $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+
+        $discount = DB::table('discount_details', 'dd')
+            ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
+            ->where('dd.product_id', '=', $id)
+            ->where('d.type', '=', 0)
+            ->where('d.valid_until', '>=', now())
+            ->orderBy('d.created_at', 'desc')
+            ->select('d.*', 'dd.product_id')
+            ->limit(1)
+            ->get()
+            ->first();
+        $product->discount = $discount;
+
         $arr = [
             'status'  => true,
             'message' => "Chi tiết Sản phẩm",
-            'data'    => $result,
+            'data'    => $product,
         ];
         return response()->json($arr, 200);
     }
@@ -197,21 +202,34 @@ class ProductController extends Controller
      */
     public function all(): \Illuminate\Http\JsonResponse
     {
-        $result = DB::table('products')
-            ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
-            ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
-            ->join('images', function($join) {
-                $join->on('images.pg_id', '=', 'products.pg_id');
-                $join->on('images.color_id', '=', 'products.color_id');
-            }
-            )
-            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
-                'images.image1','images.image2','images.image3','images.image4','images.image5')
-            ->get();
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
+            $product->brand = $brand;
+
+            $image = ProductGroup::find($product->pg_id)->images
+                ->where('color_id', '=', $product->color_id)
+                ->first();
+            $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+
+            $discount = DB::table('discount_details', 'dd')
+                ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
+                ->where('dd.product_id', '=', $product->id)
+                ->where('d.type', '=', 0)
+                ->where('d.valid_until', '>=', now())
+                ->orderBy('d.created_at', 'desc')
+                ->select('d.*', 'dd.product_id')
+                ->limit(1)
+                ->get()
+                ->first();
+            $product->discount = $discount;
+        }
+
         $arr = [
             'status'  => true,
             'message' => "Danh sách sản phẩm",
-            'data'    => $result,
+            'data'    => $products,
         ];
         return response()->json($arr, 200);
     }
@@ -256,7 +274,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        dd($product->pg_id);
     }
 
     public function searchName(Product $product)
@@ -304,13 +322,13 @@ class ProductController extends Controller
         $result = DB::table('products')
             ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
             ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
-            ->join('images', function($join) {
+            ->join('images', function ($join) {
                 $join->on('images.pg_id', '=', 'products.pg_id');
                 $join->on('images.color_id', '=', 'products.color_id');
-                    }
+            }
             )
             ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
-                'images.image1','images.image2','images.image3','images.image4','images.image5');
+                'images.image1', 'images.image2', 'images.image3', 'images.image4', 'images.image5');
         $products = DB::table($result, 'a')
             ->whereRaw($name_qr)
             ->whereRaw($amount_qr)
@@ -324,21 +342,7 @@ class ProductController extends Controller
             ->limit($request->limit)
             ->select('*')
             ->get();
-//        foreach ($products as $product){
-//            $brand = DB::table('product_groups', 'g')
-//                ->join('brands as b', 'g.brand_id', '=', 'b.id')
-//                ->where('g.id', $product->pg_id)
-//                ->select('b.id', 'b.name', 'b.description', 'b.slug')->get();
-//
-//            //get image
-//            $images = DB::table('images')
-//                ->where('pg_id', $product->pg_id)
-//                ->where('color_id', $product->color_id)
-//                ->select('image1', 'image2', 'image3', 'image4', 'image5')
-//                ->get();
-//            $product['brand'] = $brand;
-//            $product['image'] = $images;
-//        }
+
         $arr = ['status'  => true,
                 'message' => "Danh sách sản phẩm ",
                 'data'    => $products,
@@ -348,26 +352,32 @@ class ProductController extends Controller
 
     public function detail($pg_id): \Illuminate\Http\JsonResponse
     {
-        $result = DB::table('products')
-            ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
-            ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
-            ->join('images', function($join) {
-                $join->on('images.pg_id', '=', 'products.pg_id');
-                $join->on('images.color_id', '=', 'products.color_id');
-                }
-            )
-            ->where('products.pg_id', '=', $pg_id)
-            ->orderBy('sell_price', 'desc')
-            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
-                'images.image1','images.image2','images.image3','images.image4','images.image5')
-            ->get();
+        $products = DB::table('products')->where('pg_id', '=', $pg_id)->select('*')->get();
 
-        // tech
-        // discount
+        foreach ($products as $product) {
+            $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
+            $product->brand = $brand;
+
+            $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
+            $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+
+            $discount = DB::table('discount_details', 'dd')
+                ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
+                ->where('dd.product_id', '=', $product->id)
+                ->where('d.type', '=', 0)
+                ->where('d.valid_until', '>=', now())
+                ->orderBy('d.created_at', 'desc')
+                ->select('d.*', 'dd.product_id')
+                ->limit(1)
+                ->get()
+                ->first();
+            $product->discount = $discount;
+        }
+
         $arr = [
             'status'  => true,
             'message' => "Danh sách sản phẩm theo group",
-            'data'    => $result,
+            'data'    => $products,
         ];
 
         return response()->json($arr, 200);
@@ -375,25 +385,32 @@ class ProductController extends Controller
 
     public function brand($brand_id): \Illuminate\Http\JsonResponse
     {
-        $result = DB::table('products')
-            ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
-            ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
-            ->join('images', function($join) {
-                $join->on('images.pg_id', '=', 'products.pg_id');
-                $join->on('images.color_id', '=', 'products.color_id');
-            }
-            )
-            ->where('product_groups.brand_id', '=', $brand_id)
-            ->orderBy('sell_price', 'desc')
-            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
-                'images.image1','images.image2','images.image3','images.image4','images.image5')
-            ->get();
+
+        $brand = Brand::find($brand_id)->select('id', 'name', 'slug', 'description', 'status')->first();
+
+        $products = Brand::find($brand_id)->products;
+        foreach ($products as $product) {
+            $product->brand = $brand;
+            $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
+            $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+            $discount = DB::table('discount_details', 'dd')
+                ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
+                ->where('dd.product_id', '=', $product->id)
+                ->where('d.type', '=', 0)
+                ->where('d.valid_until', '>=', now())
+                ->orderBy('d.created_at', 'desc')
+                ->select('d.*', 'dd.product_id')
+                ->limit(1)
+                ->get()
+                ->first();
+            $product->discount = $discount;
+        }
 
         $arr = [
             'status'   => true,
             'message'  => "Danh sách sản phẩm theo brand",
             'ID Brand' => $brand_id,
-            'data'     => $result,
+            'data'     => $products,
         ];
         return response()->json($arr, 200);
     }
