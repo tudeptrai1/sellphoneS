@@ -34,16 +34,6 @@ class Product extends Model
         );
 
     }
-    public function brand()
-    {
-        return $this->hasOneThrough(
-            Brand::class,
-            ProductGroup::class,
-            'brand_id', // Khóa ngoại của bảng trung gian user
-            'pg_id', // Khóa ngoại của bảng chúng ta muốn truy cập đến
-            'id', // Khóa mà chúng ta muốn liên kết ở bảng supplier
-            'id' // Khóa mà chúng ta muốn liên kết ở bảng user
-        );
-    }
+
 
 }

@@ -45,7 +45,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
+        $brand = ProductGroup::find($product->pg_id)->brand;
         $product->brand = $brand;
 
         $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
@@ -91,7 +91,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         foreach ($products as $product) {
-            $brand = ProductGroup::find($product->pg_id)->brand->select('id', 'name', 'slug', 'description', 'status')->first();
+            $brand = ProductGroup::find($product->pg_id)->brand;
             $product->brand = $brand;
 
             $image = ProductGroup::find($product->pg_id)->images
@@ -463,11 +463,10 @@ class ProductController extends Controller
         return response()->json($arr, 200);
     }
 
-    public function brand($brand_id): \Illuminate\Http\JsonResponse
+    public function brand($id): \Illuminate\Http\JsonResponse
     {
-        $brand = Brand::find($brand_id)->select('id', 'name', 'slug', 'description', 'status')->first();
-
-        $products = Brand::find($brand_id)->products;
+        $brand = Brand::all()->find($id);
+        $products = Brand::find($id)->products;
         foreach ($products as $product) {
             $product->brand = $brand;
             $image = ProductGroup::find($product->pg_id)->images->where('color_id', '=', $product->color_id)->first();
@@ -497,7 +496,7 @@ class ProductController extends Controller
         $arr = [
             'status'   => true,
             'message'  => "Danh sách sản phẩm theo brand",
-            'ID Brand' => $brand_id,
+            'ID Brand' => $id,
             'data'     => $products,
         ];
         return response()->json($arr, 200);

@@ -17,7 +17,6 @@ class Brand extends Model
     ];
 
 
-
     public function status(){
      return ($this->attributes['status'] === 1)? 'Active' : 'Inactive';
     }
