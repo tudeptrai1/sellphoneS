@@ -76,7 +76,7 @@ class ProductController extends Controller
         $arr = [
             'status'  => true,
             'message' => "Chi tiết Sản phẩm",
-            'data'    => $result,
+            'data'    => $product,
         ];
         return response()->json($arr, 200);
     }
