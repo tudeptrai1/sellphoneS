@@ -305,51 +305,42 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         if ($request->name === null) $name_qr = "1=1";
-        else $name_qr = 'name like \'%' . $request->name . '%\'';
+        else $name_qr = 'products.name like \'%' . $request->name . '%\'';
 
         if ($request->amount === null) $amount_qr = "1=1";
-        else $amount_qr = 'amount > 0 and status = 1 ';
+        else $amount_qr = 'products.amount > 0 and products.status = 1 ';
 
         if ($request->min === null) $min_qr = "1=1";
-        else $min_qr = 'sell_price >= ' . $request->min . ' ';
+        else $min_qr = 'products.sell_price >= ' . $request->min . ' ';
 
         if ($request->max === null) $max_qr = "1=1";
-        else $max_qr = 'sell_price <= ' . $request->max . ' ';
+        else $max_qr = 'products.sell_price <= ' . $request->max . ' ';
 
         if ($request->get('brand') === null) $br_qr = '1=1';
         else {
             $br = ($request->get('brand'));
             $temp = implode(",", $br);
-            $br_qr = 'brand_id in (' . $temp . ')';
+            $br_qr = 'product_groups.brand_id in (' . $temp . ')';
         }
 
         if ($request->get('color') === null) $color_qr = '1=1';
         else {
             $color = ($request->get('color'));
             $temp = implode(",", $color);
-            $color_qr = 'color_id in (' . $temp . ')';
+            $color_qr = 'products.color_id in (' . $temp . ')';
         }
 
         if ($request->get('memory') === null) $memory_qr = '1=1';
         else {
             $memory = ($request->get('memory'));
             $temp = implode(",", $memory);
-            $memory_qr = 'memory_id in (' . $temp . ')';
+            $memory_qr = 'products.memory_id in (' . $temp . ')';
         }
         $request->orderPrice === null ? $orderPrice = "desc" : $orderPrice = $request->orderPrice;
         $request->orderName === null ? $orderName = "asc" : $orderName = $request->orderName;
-
         $result = DB::table('products')
             ->join('product_groups', 'products.pg_id', '=', 'product_groups.id')
             ->join('brands', 'product_groups.brand_id', '=', 'brands.id')
-            ->join('images', function ($join) {
-                $join->on('images.pg_id', '=', 'products.pg_id');
-                $join->on('images.color_id', '=', 'products.color_id');
-            }
-            )
-            ->select('products.*', 'product_groups.brand_id', 'brands.name as brand',
-                'images.image1', 'images.image2', 'images.image3', 'images.image4', 'images.image5');
-        $products = DB::table($result, 'a')
             ->whereRaw($name_qr)
             ->whereRaw($amount_qr)
             ->whereRaw($min_qr)
@@ -357,15 +348,74 @@ class ProductController extends Controller
             ->whereRaw($br_qr)
             ->whereRaw($color_qr)
             ->whereRaw($memory_qr)
-            ->orderBy('sell_price', $orderPrice)
-            ->orderBy('name', $orderName)
+            ->orderBy('products.sell_price', $orderPrice)
+            ->orderBy('products.name', $orderName)
             ->limit($request->limit)
-            ->select('*')
-            ->get();
+            ->select('products.*',
+                'brands.id as brand_id',
+                'brands.name as brand_name',
+                'brands.slug as brand_slug',
+                'brands.description as brand_description',
+                'brands.status as brand_status'
+            )->get();
+        //        $products = DB::table($result, 'a')
+        //            ->whereRaw($name_qr)
+        //            ->whereRaw($amount_qr)
+        //            ->whereRaw($min_qr)
+        //            ->whereRaw($max_qr)
+        //            ->whereRaw($br_qr)
+        //            ->whereRaw($color_qr)
+        //            ->whereRaw($memory_qr)
+        //            ->orderBy('sell_price', $orderPrice)
+        //            ->orderBy('name', $orderName)
+        //            ->limit($request->limit)
+        //            ->select('*')
+        //            ->get();
+        $discountProducts = [];
+        foreach ($result as $product) {
 
+            $brand = (object)['id'          => $product->brand_id,
+                              'name'        => $product->brand_name,
+                              'slug'        => $product->brand_slug,
+                              'description' => $product->brand_description,
+                              'status'      => $product->brand_status,
+            ];
+            unset($product->brand_id, $product->brand_name, $product->brand_slug, $product->brand_description, $product->brand_status);
+            $product->brand = $brand;
+            $image = ProductGroup::find($product->pg_id)->images
+                ->where('color_id', '=', $product->color_id)
+                ->first();
+            $product->images = [$image->image1, $image->image2, $image->image3, $image->image4, $image->image5];
+
+            $techSpecs = TechSpec::all();
+            $techSpecDetail = ProductGroup::find($product->pg_id)->tech_spec;
+            $length = count($techSpecDetail);
+            $tech = [];
+            for ($i = 0; $i < $length; $i++) {
+                $temp = (object)['name' => $techSpecs[$i]->name, 'value' => $techSpecDetail[$i]->value];
+                array_push($tech, $temp);
+            }
+            $product->tech_specs = $tech;
+
+            $discount = DB::table('discount_details', 'dd')
+                ->join('discounts as d', 'd.id', '=', 'dd.discount_id')
+                ->where('dd.product_id', '=', $product->id)
+                ->where('d.type', '=', 0)
+                ->where('d.valid_until', '>=', now())
+                ->orderBy('d.created_at', 'desc')
+                ->select('d.*', 'dd.product_id')
+                ->limit(1)
+                ->get()
+                ->first();
+            $product->discount = $discount;
+
+            ($request->discount !== null && $discount !== null) &&
+            array_push($discountProducts, $product);
+
+        }
         $arr = ['status'  => true,
                 'message' => "Danh sách sản phẩm ",
-                'data'    => $products,
+                'data'    => $request->discount !== null ? $discountProducts : $result,
         ];
         return response()->json($arr, 200);
     }

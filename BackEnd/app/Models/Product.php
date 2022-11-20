@@ -32,10 +32,18 @@ class Product extends Model
             'id', // Khóa mà chúng ta muốn liên kết ở bảng supplier
             'id' // Khóa mà chúng ta muốn liên kết ở bảng user
         );
+
     }
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->hasOneThrough(
+            Brand::class,
+            ProductGroup::class,
+            'brand_id', // Khóa ngoại của bảng trung gian user
+            'pg_id', // Khóa ngoại của bảng chúng ta muốn truy cập đến
+            'id', // Khóa mà chúng ta muốn liên kết ở bảng supplier
+            'id' // Khóa mà chúng ta muốn liên kết ở bảng user
+        );
     }
 
 }
