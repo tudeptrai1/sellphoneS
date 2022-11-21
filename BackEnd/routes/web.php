@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ImageController;
@@ -25,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/', function () {
 });
 
 
-Route::get('/login',[LoginController::class, 'index'])->name('login');
+Route::get('/login',[AdminController::class, 'index'])->name('login');
 
 Route::middleware('auth:sanctum')->prefix('brand')->group(function () {
     Route::get('/', [BrandController::class, 'index'])->name('brand');

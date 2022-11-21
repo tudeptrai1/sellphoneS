@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ImageController;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('user',[UserController::class,'login']);
-Route::post('login',[LoginController::class, 'login'])->name('login.access');
+Route::post('login',[AdminController::class, 'login'])->name('login.access');
 Route::middleware('auth:sanctum')->prefix('brand')->group(function () {
     Route::get('/',[BrandController::class,'all']);
     Route::get('/{name}',[BrandController::class,'search']);
