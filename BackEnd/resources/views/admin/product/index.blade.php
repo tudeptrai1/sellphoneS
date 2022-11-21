@@ -52,17 +52,17 @@
                     <tr class="intro-x">
 
                         <td class="w-40">
-                            <div class="flex">
-                                <div class="w-10 h-10 image-fit zoom-in">
-                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img" >
-                                </div>
-                                <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">
-                                </div>
-                                <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">
-                                </div>
-                            </div>
+{{--                            <div class="flex">--}}
+{{--                                <div class="w-10 h-10 image-fit zoom-in">--}}
+{{--                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img" >--}}
+{{--                                </div>--}}
+{{--                                <div class="w-10 h-10 image-fit zoom-in -ml-5">--}}
+{{--                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">--}}
+{{--                                </div>--}}
+{{--                                <div class="w-10 h-10 image-fit zoom-in -ml-5">--}}
+{{--                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </td>
                         <td>
                             <a href="" class="font-medium whitespace-nowrap">{{$each['name']}}</a>

@@ -289,14 +289,98 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Product $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(Product $product)
+    public function edit(Product $id): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        dd($product->pg_id);
+        $productgroup = ProductGroup::all();
+        $pg =$id->pg;
+        $color = Color::all();
+        $memory = Memory::all();
+
+
+
+        return view('admin.product.update',[
+                'product'=>$id,
+                'pg' =>$pg,
+                'product_group'=>$productgroup,
+                'color'=>$color,
+                'memory'=>$memory,
+
+            ]
+        );
+
+
     }
 
+    public function update(Product $id,Request $request)
+    {
+        $data = $request->all();
+        $color = Color::all();
+        $memory = Memory::all();
+        $productgroup = ProductGroup::all();
+        $pg =$id->pg;
+
+        if($request->status ==='on'){
+            $request->status=1;
+
+        }
+        else{
+            $request->status=0;
+        }
+
+        $input = Validator::make($data, [
+            'name'=> [
+                'required',
+                'string',
+            ],
+
+
+            'memory_id' => [
+                'required',
+            ],
+            'color_id' => [
+                'required',
+            ],
+            'imp_price' => [
+                'min:0',
+                'required',
+                'numeric',
+            ],
+            'sell_price'=>[
+                'min:0',
+                'required',
+                'numeric',
+            ],
+            'amount' => [
+                'min:0',
+                'required',
+                'numeric',
+            ],
+
+        ]);
+
+        if ($input->fails()) {
+
+            return view('admin.product.update',
+
+                [   'product'=>$id,
+                    'pg' =>$pg,
+                    'product_group'=>$productgroup,
+                    'color'=>$color,
+                    'memory'=>$memory,
+            ])->withErrors($input);
+        }
+        Product::where('id',$id['id'])->update($request->except(
+            ['_method',
+                '_token',
+                'status',
+            ]));
+        return redirect()->route('product')->with('message', 'Successfully created');
+
+
+}
     public function searchName(Product $product)
     {
 
@@ -509,10 +593,7 @@ class ProductController extends Controller
      * @param \App\Models\Product $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Color;
+use App\Models\Image;
 use App\Models\ProductGroup;
+use App\Models\TechSpec;
+use App\Models\TechSpecDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -128,13 +132,27 @@ class ProductGroupController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(ProductGroup $id)
-    {
+    {   $temp = $id->tech_spec;
+        $tech_all = TechSpec::all();
         $brand = Brand::where('status', 'on')->get();
+        $color= Color::all();
+
+        foreach($temp as $tech){
+            $tech_spec[$tech->TechSpec->name]=$tech->value;
+        }
+
         return view('admin.pg.update',
 
-            ['data'=>$brand,
-              'pg'=>$id,
+            ['brand'=>$brand,
+                'pg'=>$id,
+                'tech_spec'=>$tech_all,
+                'ts'=>$tech_spec,
+                'color'=>$color,
             ]);
+
+
+
+
     }
 
     /**
@@ -146,8 +164,12 @@ class ProductGroupController extends Controller
      */
     public function update(Request $request, ProductGroup $id)
     {
+        dd($request->all());
+        $temp = $id->tech_spec;
         $input = $request->all();
-
+        $tech_all = TechSpec::all();
+        $brand = Brand::where('status', 'on')->get();
+        $color= Color::all();
         $validator = Validator::make($input, [
             'name' =>[
                 'required',
@@ -155,19 +177,59 @@ class ProductGroupController extends Controller
             ],
             'brand_id' =>[
                 'required',
-                ]
+            ]
         ]);
 
         if($validator->fails()){
-
+            foreach($temp as $tech){
+                $tech_spec[$tech->TechSpec->name]=$tech->value;
+            }
             return view('admin.pg.update',[
-                'pg' => $id,
+                'brand'=>$brand,
+                'pg'=>$id,
+                'tech_spec'=>$tech_all,
+                'ts'=>$tech_spec,
+                'color'=>$color,
             ])->withErrors($validator);
 
         }
 
-        ProductGroup::where('id',$id['id'])->update($request->except(
-            ['_token']));
+//        foreach ($request->tech as $i) {
+//            if ($i !== null) {
+//                $tech_insert[] = [
+//                    'tech_id' => $i['id'],
+//                    'pg_id'   => $id->id,
+//                    'value'   => $i,
+//                ];
+//            }
+//        }
+//        dd($tech_insert);
+//        foreach ($tech_insert as $t) {
+//            TechSpecDetail::create($t);
+//        }
+        foreach ($color as $each) {
+            if ($request->hasfile($each->id . '_image')) {
+                $uploadPath = 'uploads/products/' . $each->name . '_' . $a->name;
+                foreach ($request->file($each->id . '_image') as $imagefile) {
+                    $x = 1;
+                    $extention = $imagefile->getClientOriginalExtension();
+                    $filename = $a->name . '_' . $x . '.' . $extention;
+                    $imagefile->move($uploadPath, $filename);
+                    $finalImagePathName = $uploadPath . '/' . $filename;
+                    Image::create([
+                        'pg_id'    => $a->id,
+                        'color_id' => $each->id,
+                        'image'    => $finalImagePathName,
+                    ]);
+                    $x++;
+                }
+            }
+        }
+        ProductGroup::where('id',$id['id'])->update([
+            'name'=>$request->get('name'),
+            'brand_id'=>$request->get('brand_id'),
+
+        ]);
 
         return redirect()->route('pg')->with('message','Successfully updated');
 

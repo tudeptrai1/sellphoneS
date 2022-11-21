@@ -34,6 +34,9 @@ class Product extends Model
         );
 
     }
+    public function pg(){
+        return $this->belongsTo(ProductGroup::class,'pg_id');
+    }
 
 
 }
