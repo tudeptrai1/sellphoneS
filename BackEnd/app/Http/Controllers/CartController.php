@@ -143,5 +143,20 @@ class CartController extends Controller
         ];
         return response()->json($arr, 200);
     }
+    public function add(Request $request){
 
+        $cart = [
+            'user_id' => $request->user_id,
+            'product_id' => $request->product_id,
+            'amount' => 1,
+        ];
+
+        $res=Cart::create($cart);
+        $arr = [
+            'status'  => true,
+            'message' => "Thêm vào giỏ hàng",
+            'data'    => $res,
+        ];
+        return response()->json($arr, 200);
+    }
 }

@@ -383,6 +383,7 @@ class ProductController extends Controller
 
 
 }
+
     public function searchName(Product $product)
     {
 
