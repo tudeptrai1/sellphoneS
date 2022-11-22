@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <link href="{{asset('images/logo.svg')}}" rel="shortcut icon">
-    <title>Dashboard - Midone - Tailwind HTML Admin Template</title>
+    <title>Admin</title>
     <!-- BEGIN: CSS Assets-->
     @vite('resources/css/app.css')
     <!-- END: CSS Assets-->

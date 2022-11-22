@@ -15,14 +15,26 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
     public function index()
     {
 
-        $order = Order::all();
+        $orders = Order::all();
+        $total=0;
+
+        foreach($orders as $order){
+            foreach($order->detail as $detail)
+            {
+                $total += $detail->quantity*$detail->product->sell_price;
+            }
+            $order->total = $total;
+            $total=0;
+        }
+
 
         return view('admin.order.index',
         [
-            'order'=>$order,
+            'order'=>$orders,
         ]);
     }
 

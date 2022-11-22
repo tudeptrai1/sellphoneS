@@ -36,6 +36,15 @@
                             <div class=" text-danger">{{ $errors->first('brand_id') }}</div>
                         @endif
                     </div>
+                    <div class="mt-3">
+                        <label>Description</label>
+                        <div class="mt-2 " >
+                            <textarea name="description" class="form-control" cols="64px" rows="6"></textarea>
+                        </div>
+                        @if($errors->has('description'))
+                            <div class="text-danger ">{{ $errors->first('description') }}</div>
+                        @endif
+                    </div>
                     <!-- BEGIN: Multiple File Upload -->
                     <div class="intro-y box mt-5">
                         <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
@@ -64,6 +73,7 @@
                         </div>
                     </div>
                     <!-- END: Multiple File Upload -->
+
                     <!-- BEGIN: Product Variant -->
                     <div class="intro-y box p-5 mt-5">
                         <div class=" input_fields_wrap border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">

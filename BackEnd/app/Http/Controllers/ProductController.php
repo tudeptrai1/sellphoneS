@@ -24,7 +24,7 @@ class ProductController extends Controller
         $https = new \GuzzleHttp\Client;
         $q = $request->get('search');
 
-        if ($q == null) {
+        if ($q === null) {
             $response = $https->get(env('BASE_URL') . '/api/product');
 
         } else {

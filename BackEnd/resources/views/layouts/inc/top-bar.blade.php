@@ -4,15 +4,12 @@
         <!-- BEGIN: Logo -->
         <a href="" class="logo -intro-x hidden md:flex xl:w-[180px] block">
             <img src="{{ Vite::asset('public/images/logo.svg') }}" width="20px">
-            <span class="logo__text text-white text-lg ml-3"> Enigma </span>
+            <span class="logo__text text-white text-lg ml-3"> Admin </span>
         </a>
         <!-- END: Logo -->
         <!-- BEGIN: Breadcrumb -->
         <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
-            <ol class="breadcrumb breadcrumb-light">
-                <li class="breadcrumb-item"><a href="#">Application</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
+
         </nav>
         <!-- END: Breadcrumb -->
 

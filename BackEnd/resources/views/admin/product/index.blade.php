@@ -39,7 +39,7 @@
                 <table class="table table-report -mt-2">
                     <thead>
                     <tr>
-                        <th class="whitespace-nowrap">IMAGES</th>
+
                         <th class="whitespace-nowrap">PRODUCT NAME</th>
                         <th class="text-center whitespace-nowrap">STOCK</th>
                         <th class="text-center whitespace-nowrap">PRICE</th>
@@ -51,19 +51,7 @@
                     @foreach($data as $each)
                     <tr class="intro-x">
 
-                        <td class="w-40">
-{{--                            <div class="flex">--}}
-{{--                                <div class="w-10 h-10 image-fit zoom-in">--}}
-{{--                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img" >--}}
-{{--                                </div>--}}
-{{--                                <div class="w-10 h-10 image-fit zoom-in -ml-5">--}}
-{{--                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">--}}
-{{--                                </div>--}}
-{{--                                <div class="w-10 h-10 image-fit zoom-in -ml-5">--}}
-{{--                                    <img alt="img" class="tooltip rounded-full" src="{{$each->pg->image}}" title="img">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                        </td>
+
                         <td>
                             <a href="" class="font-medium whitespace-nowrap">{{$each['name']}}</a>
 {{--                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Photography</div>--}}

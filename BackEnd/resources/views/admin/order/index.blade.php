@@ -60,7 +60,7 @@
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{$each->Date()}}</div>
                     </td>
                     <td class="w-40 text-right">
-                        <div class="pr-16">$22,000,00</div>
+                        <div class="pr-16">{{number_format($each->total, 0, '', '.')}}</div>
                     </td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">
