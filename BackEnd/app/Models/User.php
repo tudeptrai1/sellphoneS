@@ -51,4 +51,5 @@ class User extends Authenticatable
             'product_id' // trường mà chúng ta muốn liên kết ở bảng trung gian.
         );
     }
+
 }

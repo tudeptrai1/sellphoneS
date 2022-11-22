@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('user', [UserController::class, 'login']);
-Route::post('login', [AdminController::class, 'login'])->name('login.access');
 
 Route::prefix('brand')->group(function () {
     Route::get('/', [BrandController::class, 'all']);

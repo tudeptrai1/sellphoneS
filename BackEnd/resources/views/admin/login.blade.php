@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en" class="light">
+<html lang="en" class="light" >
 <!-- BEGIN: Head -->
 <head>
     <meta charset="utf-8">
-    <link href="dist/images/logo.svg" rel="shortcut icon">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Enigma admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Enigma Admin Template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="LEFT4CODE">
-    <title>Login - Midone - Tailwind HTML Admin Template</title>
+    <title>Login</title>
     <!-- BEGIN: CSS Assets-->
     @vite('resources/css/app.css')
     <!-- END: CSS Assets-->
@@ -21,8 +21,8 @@
         <!-- BEGIN: Login Info -->
         <div class="hidden xl:flex flex-col min-h-screen">
             <a href="" class="-intro-x flex items-center pt-5">
-                <img alt="Midone - HTML Admin Template" class="w-6" src="dist/images/logo.svg">
-                <span class="text-white text-lg ml-3"> Enigma </span>
+                <img alt="Midone - HTML Admin Template" class="w-6" src="{{asset('images/logo.svg')}}">
+                <span class="text-white text-lg ml-3"> Admin </span>
             </a>
             <div class="my-auto">
                 <img  class="-intro-x w-1/2 -mt-16" src="{{asset('images/illustration.svg')}}">
@@ -37,7 +37,8 @@
         <!-- END: Login Info -->
         <!-- BEGIN: Login Form -->
         <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
-            <form class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0" method="post" action="{{route('login.access')}}">
+            <form class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0" method="post" action="{{route('login')}}">
+                @csrf
             <div class="my-auto mx-auto xl:ml-20 bg-white dark:bg-darkmode-600 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
                 <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
                     Sign In
@@ -53,32 +54,14 @@
 
                 </div>
             </div>
-            </form class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+            </form>
         </div>
         <!-- END: Login Form -->
     </div>
 </div>
-<!-- BEGIN: Dark Mode Switcher-->
-<div data-url="login-dark-login.html" class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box dark:bg-dark-2 border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
-    <div class="mr-4 text-gray-700 dark:text-gray-300">Dark Mode</div>
-    <div class="dark-mode-switcher__toggle border"></div>
-</div>
-<!-- END: Dark Mode Switcher-->
 
 <!-- BEGIN: JS Assets-->
 @vite('resources/js/app.js')
 <!-- END: JS Assets-->
 </body>
 </html>
-<script>
-    function changeColor(){
-        const element = document.querySelector("#theme11");
-        element.classList.toggle("dark");
-    }
-    document.addEventListener("DOMContentLoaded", function() {
-        const myModal = tailwind.Modal.getOrCreateInstance(document.querySelector("#basic-modal"));
-        myModal.show();
-    });
-
-
-</script>

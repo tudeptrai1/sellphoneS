@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+use App\Models\UserPayment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class UserPaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
     public function index()
     {
         //
@@ -44,10 +41,10 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\UserPayment  $userPayment
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(UserPayment $userPayment)
     {
         //
     }
@@ -55,10 +52,10 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\UserPayment  $userPayment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(UserPayment $userPayment)
     {
         //
     }
@@ -67,10 +64,10 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\UserPayment  $userPayment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, UserPayment $userPayment)
     {
         //
     }
@@ -78,10 +75,10 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\UserPayment  $userPayment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(UserPayment $userPayment)
     {
         //
     }
