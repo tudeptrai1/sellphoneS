@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Image;
 use App\Models\Memory;
@@ -10,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\TechSpec;
 use App\Models\TechSpecDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;

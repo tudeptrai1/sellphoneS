@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function cart()
+    {
+        return $this->hasManyThrough(
+            Product::class, Cart::class,
+            'user_id', // khóa ngoại của bảng trung gian
+            'id', // khóa ngoại của bảng mà chúng ta muốn gọi tới
+            'id', //trường mà chúng ta muốn liên kết ở bảng đang sử dụng
+            'product_id' // trường mà chúng ta muốn liên kết ở bảng trung gian.
+        );
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ImageController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\UserController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,7 +61,6 @@ Route::prefix('product')->group(function () {
     Route::get('/brand/{brand_id}', [ProductController::class, 'brand']);
 
     Route::get('/search/name/{name}', [ProductController::class, 'searchName']);
-
     Route::get('/search', [ProductController::class, 'search']);
 
 });
@@ -70,4 +71,10 @@ Route::prefix('image')->group(function () {
 });
 Route::prefix('discount')->group(function () {
     Route::get('/check/{code}', [DiscountController::class, 'check']);
+});
+
+
+Route::middleware('auth:sanctum')->prefix('cart')->group(function () {
+    Route::get('/get/{user_id}', [CartController::class, 'cart']);
+    Route::get('/count/{user_id}', [CartController::class, 'count']);
 });
