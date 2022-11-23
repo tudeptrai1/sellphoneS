@@ -92,7 +92,7 @@ class CartController extends Controller
         $products=User::find($userid)->cart;
         foreach ($products as $product) {
             $cart=DB::table('carts')->whereUserId($userid)->whereProductId($product->id)->select('amount')->get()->first();
-            $product->amountCart = $cart->amount;
+            $product->amount_cart = $cart->amount;
 
             $brand = ProductGroup::find($product->pg_id)->brand;
             $product->brand = $brand;
@@ -124,7 +124,6 @@ class CartController extends Controller
                 ->first();
             $product->discount = $discount;
         }
-
         $arr = [
             'status'  => true,
             'message' => "Danh sách sản phẩm",
@@ -144,7 +143,7 @@ class CartController extends Controller
         return response()->json($arr, 200);
     }
     public function add(Request $request){
-
+//        $carts=Cart::find($request->user_id)
         $cart = [
             'user_id' => $request->user_id,
             'product_id' => $request->product_id,
