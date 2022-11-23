@@ -3,12 +3,14 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +24,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->get('/', function () {
-    return view('dashboard');
-})->name('admin');
+Route::middleware('auth')->get('/',[DashboardController::class, 'index'])->name('dashboard');
 
 
 Route::get('/login',[LoginController::class, 'index']);
 Route::post('/login',[LoginController::class, 'login'])->name('login');
-
+Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->prefix('brand')->group(function () {
     Route::get('/', [BrandController::class, 'index'])->name('brand');
     Route::get('/create', [BrandController::class, 'create'])->name('brand.create');
@@ -69,8 +69,13 @@ Route::middleware('auth')->prefix('product')->group(function () {
 Route::middleware('auth')->prefix('order')->group(function () {
     Route::get('/',[OrderController::class, 'index'])->name('order');
     Route::get('view/{id}',[OrderController::class, 'view'])->name('order.view');
-    Route::get('edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
-    Route::post('edit/{id}', [OrderController::class, 'update'])->name('order.update');
-    Route::delete('destroy/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
+    Route::post('view/{id}',[OrderController::class, 'edit'])->name('order.status');
+    Route::get('/invoice/{id}',[OrderController::class, 'viewInvoice'])->name('invoice');
+
+});
+
+Route::middleware('auth')->prefix('user')->group(function () {
+    Route::get('/',[UserController::class, 'index'])->name('user');
+    Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 });
 

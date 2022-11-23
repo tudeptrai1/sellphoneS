@@ -253,7 +253,7 @@
 
                                     <tr>
                                         @if($color_item->id===$color['0']->id)
-                                      <td rowspan="{{count($color) }}" class="border-r">{{$memory_item->value}}GB</td>
+                                      <td rowspan="{{count($color) }}" class="border-r">{{$memory_item->value}}</td>
                                         @endif
                                         <td>{{$color_item->name}}</td>
 

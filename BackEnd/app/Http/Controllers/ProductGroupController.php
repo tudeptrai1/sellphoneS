@@ -215,21 +215,21 @@ class ProductGroupController extends Controller
         foreach ($tech_insert as $t) {
                 $a[]=TechSpecDetail::wherePgId($id->id)->whereTechId($t['tech_id'])->get();
 
-//            if($a===null){
-//
-//                TechSpecDetail::create([
-//                    'pg_id' => $t['pg_id'],
-//                    'tech_id' => $t['tech_id'],
-//                    'value' => $t['value'],
-//                ]);
-//            }
-//            else{
-//                TechSpecDetail::where('tech_id',$t['tech_id'])->where('pg_id',$id->id)->update([
-//                    'value'=>$t['value'],
-//                    ]);
-//            }
+            if($a===null){
+
+                TechSpecDetail::create([
+                    'pg_id' => $t['pg_id'],
+                    'tech_id' => $t['tech_id'],
+                    'value' => $t['value'],
+                ]);
+            }
+            else{
+                TechSpecDetail::where('tech_id',$t['tech_id'])->where('pg_id',$id->id)->update([
+                    'value'=>$t['value'],
+                    ]);
+            }
         }
-        dd($a);
+
         ///end tech spec
         foreach ($color as $each) {
             if ($request->hasfile($each->id . '_image')) {

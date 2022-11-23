@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                     'email'=> $faker->email,
                     'password' => bcrypt('secret'),
                     'phone' =>$faker->PhoneNumber,
-                    'address'=>$faker->Address,
+                    'address' => $faker->Address,
                     'point' => random_int(0,999),
                     'rank_id'=>6,
 //                    'remember_token'=>Str::random(10) ko biet lam nhu nao

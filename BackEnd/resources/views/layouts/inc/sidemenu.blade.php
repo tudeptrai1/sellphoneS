@@ -2,7 +2,7 @@
 <nav class="side-nav">
     <ul>
         <li>
-            <a href="javascript:;.html" class="side-menu ">
+            <a href="{{route('dashboard')}}" class="side-menu ">
                 <div class="side-menu__icon"> <i data-lucide="home"></i> </div>
                 <div class="side-menu__title">
                     Dashboard
@@ -53,6 +53,12 @@
             <a href="{{route('order')}}" class="side-menu">
                 <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                 <div class="side-menu__title"> Order </div>
+            </a>
+        </li>
+        <li>
+            <a href="{{route('user')}}" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="user"></i> </div>
+                <div class="side-menu__title"> User </div>
             </a>
         </li>
     </ul>

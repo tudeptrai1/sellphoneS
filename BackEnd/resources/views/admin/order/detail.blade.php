@@ -16,10 +16,7 @@
                     <div class="dropdown-menu w-40">
                         <ul class="dropdown-content">
                             <li>
-                                <a href="" class="dropdown-item"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Export Word </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Export PDF </a>
+                                <a href="{{route('invoice',$order->id)}}" class="dropdown-item"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Export PDF </a>
                             </li>
                         </ul>
                     </div>
@@ -32,9 +29,9 @@
                 <div class="box p-5 rounded-md">
                     <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                         <div class="font-medium text-base truncate">Order Details</div>
-                        <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Change Status </a>
+                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview" class="flex items-center ml-auto text-primary"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Change Status </a>
                     </div>
-                    <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i> ID: <a href="" class="underline decoration-dotted ml-1">{{$order->id}}</a> </div>
+                    <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i> ID: <a href="" class="underline decoration-dotted ml-1">{{$order['id']}}</a> </div>
                     <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i> Purchase Date: {{$order->date()}} </div>
                     <div class="flex items-center mt-3"> <i data-lucide="clock" class="w-4 h-4 text-slate-500 mr-2"></i> Transaction Status: {{$order->status}} </div>
                 </div>
@@ -43,9 +40,9 @@
                         <div class="font-medium text-base truncate">Buyer Details</div>
                         <a href="" class="flex items-center ml-auto text-primary"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> View Details </a>
                     </div>
-                    <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i> Name: <a href="" class="underline decoration-dotted ml-1">{{$order->user->full_name}}</a> </div>
-                    <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i> Phone Number: {{$order->user->phone}} </div>
-                    <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i> Address: {{$order->user->address}} </div>
+                    <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i> Name: <a href="" class="underline decoration-dotted ml-1">{{$order->address->receive_name}}</a> </div>
+                    <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i> Phone Number: {{$order->address->receive_phone}} </div>
+                    <div class="flex items-center mt-3"> <i data-lucide="map-pin" class="w-4 h-4 text-slate-500 mr-2"></i> Address: {{$order->abc()}} </div>
                 </div>
                 <div class="box p-5 rounded-md mt-5">
                     <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
@@ -115,6 +112,38 @@
                 </div>
             </div>
         </div>
+    <!-- BEGIN: Modal Content -->
+    <div id="header-footer-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- BEGIN: Modal Header -->
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Change Status</h2>
+
+                </div> <!-- END: Modal Header -->
+                <!-- BEGIN: Modal Body -->
+                <form method="post" action="{{route('order.status',$order->id)}}">
+                    @csrf
+
+                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12 sm:col-span-6"> <label for="modal-form-6" class="form-label">Status</label> <select id="modal-form-6" class="form-select" name="status_change">
+
+                                <option value="Waiting for confirm" {{$order->status === 'Waiting for Confirm' ? 'selected':''}}>Waiting For Confirm</option>
+                                <option value="Confirmed"{{$order->status=== 'Confirmed' ? 'selected':''}}>Confirmed</option>=
+                                <option value="Completed"{{$order->status=== 'Completed' ? 'selected':''}}>Completed</option>
+                                <option value="Canceled"{{$order->status=== 'Canceled' ? 'selected':''}}>Canceled</option>
+                            </select> </div>
+                    </div> <!-- END: Modal Body -->
+
+                    <!-- BEGIN: Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-primary w-20">Change</button>
+                    </div> <!-- END: Modal Footer -->
+                </form>
+            </div>
+        </div>
+    </div> <!-- END: Modal Content -->
         <!-- END: Transaction Details -->
 
     <!-- END: Content -->

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -49,4 +51,22 @@ class UserController extends Controller
         return response()->json($request);
     }
 
+    public function index(){
+        $users = User::all();
+        foreach ($users as $user){
+            $total_order = Order::whereUserId($user->id)->count();
+            $user->total = $total_order;
+        }
+
+
+      return view('admin.user.index',[
+          'users' => $users,
+      ]);
+    }
+    public function destroy(User $id){
+        $deleted = User::where('id', $id->id)->delete();
+        return back()->with('message','Delete Successfully');
+
+
+    }
 }

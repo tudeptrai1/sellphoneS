@@ -7,6 +7,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MemoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
 use App\Http\Controllers\UserController;
@@ -71,7 +72,10 @@ Route::prefix('image')->group(function () {
 Route::prefix('discount')->group(function () {
     Route::get('/check/{code}', [DiscountController::class, 'check']);
 });
-
+Route::prefix('order')->group(function () {
+    Route::get('/', [OrderController::class, 'all']);
+    Route::get('/{id}', [OrderController::class, 'get']);
+});
 
 Route::middleware('auth:sanctum')->prefix('cart')->group(function () {
     Route::get('/get/{user_id}', [CartController::class, 'cart']);

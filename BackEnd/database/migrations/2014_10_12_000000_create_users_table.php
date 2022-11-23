@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('address');
             $table->unsignedBigInteger('point')->nullable();
             $table->unsignedBigInteger('rank_id')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken()->nullable(); //ko biet lam nhu nao;
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }

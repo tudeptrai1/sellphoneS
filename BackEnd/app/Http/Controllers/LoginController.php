@@ -23,7 +23,7 @@ class LoginController extends Controller
         return view('admin.login');
     }
 
-    public function login( Request $request ): string
+    public function login( Request $request )
     {
 
 
@@ -31,12 +31,13 @@ class LoginController extends Controller
                 'email' => 'required',
                 'password' => 'required'
             ]);
+
         if(Auth::attempt(
             [
                 'email'=>$request->input('email') ,
                 'password'=>$request->input('password')
             ])){
-            return redirect()->route('brand');
+            return redirect()->route('dashboard');
         }
 
         return redirect()->back();
@@ -48,8 +49,9 @@ class LoginController extends Controller
 
     }
 
-    public function logout(Request $request){
-
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect()->route('login');
     }
     /**
      * Store a newly created resource in storage.
