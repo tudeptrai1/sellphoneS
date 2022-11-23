@@ -72,9 +72,10 @@ Route::prefix('image')->group(function () {
 Route::prefix('discount')->group(function () {
     Route::get('/check/{code}', [DiscountController::class, 'check']);
 });
-Route::prefix('order')->group(function () {
+Route::middleware('auth:sanctum')->prefix('order')->group(function () {
     Route::get('/', [OrderController::class, 'all']);
     Route::get('/{id}', [OrderController::class, 'get']);
+    Route::post('/store',[OrderController::class,'store']);
 });
 
 Route::middleware('auth:sanctum')->prefix('cart')->group(function () {
@@ -82,6 +83,5 @@ Route::middleware('auth:sanctum')->prefix('cart')->group(function () {
     Route::post('/add', [CartController::class, 'add']);
     Route::post('/update', [CartController::class, 'updateAmount']);
     Route::post('/delete', [CartController::class, 'delete']);
-
     Route::get('/count/{user_id}', [CartController::class, 'count']);
 });

@@ -7,8 +7,11 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\UserAddress;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -114,11 +117,55 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'user_id' => 'required',
+            'payment_method' => 'required',
+
+            'receive_name' => 'required',
+            'receive_phone' =>'required',
+            'province' => 'required',
+            'ward' =>'required',
+            'district' =>'required',
+            'detail' =>'required',
+
+]);
+        if($validator->fails()){
+            $arr = [
+                'success' => false,
+                'message' => 'Lỗi kiểm tra dữ liệu',
+                'data' => $validator->errors()
+            ];
+            return response()->json($arr, 200);
+        }
+
+
+        Order::insert(
+            ['user_id' => $input['user_id'], 'payment_method'=>$input['payment_method'],'payment_id'=>strtoupper('PAYAZS'.Str::random(5)), 'ordered_date' => now(),'status' => 'Waiting for confirm']
+        );
+  $order= Order::orderByRaw('ordered_date DESC')->get()->first();
+
+
+        foreach($input['products'] as $product) {
+
+            OrderDetail::insert(
+                ['order_id' =>$order['id'] , 'product_id' => $product['id'], 'quantity' => $product['quantity']]
+        );
+        }
+        UserAddress::insert([
+            ['user_id' => $input['user_id'],'order_id' => $order->id,'receive_name'=>$input['receive_name'],'receive_phone'=>$input['receive_phone'],'province'=>$input['province'],'district'=>$input['district'],'ward'=>$input['ward'],'detail'=>$input['detail']]
+        ]);
+
+        $arr = ['status' => true,
+            'message'=>"Đơn hàng đã lưu thành công",
+            'data'=>$order,
+        ];
+        return response()->json($arr, 201);
+
     }
 
     /**
