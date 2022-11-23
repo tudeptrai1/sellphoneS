@@ -22,19 +22,9 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,7 +35,7 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param \App\Models\Cart $cart
      * @return \Illuminate\Http\Response
      */
     public function show(Cart $cart)
@@ -56,7 +46,7 @@ class CartController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param \App\Models\Cart $cart
      * @return \Illuminate\Http\Response
      */
     public function edit(Cart $cart)
@@ -65,33 +55,22 @@ class CartController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param \App\Models\Cart $cart
      * @return \Illuminate\Http\Response
      */
     public function destroy(Cart $cart)
     {
         //
     }
+
     public function cart($userid): \Illuminate\Http\JsonResponse
     {
-        $cart=DB::table('carts')->whereUserId($userid)->get();
-        $products=User::find($userid)->cart;
+        $cart = DB::table('carts')->whereUserId($userid)->orderBy('updated_at', 'desc')->get();
+        $products = User::find($userid)->cart;
         foreach ($products as $product) {
-            $cart=DB::table('carts')->whereUserId($userid)->whereProductId($product->id)->select('amount')->get()->first();
+            $cart = DB::table('carts')->whereUserId($userid)->whereProductId($product->id)->select('amount')->get()->first();
             $product->amount_cart = $cart->amount;
 
             $brand = ProductGroup::find($product->pg_id)->brand;
@@ -131,9 +110,10 @@ class CartController extends Controller
         ];
         return response()->json($arr, 200);
     }
+
     public function count($userid): \Illuminate\Http\JsonResponse
     {
-        $cart=Cart::whereUserId($userid)->count();
+        $cart = Cart::whereUserId($userid)->sum('amount');
 
         $arr = [
             'status'  => true,
@@ -142,19 +122,63 @@ class CartController extends Controller
         ];
         return response()->json($arr, 200);
     }
-    public function add(Request $request){
-//        $carts=Cart::find($request->user_id)
-        $cart = [
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
-            'amount' => 1,
-        ];
 
-        $res=Cart::create($cart);
+    public function add(Request $request)
+    {
+        $carts = Cart::whereUserId($request->user_id)->whereProductId($request->product_id)->get();
+        if (count($carts) === 0) {
+            $cart = [
+                'user_id'    => $request->user_id,
+                'product_id' => $request->product_id,
+                'amount'     => 1,
+            ];
+            $res = Cart::create($cart);
+        } else {
+            $res = Cart::whereUserId($request->user_id)->whereProductId($request->product_id)
+                ->update(['amount' => DB::raw('amount+1')]);
+        }
         $arr = [
             'status'  => true,
-            'message' => "Thêm vào giỏ hàng",
-            'data'    => $res,
+            'message' => "Them thanh cong",
+            'data'    => ($res),
+        ];
+        return response()->json($arr, 200);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Cart $cart
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Cart $cart)
+    {
+        //
+    }
+
+    public function updateAmount(Request $request)
+    {
+        $request->amount === '0' ?
+            $res = Cart::whereUserId($request->user_id)->whereProductId($request->product_id)
+                ->delete()
+            : $res = Cart::whereUserId($request->user_id)->whereProductId($request->product_id)
+            ->update(['amount' => $request->amount]);
+
+        $arr = [
+            'status'  => true,
+            'message' => "Update so luong thanh cong",
+            'data'    => ($res),
         ];
         return response()->json($arr, 200);
     }

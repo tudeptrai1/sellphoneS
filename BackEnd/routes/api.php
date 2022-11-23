@@ -76,7 +76,7 @@ Route::prefix('discount')->group(function () {
 Route::middleware('auth:sanctum')->prefix('cart')->group(function () {
     Route::get('/get/{user_id}', [CartController::class, 'cart']);
     Route::post('/add', [CartController::class, 'add']);
-    Route::post('/update', [CartController::class, 'update']);
+    Route::post('/update', [CartController::class, 'updateAmount']);
     Route::post('/delete', [CartController::class, 'delete']);
 
     Route::get('/count/{user_id}', [CartController::class, 'count']);
