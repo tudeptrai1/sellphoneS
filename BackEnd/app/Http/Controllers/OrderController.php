@@ -119,7 +119,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function add(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make($input, [

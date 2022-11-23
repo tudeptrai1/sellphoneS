@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -67,6 +68,38 @@ class UserController extends Controller
         $deleted = User::where('id', $id->id)->delete();
         return back()->with('message','Delete Successfully');
 
+
+    }
+    public function register(Request $request){
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'full_name' => 'required',
+            'email' => 'required|email',
+            'phone' =>  ['required','numeric','digits:10'],
+
+            'password' => [
+                'required',
+                'min:8'
+            ],
+            'address' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+
+        $postArray = [
+            'full_name'  => $request->full_name,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'phone'     => $request->phone,
+            'remember_token' => $request->token,
+            'address' => $request->address,
+            'created_at'=> now(),
+        ];
+
+
+        $user = User::create($postArray);
+        return Response()->json(array("success"=> 1,"data"=>$postArray,"status"=>200 ));
 
     }
 }

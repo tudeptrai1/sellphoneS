@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('user', [UserController::class, 'login']);
-
+Route::post('register', [UserController::class, 'register']);
 Route::prefix('brand')->group(function () {
     Route::get('/', [BrandController::class, 'all']);
     Route::get('/{name}', [BrandController::class, 'search']);
@@ -75,7 +75,7 @@ Route::prefix('discount')->group(function () {
 Route::middleware('auth:sanctum')->prefix('order')->group(function () {
     Route::get('/', [OrderController::class, 'all']);
     Route::get('/{id}', [OrderController::class, 'get']);
-    Route::post('/store',[OrderController::class,'store']);
+    Route::post('/add',[OrderController::class,'add']);
 });
 
 Route::middleware('auth:sanctum')->prefix('cart')->group(function () {
