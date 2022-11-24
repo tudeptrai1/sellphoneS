@@ -1,0 +1,50 @@
+:root{
+    --border_around: 0 0 4px rgb(0 0 0 / 30%);
+    --border_radius: 10px;
+    --color_cate: #444;
+    --border_around_main:0 1px 2px 0 rgb(60 64 67 / 10%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+}
+.account_sidebar{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 25%;
+    height: 350px;   
+}
+.account_name{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 15px;
+    padding: 10px;
+    height: 30%;
+    box-shadow: var(--border_around_main);    
+}
+.account_text{
+    margin: 10px 20px 0px 0px;
+    font-weight: 500;
+}
+.icon_user{
+    width: 80px;
+    height: 80px;     
+}
+.account_menu{
+    border-radius: 15px;
+    padding: 15px 10px 0px 10px;
+    height: fit-content;
+    margin-top: 20px;
+    box-shadow: var(--border_around_main);
+}
+.account_menu_item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: var(--border_around_main);
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding: 0.5px 10px;
+    border-radius: 15px;
+    color: #686868;
+}
+.account_menu_item p{
+    margin: 8px 0px 5px 10px;
+}

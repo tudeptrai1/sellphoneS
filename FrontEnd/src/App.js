@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes/routes';
 import DefaultLayout from '~/layouts';
-
+import axios from 'axios';
 function App() {
    return (
       <Router>
@@ -16,7 +16,6 @@ function App() {
                   } else if (route.layout === 'null') {
                      Layout = Fragment;
                   }
-
                   const Page = route.component;
                   return (
                      <Route
