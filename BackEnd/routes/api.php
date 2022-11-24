@@ -75,6 +75,8 @@ Route::prefix('discount')->group(function () {
 Route::middleware('auth:sanctum')->prefix('order')->group(function () {
     Route::get('/', [OrderController::class, 'all']);
     Route::post('/get', [OrderController::class, 'get']);
+    Route::post('/all', [OrderController::class, 'getAll']);
+    Route::post('/cancel', [OrderController::class, 'cancel']);
 
     //lay don hang vua tao frontend
     Route::post('/recent', [OrderController::class, 'recent']);

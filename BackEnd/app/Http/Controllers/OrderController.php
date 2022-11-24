@@ -188,48 +188,79 @@ class OrderController extends Controller
             $orders->total_discount_coupons = $total_discount_coupons;
 
         }
-        //        $quantity = 0;
-        //                $total=0;
-        //                foreach($id->detail as $detail)
-        //                {
-        //                    $quantity+=$detail->quantity;
-        //
-        //                    $total += $detail->quantity*$detail->product->sell_price;
-        //                }
-        //
-        //                $id->quantity = $quantity;
-        //                $id->total = $total;
-        //                $id->user;
-        //                $id->address;
         $arr = [
             'status'  => true,
             'message' => "Chi tiết đơn hàng",
             'data'    => $orders,
 
         ];
-        //        $quantity = 0;
-        //        $total=0;
-        //        foreach($id->detail as $detail)
-        //        {
-        //            $quantity+=$detail->quantity;
-        //
-        //            $total += $detail->quantity*$detail->product->sell_price;
-        //        }
-        //
-        //        $id->quantity = $quantity;
-        //        $id->total = $total;
-        //        $id->user;
-        //        $id->address;
-        //        $arr = [
-        //            'status'  => true,
-        //            'message' => "Chi tiết đơn hàng",
-        //            'data'    => $id,
-        //
-        //        ];
         return response()->json($arr, 200);
     }
-    public function recent(Request $request){
-        $id=DB::table('orders')->whereUserId($request->user_id)->wherePaymentId($request->payment_id)->select('id')->get()->first();
+
+    public function getAll(Request $request)
+    {
+        $res=[];
+        $orders = DB::table('orders')->where('user_id', $request->user_id)->orderBy('ordered_date', 'DESC')->get();
+        if ($orders) {
+            $amount = 0;
+            $total = 0;
+
+            foreach ($orders as $order) {
+                $details = Order::find($order->id)->detail;
+
+                $total_amount = 0;
+                $total_product = 0;
+                $total_discount = 0;
+                $total_discount_coupons = 0;
+                foreach ($details as $p) {
+                    $product = Product::find($p->product_id);
+                    $discount = Discount::find($p->discount_id);
+                    $product->discount = $discount;
+                    $product->ordered_amount = $p->quantity;
+                    $total_amount += $p->quantity;
+                    $total_product += $product->sell_price * $p->quantity;
+                    $total_discount += $product->discount !== null ? (($product->discount->discount_value * $product->sell_price) / 100) * $p->quantity : 0;
+                    $total_discount_coupons = 0;
+                }
+                unset($details);
+                $order->total_amount = $total_amount;
+                $order->total_discount = $total_discount;
+                $order->total_product = $total_product;
+                $order->total_discount_coupons = $total_discount_coupons;
+                $amount += $total_amount;
+                $total += $total_product - $total_discount - $total_discount_coupons;
+            }
+            $res['amount'] = $amount;
+            $res['total'] = $total;
+            $res['count'] = $orders->count();
+            $res['orders']=$orders;
+
+        }
+        $arr = [
+            'status'  => true,
+            'message' => "Đơn hàng",
+            'data'    => $res,
+
+        ];
+        return response()->json($arr, 200);
+    }
+    public function cancel(Request $request){
+        $res = DB::table('orders')
+            ->where('id', $request->id)
+            ->where('user_id', $request->user_id)
+            ->where('payment_method', 'Cash in Delivery')
+            ->where('status', 'Waiting for confirm')
+            ->update(['status' => 'Canceled']);
+        $arr = [
+            'status'  => true,
+            'message' => "Huỷ đơn",
+            'data'    => $res,
+        ];
+        return response()->json($arr, 200);
+    }
+    public function recent(Request $request)
+    {
+        $id = DB::table('orders')->whereUserId($request->user_id)->wherePaymentId($request->payment_id)->select('id')->get()->first();
         $arr = [
             'status'  => true,
             'message' => "Chi tiết đơn hàng",
@@ -239,6 +270,7 @@ class OrderController extends Controller
         return response()->json($arr, 200);
 
     }
+
     /**
      * Display the specified resource.
      *
