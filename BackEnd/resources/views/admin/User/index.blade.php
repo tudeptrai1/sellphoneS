@@ -3,7 +3,7 @@
     <!-- BEGIN: Content -->
 
         <h2 class="intro-y text-lg font-medium mt-10">
-            User List
+            Danh Sách Khách Hàng
         </h2>
         <div class="grid grid-cols-12 gap-6 mt-5">
             <div class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center mt-2">
@@ -23,11 +23,11 @@
                     <thead>
                     <tr>
 
-                        <th class="whitespace-nowrap">USER</th>
-                        <th class="text-center whitespace-nowrap">PHONE</th>
-                        <th class="text-center whitespace-nowrap">Address</th>
-                        <th class="text-center whitespace-nowrap">TOTAL ORDERS</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        <th class="whitespace-nowrap">TÊN</th>
+                        <th class="text-center whitespace-nowrap">SỐ ĐIỆN THOẠI</th>
+                        <th class="text-center whitespace-nowrap">ĐỊA CHỈ</th>
+                        <th class="text-center whitespace-nowrap">SỐ LƯỢNG ĐƠN</th>
+                        <th class="text-center whitespace-nowrap">HÀNH ĐỘNG</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,7 +50,7 @@
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
 
-                                <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal{{$user->id}}"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+                                <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal{{$user->id}}"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Xóa </a>
                             </div>
                         </td>
                     </tr>
@@ -59,25 +59,20 @@
                         <form method="post" action="{{route('user.destroy',$user->id)}}">
                             @csrf
                             @method('delete')
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body p-0">
-                                    <div class="p-5 text-center">
-                                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                        <div class="text-3xl mt-5">Are you sure?</div>
-                                        <div class="text-slate-500 mt-2">
-                                            Do you really want to delete these records?
-                                            <br>
-                                            This process cannot be undone.
-                                        </div>
-                                    </div>
-                                    <div class="px-5 pb-8 text-center">
-                                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                        <button type="submit" class="btn btn-danger w-24">Delete</button>
-                                    </div>
+                            <div class="p-5 text-center">
+                                <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                <div class="text-3xl mt-5">Bạn chắc chứ?</div>
+                                <div class="text-slate-500 mt-2">
+                                    Bạn thật sự muốn xóa bản ghi này sao ??
+                                    <br>
+                                    Hành động này không thể hoàn tác.
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="px-5 pb-8 text-center">
+                                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Hủy</button>
+                                <button type="submit" class="btn btn-danger w-24">Xóa</button>
+                            </div>
                         </form>
                     </div>
 

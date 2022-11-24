@@ -5,7 +5,7 @@
     <div class="intro-y flex items-center mt-8">
 
         <h2 class="text-lg font-medium mr-auto">
-            Edit Product Group
+            Sửa
         </h2>
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">
@@ -16,14 +16,14 @@
                 @csrf
                 <div class="intro-y box p-5">
                     <div>
-                        <label for="crud-form-1" class="form-label">Product Group Name</label>
+                        <label for="crud-form-1" class="form-label">Tên</label>
                         <input id="crud-form-1" type="text" class="form-control w-full" value="{{$pg->name}}" name="name">
                         @if($errors->has('name'))
                             <div class="text-danger ">{{ $errors->first('name') }}</div>
                         @endif
                     </div>
                     <div class="mt-3">
-                        <label for="crud-form-3" class="form-label">Brand </label>
+                        <label for="crud-form-3" class="form-label">Nhãn hàng </label>
                         <select class="tom-select w-full" name="brand_id">
                             @foreach ($brand as $each)
                                 @if ($each->id === $pg->brand_id)
@@ -37,7 +37,7 @@
                         @endif
                     </div>
                     <div class="mt-3">
-                        <label>Description</label>
+                        <label>Mô tả</label>
                         <div class="mt-2 " >
                             <textarea name="description" class="form-control" cols="64px" rows="6"></textarea>
                         </div>
@@ -49,7 +49,7 @@
                     <div class="intro-y box mt-5">
                         <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
                             <h2 class="font-medium text-base mr-auto">
-                                Multiple File Upload
+                                Upload ảnh
                             </h2>
                         </div>
                         <div class="mt-5">
@@ -77,13 +77,13 @@
                     <!-- BEGIN: Product Variant -->
                     <div class="intro-y box p-5 mt-5">
                         <div class=" input_fields_wrap border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
-                            <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"> <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Product Technical Specifications </div>
+                            <div class="font-medium text-base flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5"> <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Cấu hình sản phẩm </div>
                             <div class="mt-5">
                                 <div class="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0">
                                     <div class="form-label sm:!mr-10">
                                         <div class="text-left">
                                             <div class="flex items-center">
-                                                <div class="font-medium">Product Technical Specifications</div>
+                                                <div class="font-medium">Cấu hình sản phẩm</div>
                                             </div>
                                         </div>
                                     </div>
@@ -107,8 +107,8 @@
                     <!-- END: Product Variant -->
 
                     <div class="text-right mt-5">
-                        <a href="{{route('pg')}}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
-                        <button type="submit" class="btn btn-primary w-24">Save</button>
+                        <a href="{{route('pg')}}" class="btn btn-outline-secondary w-24 mr-1">Hủy</a>
+                        <button type="submit" class="btn btn-primary w-24">Lưu</button>
                     </div>
                 </div>
             </form>

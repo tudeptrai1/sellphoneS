@@ -5,7 +5,7 @@
     <div class="intro-y flex items-center mt-8">
 
         <h2 class="text-lg font-medium mr-auto">
-            Add New Brand
+            Thêm Nhãn Hàng Mới
         </h2>
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">
@@ -16,7 +16,7 @@
             <div class="intro-y box p-5">
 
                 <div>
-                    <label for="crud-form-1" class="form-label">Brand Name</label>
+                    <label for="crud-form-1" class="form-label">Tên Nhãn Hàng</label>
                     <input id="crud-form-1" type="text" class="form-control w-full" placeholder="Input text" name="name">
                     @if($errors->has('name'))
                         <div class="text-danger ">{{ $errors->first('name') }}</div>
@@ -32,15 +32,15 @@
                     @endif
                 </div>
                 <div class="mt-3">
-                    <label>Active Status</label>
+                    <label>Trạng Thái</label>
                     <div class="form-switch mt-2">
                         <input type="checkbox" class="form-check-input" name="status">
                     </div>
                 </div>
                 <div class="mt-3">
-                    <label>Description</label>
+                    <label>Mô Tả</label>
                     <div class="mt-2 " >
-                        <textarea name="description" class="form-control" cols="64px" rows="6">Content of description.</textarea>
+                        <textarea name="description" class="form-control" cols="64px" rows="6">Nội dung mô tả.</textarea>
                         @if($errors->has('name'))
                             <div class="text-danger">{{ $errors->first('description') }}</div>
                         @endif
@@ -48,8 +48,8 @@
                 </div>
 
                 <div class="text-right mt-5">
-                    <a href="{{route('brand')}}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
-                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                    <a href="{{route('brand')}}" class="btn btn-outline-secondary w-24 mr-1">Hủy</a>
+                    <button type="submit" class="btn btn-primary w-24">Lưu</button>
                 </div>
             </div>
             </form>

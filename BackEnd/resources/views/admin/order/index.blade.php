@@ -3,7 +3,7 @@
 
 
     <h2 class="intro-y text-lg font-medium mt-10">
-        Order List
+        Danh sách đơn hàng
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
 
@@ -21,11 +21,11 @@
                 </div>
                 <select class="form-select box ml-2" name="status">
 
-                    <option value="">Status</option>
-                    <option value="Waiting for confirm" {{Request::get('status')=== 'Waiting for confirm' ? 'selected':''}} >Waiting For Confirm</option>
-                    <option value="Confirmed"{{Request::get('status')=== 'Confirmed' ? 'selected':''}}>Confirmed</option>=
-                    <option value="Completed"{{Request::get('status')=== 'Completed' ? 'selected':''}}>Completed</option>
-                    <option value="Canceled"{{Request::get('status')=== 'Canceled' ? 'selected':''}}>Canceled</option>
+                    <option value="">Trạng Thái</option>
+                    <option value="Waiting for confirm" {{Request::get('status')=== 'Waiting for confirm' ? 'selected':''}} >Chờ xác nhận</option>
+                    <option value="Confirmed"{{Request::get('status')=== 'Confirmed' ? 'selected':''}}>Đã xác nhận</option>=
+                    <option value="Completed"{{Request::get('status')=== 'Completed' ? 'selected':''}}>Đã giao hàng</option>
+                    <option value="Canceled"{{Request::get('status')=== 'Canceled' ? 'selected':''}}>Đã hủy</option>
                 </select>
                     <button class="ml-3 btn btn-primary shadow-md mr-2 w-48" type="submit">Filter</button>
             </form>
@@ -46,14 +46,14 @@
                 <thead>
                 <tr>
 
-                    <th class="whitespace-nowrap">ORDER ID</th>
-                    <th class="whitespace-nowrap">BUYER NAME</th>
-                    <th class="text-center whitespace-nowrap">STATUS</th>
-                    <th class="whitespace-nowrap">PAYMENT</th>
+                    <th class="whitespace-nowrap">ID</th>
+                    <th class="whitespace-nowrap">TÊN KHÁCH HÀNG</th>
+                    <th class="text-center whitespace-nowrap">TRẠNG THÁI</th>
+                    <th class="whitespace-nowrap">THANH TOÁN</th>
                     <th class="text-right whitespace-nowrap">
-                        <div class="pr-16">TOTAL TRANSACTION</div>
+                        <div class="pr-16">TỔNG TIỀN</div>
                     </th>
-                    <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    <th class="text-center whitespace-nowrap">HÀNH ĐỘNG</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,8 +77,8 @@
                     </td>
                     <td class="table-report__action">
                         <div class="flex justify-center items-center">
-                            <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{{route('order.view',$each->id)}}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> View Details </a>
-                            <a class="flex items-center text-primary whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview{{$each->id}}"> <i data-lucide="arrow-left-right" class="w-4 h-4 mr-1"></i> Change Status </a>
+                            <a class="flex items-center text-primary whitespace-nowrap mr-5" href="{{route('order.view',$each->id)}}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Xem chi tiết </a>
+                            <a class="flex items-center text-primary whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#header-footer-modal-preview{{$each->id}}"> <i data-lucide="arrow-left-right" class="w-4 h-4 mr-1"></i> Thay đổi </a>
                         </div>
                     </td>
                 </tr>
@@ -90,7 +90,7 @@
                         <div class="modal-content">
                             <!-- BEGIN: Modal Header -->
                             <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Change Status</h2>
+                                <h2 class="font-medium text-base mr-auto">Thay đổi trạng thái</h2>
 
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
@@ -98,19 +98,19 @@
                             @csrf
 
                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                <div class="col-span-12 sm:col-span-6"> <label for="modal-form-6" class="form-label">Status</label> <select id="modal-form-6" class="form-select" name="status_change">
+                                <div class="col-span-12 sm:col-span-6"> <label for="modal-form-6" class="form-label">Trạng thái</label> <select id="modal-form-6" class="form-select" name="status_change">
 
-                                        <option value="Waiting for confirm" {{$each->status === 'Waiting for Confirm' ? 'selected':''}}>Waiting For Confirm</option>
-                                        <option value="Confirmed"{{$each->status=== 'Confirmed' ? 'selected':''}}>Confirmed</option>=
-                                        <option value="Completed"{{$each->status=== 'Completed' ? 'selected':''}}>Completed</option>
-                                        <option value="Canceled"{{$each->status=== 'Canceled' ? 'selected':''}}>Canceled</option>
+                                        <option value="Waiting for confirm" {{$each->status === 'Waiting for Confirm' ? 'selected':''}}>Chờ xác nhận</option>
+                                        <option value="Confirmed"{{$each->status=== 'Confirmed' ? 'selected':''}}>Đã xác nhận</option>
+
+                                        <option value="Canceled"{{$each->status=== 'Canceled' ? 'selected':''}}>Đã hủy</option>
                                     </select> </div>
                             </div> <!-- END: Modal Body -->
 
                             <!-- BEGIN: Modal Footer -->
                             <div class="modal-footer">
-                                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                             <button type="submit" class="btn btn-primary w-20">Change</button>
+                                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Hủy</button>
+                             <button type="submit" class="btn btn-primary w-20">OK</button>
                             </div> <!-- END: Modal Footer -->
                             </form>
                         </div>

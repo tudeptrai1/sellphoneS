@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('content')
         <h2 class="intro-y text-lg font-medium mt-10">
-            Product List
+            Danh sách sản phẩm
         </h2>
         <div class="grid grid-cols-12 gap-6 mt-5">
             <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('product.create')}}">    <button class="btn btn-primary shadow-md mr-2">Add New Product</button></a>
+            <a href="{{route('product.create')}}">    <button class="btn btn-primary shadow-md mr-2">Thêm mới sản phẩm</button></a>
                 <div class="dropdown">
                     <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                         <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
@@ -13,13 +13,13 @@
                     <div class="dropdown-menu w-40">
                         <ul class="dropdown-content">
                             <li>
-                                <a href="" class="dropdown-item"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print </a>
+                                <a href="" class="dropdown-item"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> IN </a>
                             </li>
                             <li>
-                                <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to Excel </a>
+                                <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Xuất file Excel </a>
                             </li>
                             <li>
-                                <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to PDF </a>
+                                <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Xuất file PDF </a>
                             </li>
                         </ul>
                     </div>
@@ -40,11 +40,11 @@
                     <thead>
                     <tr>
 
-                        <th class="whitespace-nowrap">PRODUCT NAME</th>
-                        <th class="text-center whitespace-nowrap">STOCK</th>
-                        <th class="text-center whitespace-nowrap">PRICE</th>
-                        <th class="text-center whitespace-nowrap">STATUS</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        <th class="whitespace-nowrap">TÊN</th>
+                        <th class="text-center whitespace-nowrap">SỐ LƯỢNG</th>
+                        <th class="text-center whitespace-nowrap">GIÁ</th>
+                        <th class="text-center whitespace-nowrap">TRẠNG THÁI</th>
+                        <th class="text-center whitespace-nowrap">HÀNH ĐÔNG</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,8 +69,8 @@
                         @endif
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="{{route('product.edit',$each['id'])}}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal{{$each['id']}}"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+                                <a class="flex items-center mr-3" href="{{route('product.edit',$each['id'])}}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Sửa </a>
+                                <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal{{$each['id']}}"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Xóa </a>
                             </div>
                         </td>
                     </tr>
@@ -85,17 +85,17 @@
                                         @method('delete')
                                         <div class="p-5 text-center">
                                             <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                                            <div class="text-3xl mt-5">Are you sure?</div>
+                                            <div class="text-3xl mt-5">Bạn chắc chứ?</div>
                                             <div class="text-slate-500 mt-2">
-                                                Do you really want to delete these records?
+                                                Bạn thật sự muốn xóa bản ghi này sao ??
                                                 <br>
-                                                This process cannot be undone.
+                                                Hành động này không thể hoàn tác.
                                             </div>
                                         </div>
 
                                         <div class="px-5 pb-8 text-center">
-                                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                            <button type="submit" class="btn btn-danger w-24">Delete</button>
+                                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Hủy</button>
+                                            <button type="submit" class="btn btn-danger w-24">Xóa</button>
                                         </div>
                                     </form>
                                 </div>

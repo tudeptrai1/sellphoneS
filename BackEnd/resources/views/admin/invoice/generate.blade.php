@@ -87,47 +87,47 @@
             <h2 class="text-start">SellPhoneS Invoice</h2>
         </th>
         <th width="50%" colspan="2" class="text-end company-data">
-            <span>Invoice Id: #INV-{{$order->id}}</span> <br>
-            <span>Date: {{$order->Date()}}</span> <br>
-            <span>Address: {{$order->abc()}}</span> <br>
+            <span>Id: #INV-{{$order->id}}</span> <br>
+            <span>Ngày: {{$order->Date()}}</span> <br>
+            <span>Địa chỉ: {{$order->abc()}}</span> <br>
         </th>
     </tr>
     <tr class="bg-blue">
-        <th width="50%" colspan="2">Order Details</th>
-        <th width="50%" colspan="2">User Details</th>
+        <th width="50%" colspan="2">Chi tiết hóa đơn</th>
+        <th width="50%" colspan="2">Thông tin khách hàng</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>Order Id:</td>
+        <td>Id:</td>
         <td>{{$order->id}}</td>
 
-        <td>Full Name:</td>
+        <td>Tên khách hàng:</td>
         <td>{{$order->address->receive_name}}</td>
     </tr>
     <tr>
         <td>Tracking Id/No.:</td>
         <td>TRACK-CRheOqspbA</td>
 
-        <td>Email Id:</td>
+        <td>Email :</td>
         <td>{{$order->user->email}}</td>
     </tr>
     <tr>
-        <td>Ordered Date:</td>
+        <td>Ngày đặt hàng:</td>
         <td>{{$order->ordered_date}}</td>
 
-        <td>Phone:</td>
+        <td>Số điện thoại:</td>
         <td>{{$order->address->receive_phone}}</td>
     </tr>
     <tr>
-        <td>Payment Mode:</td>
+        <td>Phương thức thanh toán:</td>
         <td>{{$order->payment_method}}</td>
 
-        <td>Address:</td>
+        <td>Địa chỉ:</td>
         <td>{{$order->abc()}}</td>
     </tr>
     <tr>
-        <td>Order Status:</td>
+        <td>Trạng tha đơn hàng:</td>
         <td>{{$order->status}}</td>
 
         <td>Pin code:</td>
@@ -140,15 +140,15 @@
     <thead>
     <tr>
         <th class="no-border text-start heading" colspan="5">
-            Order Items
+            Danh sách sản phẩm
         </th>
     </tr>
     <tr class="bg-blue">
         <th>ID</th>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
+        <th>Sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
     </tr>
     </thead>
     <tbody>
@@ -166,7 +166,7 @@
 
         @endforeach
     <tr>
-        <td colspan="4" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
+        <td colspan="4" class="total-heading">Tổng tiền - <small>Inc. all vat/tax</small> :</td>
         <td colspan="1" class="total-heading">NULL</td>
     </tr>
     </tbody>
@@ -174,7 +174,7 @@
 
 <br>
 <p class="text-center">
-    Thank your for shopping with SellPhoneS
+    Cảm ơn bạn đã mua hàng tại SellPhoneS
 </p>
 
 </body>

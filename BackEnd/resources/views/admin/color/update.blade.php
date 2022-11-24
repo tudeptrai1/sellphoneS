@@ -5,7 +5,7 @@
     <div class="intro-y flex items-center mt-8">
 
         <h2 class="text-lg font-medium mr-auto">
-            Edit Color
+            Sửa Màu
         </h2>
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">
@@ -17,7 +17,7 @@
                 <div class="intro-y box p-5">
 
                     <div>
-                        <label for="crud-form-1" class="form-label">Color Name</label>
+                        <label for="crud-form-1" class="form-label">Tên Màu</label>
                         <input id="crud-form-1" type="text" class="form-control w-full" value="{{$color->name}}" name="name">
                         @if($errors->has('name'))
                             <div class="text-danger ">{{ $errors->first('name') }}</div>
@@ -25,8 +25,8 @@
                     </div>
 
                     <div class="text-right mt-5">
-                        <a href="{{route('color')}}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
-                        <button type="submit" class="btn btn-primary w-24">Save</button>
+                        <a href="{{route('color')}}" class="btn btn-outline-secondary w-24 mr-1">Hủy</a>
+                        <button type="submit" class="btn btn-primary w-24">Lưu</button>
                     </div>
                 </div>
             </form>

@@ -4,7 +4,7 @@
     <div class="col-span-12 mt-8">
         <div class="intro-y flex items-center h-10">
             <h2 class="text-lg font-medium truncate mr-5">
-                General Report
+                BÁO CÁO CHUNG
             </h2>
             <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
         </div>
@@ -17,7 +17,7 @@
 
                         </div>
                         <div class="text-3xl font-medium leading-8 mt-6">{{$data['order']}}</div>
-                        <div class="text-base text-slate-500 mt-1">Orders</div>
+                        <div class="text-base text-slate-500 mt-1">Đơn hàng</div>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
 
                         </div>
                         <div class="text-3xl font-medium leading-8 mt-6">{{$data['new_order']}}</div>
-                        <div class="text-base text-slate-500 mt-1">New Orders</div>
+                        <div class="text-base text-slate-500 mt-1">Đơn hàng mới</div>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 
                         </div>
                         <div class="text-3xl font-medium leading-8 mt-6">{{$data['product']}}</div>
-                        <div class="text-base text-slate-500 mt-1">Total Products</div>
+                        <div class="text-base text-slate-500 mt-1">Sản phẩm</div>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
                         </div>
                         <div class="text-3xl font-medium leading-8 mt-6">{{$data['user']}}</div>
-                        <div class="text-base text-slate-500 mt-1">Total Users</div>
+                        <div class="text-base text-slate-500 mt-1">Khách hàng</div>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
 
                         </div>
                         <div class="text-3xl font-medium leading-8 mt-6">{{$data['admin']}}</div>
-                        <div class="text-base text-slate-500 mt-1">Total Admins</div>
+                        <div class="text-base text-slate-500 mt-1">Admin</div>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
 
                         </div>
                         <div class="text-3xl font-medium leading-8 mt-6">{{$data['brand']}}</div>
-                        <div class="text-base text-slate-500 mt-1">Total Brands</div>
+                        <div class="text-base text-slate-500 mt-1">Tổng nhãn hàng</div>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
 
                             </div>
                             <div class="text-3xl font-medium leading-8 mt-6">{{number_format($data['total'], 0, '', '.')}} VND</div>
-                            <div class="text-base text-slate-500 mt-1">Total Turnover</div>
+                            <div class="text-base text-slate-500 mt-1">Tổng doanh thu</div>
                         </div>
                     </div>
                 </div>
