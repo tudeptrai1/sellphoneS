@@ -227,8 +227,8 @@ class OrderController extends Controller
                 $order->total_discount = $total_discount;
                 $order->total_product = $total_product;
                 $order->total_discount_coupons = $total_discount_coupons;
-                $amount += $total_amount;
-                $total += $total_product - $total_discount - $total_discount_coupons;
+                $amount += $order->status=== "Completed" ?$total_amount:0;
+                $total += $order->status=== "Completed" ?$total_product - $total_discount - $total_discount_coupons:0;
             }
             $res['amount'] = $amount;
             $res['total'] = $total;
