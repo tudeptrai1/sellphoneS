@@ -78,6 +78,7 @@ class OrderController extends Controller
      */
     public function add(Request $request)
     {
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
         $input = $request->all();
         $validator = Validator::make($input, [
             'user_id'        => 'required',
@@ -142,9 +143,13 @@ class OrderController extends Controller
     public function get(Request $request)
     {
         $orders = Order::find($request->id);
-        if($orders) {
+        if ($orders) {
             $details = Order::find($request->id)->detail;
             $products = [];
+            $total_amount = 0;
+            $total_product = 0;
+            $total_discount = 0;
+            $total_discount_coupons = 0;
             foreach ($details as $p) {
                 $product = Product::find($p->product_id);
                 $brand = ProductGroup::find($product->pg_id)->brand;
@@ -163,13 +168,25 @@ class OrderController extends Controller
                 $product->tech_specs = $tech;
                 $discount = Discount::find($p->discount_id);
                 $product->discount = $discount;
-                $product->ordered_amount = $p->amount;
+                $product->ordered_amount = $p->quantity;
+
+                $total_amount += $p->quantity;
+                $total_product += $product->sell_price * $p->quantity;
+                $total_discount += $product->discount !== null ? (($product->discount->discount_value * $product->sell_price) / 100) * $p->quantity : 0;
+                $total_discount_coupons = 0;
+
                 array_push($products, $product);
             }
             unset($details);
             $address = UserAddress::whereOrderId($request->id)->first();
             $orders->products = $products;
             $orders->address = $address;
+
+            $orders->total_amount = $total_amount;
+            $orders->total_discount = $total_discount;
+            $orders->total_product = $total_product;
+            $orders->total_discount_coupons = $total_discount_coupons;
+
         }
         //        $quantity = 0;
         //                $total=0;
@@ -211,7 +228,17 @@ class OrderController extends Controller
         //        ];
         return response()->json($arr, 200);
     }
+    public function recent(Request $request){
+        $id=DB::table('orders')->whereUserId($request->user_id)->wherePaymentId($request->payment_id)->select('id')->get()->first();
+        $arr = [
+            'status'  => true,
+            'message' => "Chi tiết đơn hàng",
+            'data'    => $id->id,
 
+        ];
+        return response()->json($arr, 200);
+
+    }
     /**
      * Display the specified resource.
      *

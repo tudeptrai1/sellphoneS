@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('ordered_date');
             $table->string('status');
             $table->timestamp('updated_at')->nullable();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
