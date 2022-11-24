@@ -79,7 +79,7 @@ class UserController extends Controller
 
             'password' => [
                 'required',
-                'min:8'
+                'min:4'
             ],
             'address' => 'required',
         ]);

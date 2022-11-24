@@ -74,7 +74,7 @@ Route::prefix('discount')->group(function () {
 });
 Route::middleware('auth:sanctum')->prefix('order')->group(function () {
     Route::get('/', [OrderController::class, 'all']);
-    Route::get('/{id}', [OrderController::class, 'get']);
+    Route::post('/get', [OrderController::class, 'get']);
     Route::post('/add',[OrderController::class,'add']);
 });
 
