@@ -1,10 +1,19 @@
 import * as httpRequest from '~/utils/httpRequest';
-export const search = async (q, type = 'less') => {
+export const search = async (name, limit, min, max, amount, brand, color, memory, orderPrice, orderName, discount) => {
    try {
-      const res = await httpRequest.get(`users/search`, {
+      const res = await httpRequest.get(`product/search`, {
          params: {
-            q,
-            type,
+            name,
+            limit,
+            min,
+            max,
+            amount,
+            brand,
+            color,
+            memory,
+            orderPrice,
+            orderName,
+            discount,
          },
       });
       return res.data;

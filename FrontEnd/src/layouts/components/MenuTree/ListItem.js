@@ -4,7 +4,7 @@ import { memo } from 'react';
 import styles from './ListItem.module.scss';
 const cx = classNames.bind(styles);
 function ListItem(props) {
-   console.log('render - ' + props.id);
+   // console.log('render - ' + props.id);
    return (
       <div className={cx('list-content')}>
          <div className={cx('type')}>

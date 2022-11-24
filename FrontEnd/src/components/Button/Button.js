@@ -62,7 +62,7 @@ function Button({
       small,
       large,
    });
-   console.log(`render ` + className);
+   // console.log(`render ` + className);
 
    return (
       <Comp className={classes} {...props}>

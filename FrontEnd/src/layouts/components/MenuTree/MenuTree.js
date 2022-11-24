@@ -34,7 +34,7 @@ const itemPhones = [
       discountProducts: [],
    },
 ];
-console.log('render - MenuTree');
+// console.log('render - MenuTree');
 function MenuTree() {
    const [listID, setListID] = useState('');
 

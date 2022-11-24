@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
 import { useState, memo, useEffect, sendData } from 'react';
-import { NumericFormat } from 'react-number-format';
 import Tippy from '@tippyjs/react/headless';
 
-import Slider from '@mui/material/Slider';
-import styles from './RangeSlider.module.scss';
 import Button from '~/components/Button';
+import Slider from '@mui/material/Slider';
 import useDebounce from '~/hooks/useDebounce';
+import styles from './RangeSlider.module.scss';
+import { formatCurrency } from '~/utils/format';
 
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,7 +46,7 @@ function RangeSlider(props) {
       sendData();
    }, [debounced]);
 
-   console.log('render - range slider');
+   // console.log('render - range slider');
 
    return (
       <div className={cx('wrapper')}>
@@ -73,20 +73,8 @@ function RangeSlider(props) {
                            disableSwap
                         />
                         <div className={cx('price')}>
-                           <NumericFormat
-                              className={cx('min')}
-                              value={value[0]}
-                              decimalScale={3}
-                              thousandSeparator=","
-                              suffix={'₫'}
-                           />
-                           <NumericFormat
-                              className={cx('max')}
-                              value={value[1]}
-                              decimalScale={3}
-                              thousandSeparator=","
-                              suffix={'₫'}
-                           />
+                           <div className={cx('min')}>{formatCurrency(value[0], '₫')}</div>
+                           <div className={cx('max')}>{formatCurrency(value[1], '₫')}</div>
                         </div>
                      </div>
                   </div>

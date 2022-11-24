@@ -41,26 +41,73 @@
          color: var(--white);
          width: 25%;
          display: flex;
-         justify-content: end;
+         justify-content: flex-end;
          .item {
             display: flex;
             align-items: center;
             border-radius: 10px;
             color: var(--white);
-
+            padding: 40px 5px;
             cursor: pointer;
             button {
-               padding: 0px 5px;
+               padding-right: 3px;
                color: var(--white);
-               font-size: 1.8rem;
+               font-size: 2.2rem;
                cursor: pointer;
             }
             p {
                font-size: 1.2rem;
             }
-            &:hover {
-               background-color: var(--primary-hover);
+            // &:hover {
+            //    background-color: var(--primary-hover);
+            // }
+         }
+         .cart {
+            .item {
+               .icon {
+                  // z-index: 100;
+               }
+               .amount {
+                  // position: absolute;
+                  // z-index: -1;
+                  // font-weight: 700;
+                  // border: 1px solid #fff;
+                  // transform: translate(50%, -40%);
+                  // // background: seashell;
+                  // color: var(--primary);
+                  // color: #fff;
+                  // vertical-align: middle;
+                  // align-self: center;
+                  // padding: 1px 6px;
+                  // border-radius: 90px;
+               }
             }
+         }
+         .login {
+            .item {
+               padding: 40px 5px;
+            }
+            &:hover ~ .account-function {
+               display: flex;
+            }
+         }
+         .account-function {
+            display: none;
+            p {
+               padding: 5px 0px;
+            }
+            box-shadow: var(--box-shadow-thick);
+            border-radius: 10px;
+            padding: 10px;
+            // display: flex;
+            flex-direction: column;
+            justify-content: center;
+            right: 10px;
+            top: 0px;
+            font-size: 1.4rem;
+            color: var(--primary);
+            background: #fff;
+            position: absolute;
          }
       }
    }
@@ -93,9 +140,10 @@
             width: 50%;
             height: 100%;
             align-items: center;
-            justify-content: center;
+            // justify-content: center;
             .item {
                display: none;
+               padding-right: 10px;
             }
             .login {
                .item {

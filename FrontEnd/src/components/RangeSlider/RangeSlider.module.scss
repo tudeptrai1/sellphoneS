@@ -1,8 +1,6 @@
 .wrapper {
    width: 100%;
-   .btnPrice {
-      width: 100%;
-   }
+
    .tippy {
       background: #fff;
       border-radius: 10px;
@@ -27,9 +25,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 90%;
+            width: 100%;
             .min,
             .max {
+               width: 150px;
                font-family: var(--font-family);
                font-size: 1.4rem;
             }
@@ -40,6 +39,9 @@
                text-align-last: left;
             }
          }
+      }
+      .btnPrice {
+         width: 100%;
       }
    }
 }

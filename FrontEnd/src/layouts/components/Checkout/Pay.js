@@ -8,11 +8,12 @@ import { faPaypal } from '@fortawesome/free-brands-svg-icons';
 
 import styles from './Pay.module.scss';
 import { useState, useCallback, useEffect, sendData, memo } from 'react';
+import Payment from '~/components/Payment/Payment';
 const cx = classNames.bind(styles);
 function Pay({ callbackFunction }) {
    return (
       <div className={cx('wrapper')}>
-         <FontAwesomeIcon className={cx('icon')} icon={faPaypal} />
+         <Payment />
       </div>
    );
 }

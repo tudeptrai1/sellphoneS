@@ -18,6 +18,7 @@
       .address {
          display: flex;
          width: 100%;
+         z-index: 999;
          .address-item {
             width: 100%;
             span {

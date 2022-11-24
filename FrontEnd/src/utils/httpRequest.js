@@ -1,21 +1,33 @@
 import axios from 'axios';
-
+export const getToken = () =>
+   localStorage.getItem('access_token') ? JSON.parse(localStorage.getItem('access_token')) : null;
+export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
+const headers = {
+   Authorization: `Bearer ${getToken()}`,
+};
 const httpRequest = axios.create({
    baseURL: process.env.REACT_APP_BASE_URL,
+   headers: headers,
 });
-
+axios.interceptors.response.use(
+   (response) => {
+      return response;
+   },
+   (error) => {
+      if (error.response) {
+         if (error.response.status === 401) {
+         }
+      }
+      return error;
+   },
+);
 export const get = async (path, options = {}) => {
    const response = await httpRequest.get(path, options);
    return response.data;
 };
-export const login = async (data) => {
-   // return axios
-   //    .post(`${baseURL}/api/auth`, { name: data.name, password: data.password })
-   //    .then((response) => {
-   //       localStorage.setItem('x-access-token', response.data.token);
-   //       localStorage.setItem('x-access-token-expiration', Date.now() + 2 * 60 * 60 * 1000);
-   //       return response.data;
-   //    })
-   //    .catch((err) => Promise.reject('Authentication Failed!'));
+export const post = async (path, options = {}) => {
+   const response = await httpRequest.post(path, options);
+   return response.data;
 };
+
 export default httpRequest;

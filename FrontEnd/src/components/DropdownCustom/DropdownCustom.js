@@ -20,7 +20,7 @@ function DropdownCustom({ callbackDropDown, options, placeholder }) {
       // eslint-disable-next-line
    }, [valueDropdown]);
 
-   console.log('render - dropdown - ' + placeholder);
+   // console.log('render - dropdown - ' + placeholder);
    return (
       <Dropdown
          ref={ref}

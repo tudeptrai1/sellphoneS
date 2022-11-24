@@ -1,4 +1,13 @@
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateListColor, updateListMemory, updateListBrand } from '~/redux/generalInfoSlice';
+import toast, { Toaster } from 'react-hot-toast';
+
+import * as brandService from '~/services/brandService';
+import * as colorService from '~/services/colorService';
+import * as memoryService from '~/services/memoryService';
+
 import Filter from '~/layouts/components/Filter';
 import TagList from '~/layouts/components/TagList';
 import styles from './Catalog.module.scss';
@@ -16,14 +25,28 @@ const typeList = [
 ];
 const phoneList = [];
 function Catalog() {
-   console.log('render catalog');
+   const generalInfo = useSelector((state) => state.generalInfo);
+   const dispatch = useDispatch();
+   useEffect(() => {
+      if (Object.keys(generalInfo.listBrand).length === 0) {
+         const brand = brandService.all();
+         brand.then((data) => {
+            dispatch(updateListBrand({ listBrand: data }));
+         });
+         const color = colorService.all();
+         color.then((data) => {
+            dispatch(updateListColor({ listColor: data }));
+         });
+         const memory = memoryService.all();
+         memory.then((data) => {
+            dispatch(updateListMemory({ listMemory: data }));
+         });
+      }
+   }, []);
+   // console.log('render catalog');
    return (
       <div className={cx('wrapper')}>
-         <div className={cx('top-banner')}></div>
-         <div className={cx('brand')}>
-            <TagList productShow={true} brandShow={true} productList={phoneList} brandList={typeList} />
-         </div>
-
+         <Toaster position="top-right" reverseOrder={false} />
          <div className={cx('block-filter-sort')}>
             <Filter />
          </div>

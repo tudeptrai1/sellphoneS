@@ -126,7 +126,7 @@
          margin-top: var(--margin-top);
          margin: 0 auto;
          width: var(--width-div);
-         height: var(--box-products-height);
+         height: calc(var(--box-products-height) / 2);
          justify-content: center;
       }
       .small-banner {

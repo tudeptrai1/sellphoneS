@@ -1,68 +1,84 @@
-import { useState, memo, useEffect, lazy } from 'react';
 import classNames from 'classnames/bind';
+import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, memo, useEffect, lazy, Suspense } from 'react';
+
+import * as searchService from '~/services/searchService';
+import { search } from '~/redux/searchSlice';
 import styles from './SearchResult.module.scss';
+// import FeaturedProductItem from '../FeaturedProduct/FeaturedProductItem';
 const cx = classNames.bind(styles);
-const FeaturedProductItem = lazy(() => import('~/layouts/components/FeaturedProduct/FeaturedProductItem'));
+const BoxProductItem = lazy(() => import('~/layouts/components/BoxProductItem'));
+const FeaturedProductItem = lazy(() => import('~/layouts/components/FeaturedProductItem'));
+
 function SearchResult() {
-   const [error, setError] = useState(null);
-   const [loaded, setLoaded] = useState(false);
-   const [items, setItems] = useState([]);
+   const location = useLocation();
 
+   const searchObject = useSelector((state) => state.search);
+   const dispatch = useDispatch();
+   const [loaded, setLoaded] = useState(true);
+
+   const initial = async (brand) => {
+      setLoaded(true);
+      if (brand) {
+         const result = await searchService.search(searchObject.name, null, null, null, null, [
+            location.state.brand_id,
+         ]);
+         dispatch(search({ listSearch: result }));
+      } else {
+         const result = await searchService.search();
+         dispatch(search({ listSearch: result }));
+      }
+   };
    useEffect(() => {
-      fetch('https://raw.githubusercontent.com/iamspruce/search-filter-painate-reactjs/main/data/countries.json')
-         .then((res) => res.json())
-         .then(
-            (result) => {
-               setLoaded(true);
-               setItems(result);
-               console.log(result);
-            },
-            (error) => {
-               setLoaded(true);
-               setError(error);
-            },
-         );
+      if (location.state && location.state.brand_id !== null) {
+         initial(true);
+      } else if (Object.keys(searchObject.listSearch).length === 0) {
+         initial(false);
+      }
    }, []);
+   const Loading = () => (
+      <div className={cx('loading')}>
+         <p>...</p>
+      </div>
+   );
 
-   const data = Object.values(items);
-   console.log('render - list-result');
-   if (error) {
-      return <>{error.message}</>;
-   } else if (!loaded) {
-      return (
-         <div className={cx('loading')}>
-            <div className={cx('lds-roller')}>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-            </div>
+   return (
+      <div className={cx('wrapper')}>
+         <div className={cx('card-grid')}>
+            {Object.keys(searchObject.listSearch).length > 0 ? (
+               searchObject.listSearch.map((item, index) => (
+                  // <LazyLoad key={index} placeholder={<Loading />} height={100} offset={[-100, 100]}>
+                  <Suspense
+                     key={index}
+                     fallback={
+                        index < 4 && (
+                           <div className={cx('loading')}>
+                              <div className={cx('lds-roller')}>
+                                 <div></div>
+                                 <div></div>
+                                 <div></div>
+                                 <div></div>
+                                 <div></div>
+                                 <div></div>
+                                 <div></div>
+                                 <div></div>
+                              </div>
+                           </div>
+                        )
+                     }
+                  >
+                     <div className={cx('box')} key={index}>
+                        <FeaturedProductItem className={cx('item')} product={item} />
+                     </div>
+                  </Suspense>
+               ))
+            ) : (
+               <p>Không có kết quả tìm kiếm nào</p>
+            )}
          </div>
-      );
-   } else {
-      return (
-         <div className={cx('wrapper')}>
-            <div className={cx('card-grid')}>
-               {data.map((item, index) => (
-                  <div className={cx('box')} key={index}>
-                     <FeaturedProductItem
-                        className={cx('item')}
-                        id={Number(item.alpha3Code)}
-                        name={item.name}
-                        price={item.population}
-                        image={item.flag.large}
-                        discount={Number('1000000')}
-                     />
-                  </div>
-               ))}
-            </div>
-         </div>
-      );
-   }
+      </div>
+   );
 }
 
 export default memo(SearchResult);

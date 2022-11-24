@@ -7,6 +7,7 @@
    background-color: rgb(255, 255, 255, 0.9);
    border-radius: var(--search-border-radius);
    padding-left: 16px;
+
    input {
       max-width: calc(var(--search-width) - 110px);
       flex: 2;

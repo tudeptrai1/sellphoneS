@@ -1,15 +1,17 @@
-import { useState, memo, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-
 import classNames from 'classnames/bind';
-import styles from './DropdownCus.module.scss';
-const cx = classNames.bind(styles);
+import { useState, memo, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-function DropdownCus({ callbackDropDown, options, placeholder }) {
-   const [code, setCode] = useState();
-   const [name, setName] = useState('');
+import { updateProvince, updateDistrict, updateWard } from '~/redux/orderSlice';
+import styles from './DropdownCus.module.scss';
+import { provinces, districts, wards } from '~/utils/data-address';
+const cx = classNames.bind(styles);
+function DropdownCus({ type, options, placeholder }) {
+   const dispatch = useDispatch();
+   const orderObject = useSelector((state) => state.order);
+
    const [searchValue, setSearchValue] = useState('');
-   const [isChoice, setIsChoice] = useState(false);
    const handleChange = (e) => {
       const keyword = e.target.value;
       const KEY_SPACE = /\s/g;
@@ -19,25 +21,31 @@ function DropdownCus({ callbackDropDown, options, placeholder }) {
    };
    const handleClick = (e) => {
       if (e !== undefined) {
-         setName(e.target.innerHTML);
-         setCode(e.target.id);
-         setIsChoice(true);
+         type === 'Province'
+            ? dispatch(updateProvince({ province: { name: e.target.innerHTML, code: e.target.id } })) &&
+              dispatch(updateDistrict({ district: { name: null, code: null } })) &&
+              dispatch(updateWard({ ward: { name: null, code: null } }))
+            : type === 'District'
+            ? dispatch(updateDistrict({ district: { name: e.target.innerHTML, code: e.target.id } })) &&
+              dispatch(updateWard({ ward: { name: null, code: null } }))
+            : type === 'Ward'
+            ? dispatch(updateWard({ ward: { name: e.target.innerHTML, code: e.target.id } }))
+            : console.log('Error');
       }
    };
-   useEffect(() => {
-      if (name !== '') {
-         callbackDropDown({ code: code, name: name });
-      }
-      // eslint-disable-next-line
-   }, [name]);
-   useEffect(() => {
-      setIsChoice(false);
-   }, [options]);
-   console.log('render - dropdown - ' + placeholder);
+   // console.log('render - dropdown - ' + placeholder);
    return (
       <div className={cx('wrapper')}>
          <button className={cx('btn')}>
-            <p>{isChoice ? name : placeholder}</p>
+            <p>
+               {type === 'Province' && orderObject.addressReceive.province.name !== null
+                  ? orderObject.addressReceive.province.name
+                  : type === 'District' && orderObject.addressReceive.district.name !== null
+                  ? orderObject.addressReceive.district.name
+                  : type === 'Ward' && orderObject.addressReceive.ward.name !== null
+                  ? orderObject.addressReceive.ward.name
+                  : placeholder}
+            </p>
          </button>
          <div className={cx('content')} id="content">
             <input
@@ -49,13 +57,25 @@ function DropdownCus({ callbackDropDown, options, placeholder }) {
                id="search"
                onChange={handleChange}
             />
-            {options.map(
-               (option) =>
-                  option.name.toLowerCase().includes(searchValue.toLowerCase()) && (
-                     <p key={option.code} id={option.code} onClick={handleClick}>
-                        {option.name}
-                     </p>
-                  ),
+
+            {options.map((option) =>
+               type === 'Province' && option.name.toLowerCase().includes(searchValue.toLowerCase()) ? (
+                  <p key={option.code} id={option.code} onClick={handleClick}>
+                     {option.name}
+                  </p>
+               ) : type === 'District' &&
+                 option.province === Number(orderObject.addressReceive.province.code) &&
+                 option.name.toLowerCase().includes(searchValue.toLowerCase()) ? (
+                  <p key={option.code} id={option.code} onClick={handleClick}>
+                     {option.name}
+                  </p>
+               ) : type === 'Ward' &&
+                 option.district === Number(orderObject.addressReceive.district.code) &&
+                 option.name.toLowerCase().includes(searchValue.toLowerCase()) ? (
+                  <p key={option.code} id={option.code} onClick={handleClick}>
+                     {option.name}
+                  </p>
+               ) : null,
             )}
          </div>
       </div>

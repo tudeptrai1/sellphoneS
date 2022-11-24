@@ -1,5 +1,4 @@
 import config from '~/config';
-
 import Home from '~/pages/Home';
 // import Admin from '~/pages/Admin';
 import Cart from '~/pages/Cart';
@@ -11,7 +10,6 @@ import Sign from '~/pages/Sign';
 import Account from '~/pages/Account';
 import OrderDetail from '~/pages/OrderDetail';
 import Wishlist from '~/pages/Wishlist';
-
 //publicRoutes
 const publicRoutes = [
    { path: config.routes.home, component: Home },

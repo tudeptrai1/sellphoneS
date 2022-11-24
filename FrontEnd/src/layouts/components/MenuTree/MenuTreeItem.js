@@ -32,7 +32,7 @@ function MenuTreeItem(prop) {
    const sendData = () => {
       prop.parentCallback(ref.current.getAttribute('id'));
    };
-   console.log('render - ' + prop.item.name);
+   // console.log('render - ' + prop.item.name);
    return (
       <div className={cx('item-phone')} key={prop.item.id} ref={ref} id={prop.item.id}>
          <p className={cx('name')}>
