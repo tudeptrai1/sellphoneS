@@ -66,10 +66,10 @@
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>
                     </td>
                     <td class="text-center">
-                        <div class="flex items-center justify-center whitespace-nowrap "> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>{{$each->status}} </div>
+                        <div class="flex items-center justify-center whitespace-nowrap "> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>{{$each->status()}} </div>
                     </td>
                     <td>
-                        <div class="whitespace-nowrap">{{$each->payment_method}}</div>
+                        <div class="whitespace-nowrap">{{$each->payment_method()}}</div>
                         <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{$each->Date()}}</div>
                     </td>
                     <td class="w-40 text-right">
@@ -117,8 +117,8 @@
                     </div>
                 </div> <!-- END: Modal Content -->
                 @empty
-                    <td class="flex justify-center items-center">
-                        <p>No Order Available</p>
+                    <td colspan="6" class=" text-center">
+                        <p >No Order Available</p>
                     </td>
                 @endforelse
                 </tbody>

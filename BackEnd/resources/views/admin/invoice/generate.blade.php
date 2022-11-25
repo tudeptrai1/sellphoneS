@@ -161,13 +161,13 @@
         </td>
         <td width="10%">{{number_format($detail->product->sell_price, 0, '', '.')}}</td>
         <td width="10%">{{$detail->quantity}}</td>
-        <td width="15%" class="fw-bold">{{number_format($detail->product->sell_price*$detail->quantity, 0, '', '.')}}</td>
+        <td width="15%" class="fw-bold">{{number_format($detail->product->sell_price*$detail->quantity, 0, '', '.')}} VND</td>
     </tr>
 
         @endforeach
     <tr>
         <td colspan="4" class="total-heading">Tổng tiền - <small>Inc. all vat/tax</small> :</td>
-        <td colspan="1" class="total-heading">NULL</td>
+        <td colspan="1" class="total-heading">{{number_format($order->total, 0, '', ',')}} VND</td>
     </tr>
     </tbody>
 </table>

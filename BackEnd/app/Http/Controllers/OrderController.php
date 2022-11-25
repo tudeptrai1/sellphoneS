@@ -45,6 +45,23 @@ class OrderController extends Controller
                 'order' => $orders,
             ]);
     }
+    public function new(){
+        $todayDate = Carbon::now()->format('Y-m-d');
+        $orders = Order::where('ordered_date','>',$todayDate)->get();
+        $total = 0;
+
+        foreach ($orders as $order) {
+            foreach ($order->detail as $detail) {
+                $total += $detail->quantity * $detail->product->sell_price;
+            }
+            $order->total = $total;
+            $total = 0;
+        }
+        return view('admin.order.index',
+            [
+                'order' => $orders,
+            ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -303,8 +320,17 @@ class OrderController extends Controller
         return redirect()->route('order')->with('message', 'Order ID Not Found');
     }
 
+
     public function viewInvoice(Order $id)
     {
+        $total=0;
+        foreach ($id->detail as $detail) {
+
+            $total += $detail->quantity * $detail->product->sell_price;
+
+        }
+        $id->total = $total;
+
         return view('admin.invoice.generate', [
             'order' => $id,
         ]);

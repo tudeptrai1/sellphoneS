@@ -8,7 +8,7 @@
                 Chi tiết đơn hàng
             </h2>
             <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                <button class="btn btn-primary shadow-md mr-2">                                <a href="{{route('invoice',$order->id)}}" class="dropdown-item"> Xuất file PDF </a></button>
+                <button class="btn btn-primary shadow-md mr-2">  <a href="{{route('invoice',$order->id)}}" class="dropdown-item"> Xuất file PDF </a></button>
 
             </div>
         </div>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="flex items-center"> <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i> ID: <a href="" class="underline decoration-dotted ml-1">{{$order['id']}}</a> </div>
                     <div class="flex items-center mt-3"> <i data-lucide="calendar" class="w-4 h-4 text-slate-500 mr-2"></i> Ngày đặt hàng: {{$order->date()}} </div>
-                    <div class="flex items-center mt-3"> <i data-lucide="clock" class="w-4 h-4 text-slate-500 mr-2"></i> Trạng thái đơn: {{$order->status}} </div>
+                    <div class="flex items-center mt-3"> <i data-lucide="clock" class="w-4 h-4 text-slate-500 mr-2"></i> Trạng thái đơn: {{$order->status()}} </div>
                 </div>
                 <div class="box p-5 rounded-md mt-5">
                     <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="flex items-center">
                         <i data-lucide="clipboard" class="w-4 h-4 text-slate-500 mr-2"></i> Phương thức thanh toán:
-                        <div class="ml-auto">{{$order->payment_method}}</div>
+                        <div class="ml-auto">{{$order->payment_method()}}</div>
                     </div>
                     <div class="flex items-center mt-3">
                         <i data-lucide="credit-card" class="w-4 h-4 text-slate-500 mr-2"></i> Tổng tiền ({{$order->quantity}} sản phẩm):

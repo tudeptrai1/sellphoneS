@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Login;
+use App\Models\Order;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -35,11 +36,27 @@ class LoginController extends Controller
         if(Auth::attempt(
             [
                 'email'=>$request->input('email') ,
-                'password'=>$request->input('password')
-            ])){
-            return redirect()->route('dashboard');
-        }
+                'password'=>$request->input('password'),
+                'type'=>'1'
 
+            ])){
+                return redirect()->route('dashboard');
+
+
+
+        }
+        elseif(Auth::attempt(
+            [
+                'email'=>$request->input('email') ,
+                'password'=>$request->input('password'),
+                'type'=>'2'
+
+            ])){
+            return redirect()->route('ship');
+
+
+
+        }
         return redirect()->back();
 //            $admin = Admin::where('email', $request->email)->first();
 //            if ( !Hash::check($request->password, $admin->password)) {
@@ -53,6 +70,7 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
     /**
      * Store a newly created resource in storage.
      *

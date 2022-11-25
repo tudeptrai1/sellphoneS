@@ -26,7 +26,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->get('/',[DashboardController::class, 'index'])->name('dashboard');
 
-
+Route::middleware('auth')->prefix('/ship')->group(function () {
+    Route::get('/',[DashboardController::class, 'ship'])->name('ship');
+    Route::post('/{id}',[DashboardController::class, 'edit'])->name('order.change');
+});
 Route::get('/login',[LoginController::class, 'index']);
 Route::post('/login',[LoginController::class, 'login'])->name('login');
 Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
@@ -70,6 +73,7 @@ Route::middleware('auth')->prefix('order')->group(function () {
     Route::get('/',[OrderController::class, 'index'])->name('order');
     Route::get('view/{id}',[OrderController::class, 'view'])->name('order.view');
     Route::post('view/{id}',[OrderController::class, 'edit'])->name('order.status');
+    Route::get('/new_order',[OrderController::class, 'new'])->name('new_order');
     Route::get('/invoice/{id}',[OrderController::class, 'viewInvoice'])->name('invoice');
 
 });
@@ -78,4 +82,5 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/',[UserController::class, 'index'])->name('user');
     Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
 

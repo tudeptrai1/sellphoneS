@@ -36,5 +36,25 @@ class Order extends Model
     }
     public function abc(){
         return ($this->Address->detail.', '.$this->Address->ward.', '.$this->Address->district.', '.$this->Address->province);
-}
+    }
+    public function status(){
+       if($this->attributes['status']==='Confirmed'){
+           return 'Đã xác nhận';
+       }
+       else if($this->attributes['status']==='Waiting for confirm'){
+           return 'Chờ xác nhận';
+       }
+       else if($this->attributes['status']==='Cancelled'){
+           return 'Đã hủy';
+       }
+       else return 'Đã giao hàng';
+    }
+    public function payment_method(){
+        if($this->attributes['payment_method']==='Cash in Delivery'){
+            return 'Thanh toán khi nhận hàng';
+        }
+        else if($this->attributes['payment_method']==='Paid in PayPal'){
+            return 'Thanh toán PayPal';
+        }
+    }
 }
