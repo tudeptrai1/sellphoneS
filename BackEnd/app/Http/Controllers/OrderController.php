@@ -23,7 +23,7 @@ class OrderController extends Controller
         $orders = Order::when($request->date !== null, function ($q) use ($request) {
             return $q->whereDate('ordered_date', $request->date);
         }, function ($q) use ($todayDate) {
-            $q->orderByRaw('updated_at DESC');
+            $q->orderByRaw('ordered_date DESC');
 
         })->when($request->status != null, function ($q) use ($request) {
             return $q->where('status', $request->status);
@@ -83,7 +83,6 @@ class OrderController extends Controller
         $validator = Validator::make($input, [
             'user_id'        => 'required',
             'payment_method' => 'required',
-
             'receive_name'  => 'required',
             'receive_phone' => 'required',
             'province'      => 'required',
@@ -110,6 +109,9 @@ class OrderController extends Controller
             OrderDetail::insert(
                 ['order_id' => $order['id'], 'product_id' => $product['id'], 'quantity' => $product['amount_cart'], 'discount_id' => $product['discount'] !== null ? $product['discount']['id'] : 0]
             );
+
+            Product::find($product['id'])->update(['amount' => DB::raw('amount - '.$product['amount_cart'])]);
+
         }
         UserAddress::insert([
             ['user_id' => $input['user_id'], 'order_id' => $order->id, 'receive_name' => $input['receive_name'], 'receive_phone' => $input['receive_phone'], 'province' => $input['province'], 'district' => $input['district'], 'ward' => $input['ward'], 'detail' => $input['detail']]
@@ -130,7 +132,7 @@ class OrderController extends Controller
      */
     public function all()
     {
-        $orders = Order::all();
+        $orders = DB::table('orders')->orderBy('ordered_date', 'desc')->get();
         $arr = [
             'status'  => true,
             'message' => "Danh sách đơn hàng",

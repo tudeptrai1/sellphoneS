@@ -19,7 +19,6 @@ define('LARAVEL_START', microtime(true));
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
-
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -45,6 +44,7 @@ require __DIR__.'/../vendor/autoload.php';
 */
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
+date_default_timezone_set("Asia/Ho_Chi_Minh");
 
 $kernel = $app->make(Kernel::class);
 

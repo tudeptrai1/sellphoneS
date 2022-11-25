@@ -63,7 +63,7 @@
                     <td class="w-40 !py-4"> <a href="" class="underline decoration-dotted whitespace-nowrap">#ODR-{{$each->id}}</a> </td>
                     <td class="w-40">
                         <a href="" class="font-medium whitespace-nowrap">{{$each->user->full_name}}</a>
-                        <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{$each->address->province}}</div>
+                        <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5"></div>
                     </td>
                     <td class="text-center">
                         <div class="flex items-center justify-center whitespace-nowrap "> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>{{$each->status}} </div>

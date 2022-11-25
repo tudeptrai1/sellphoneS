@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $user = User::all()->count();
         $admin = Admin::all()->count();
         $brand = Brand::all()->count();
-        $new_order = Order::where('ordered_date',$todayDate)->count();
+        $new_order = Order::where('ordered_date','>',$todayDate)->count();
         $total=0;
         $orders= Order::all();
         foreach($orders as $each){
